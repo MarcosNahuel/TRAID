@@ -1,4 +1,4 @@
-import { Menu, X, Brain, BrainCircuit, Sparkles } from 'lucide-react';
+import { Menu, X, Zap } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 export default function Navbar() {
@@ -7,9 +7,9 @@ export default function Navbar() {
 
   const menuItems = [
     { label: 'Inicio', href: '#inicio' },
+    { label: 'Servicios', href: '#servicios' },
+    { label: 'Casos de Éxito', href: '#casos-exito' },
     { label: 'Sobre Nosotros', href: '#sobre-nosotros' },
-    { label: 'Objetivos', href: '#objetivos' },
-    { label: 'Recursos', href: '#servicios' },
     { label: 'Contacto', href: '#contacto' },
   ];
 
@@ -59,23 +59,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="#inicio" className="flex items-center space-x-3" onClick={(e) => handleNavClick(e, '#inicio')}>
-              <div className="relative w-8 h-8">
-                <BrainCircuit 
-                  className="absolute inset-0 text-purple-500" 
-                  strokeWidth={1.5}
-                />
-                <Brain 
-                  className="absolute inset-0 text-purple-400 opacity-50 transform scale-90" 
-                  strokeWidth={1.5}
-                />
-                <Sparkles 
-                  className="absolute inset-0 text-purple-300 opacity-30 transform scale-80" 
-                  strokeWidth={1.5}
-                />
-              </div>
+            <a href="#inicio" className="flex items-center space-x-2" onClick={(e) => handleNavClick(e, '#inicio')}>
+              <Zap className="h-8 w-8 text-purple-400" strokeWidth={2} />
               <span className="text-white font-bold text-xl tracking-tight">
-                Comunidad HM
+                TRAID<span className="text-purple-400">.</span>
               </span>
             </a>
           </div>
