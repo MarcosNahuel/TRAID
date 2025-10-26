@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="theme-color" content="#0a0e1a" />
+    <meta name="description" content="Dashboard Analytics ROHANA - Análisis Temporal y Mapas de Calor de Conversaciones y Ventas" />
     <title>Dashboard Analytics ROHANA - Análisis Temporal y Mapas de Calor</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
@@ -24,6 +26,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -33,6 +36,9 @@
             min-height: 100vh;
             padding: 2rem;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
 
         .container {
@@ -257,21 +263,106 @@
             margin-top: 0.25rem;
         }
 
+        .heatmaps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .roi-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .roi-conclusion {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid #10b981;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .heatmaps-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .roi-metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heatmaps-grid {
+                gap: 1rem;
+            }
+
+            .roi-metrics-grid {
+                gap: 0.75rem;
+                margin-top: 1rem;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
-                padding: 1rem;
+                padding: 0.75rem;
+            }
+
+            header {
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
             }
 
             h1 {
-                font-size: 1.75rem;
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
             }
 
             .metrics-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .metric-card {
+                padding: 1.25rem;
+            }
+
+            .metric-value {
+                font-size: 1.75rem;
+            }
+
+            .chart-section {
+                padding: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .chart-title {
+                font-size: 1.15rem;
+            }
+
+            .chart-description {
+                font-size: 0.85rem;
+                line-height: 1.5;
             }
 
             .chart-container {
-                height: 300px;
+                height: 280px;
+            }
+
+            .heatmap-container {
+                height: auto;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             .heatmap-cells {
@@ -280,6 +371,91 @@
 
             .heatmap-cell {
                 font-size: 0;
+            }
+
+            .legend {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .legend-gradient {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .roi-conclusion {
+                padding: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .roi-conclusion h3 {
+                font-size: 1rem !important;
+            }
+
+            .roi-conclusion p {
+                font-size: 0.9rem !important;
+                line-height: 1.6 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .metric-card {
+                padding: 1rem;
+            }
+
+            .metric-value {
+                font-size: 1.5rem;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+            }
+
+            .metric-detail {
+                font-size: 0.75rem;
+            }
+
+            .chart-section {
+                padding: 1rem;
+            }
+
+            .chart-title {
+                font-size: 1rem;
+            }
+
+            .chart-description {
+                font-size: 0.8rem;
+            }
+
+            .chart-container {
+                height: 240px;
+            }
+
+            .roi-conclusion {
+                padding: 0.75rem;
+                margin-top: 1rem;
+            }
+
+            .roi-conclusion h3 {
+                font-size: 0.9rem !important;
+                margin-bottom: 0.75rem !important;
+            }
+
+            .roi-conclusion p {
+                font-size: 0.8rem !important;
+                line-height: 1.5 !important;
             }
         }
     </style>
@@ -334,7 +510,7 @@
                     Impacto financiero del agente conversacional ROHANA considerando una inversión de $5,000,000 ARS.
                 </p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div class="roi-metrics-grid">
                 <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
                     <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Inversión Total</div>
                     <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: var(--text);">$5,000,000</div>
@@ -356,7 +532,7 @@
                     <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Ganancia después de inversión</div>
                 </div>
             </div>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1.5rem; margin-top: 2rem; border-radius: 8px;">
+            <div class="roi-conclusion">
                 <h3 style="color: #10b981; margin: 0 0 1rem 0; font-size: 1.1rem;">💰 Conclusión del ROI</h3>
                 <p style="color: var(--text); line-height: 1.8; margin: 0;">
                     Con una inversión de <strong>$5,000,000</strong>, el agente conversacional generó ingresos incrementales de
@@ -395,7 +571,7 @@
             </div>
         </section>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+        <div class="heatmaps-grid">
             <section class="chart-section" style="margin-bottom: 0;">
                 <div class="chart-header">
                     <h2 class="chart-title">Mapa de Calor: Ventas DESPUÉS del Agente</h2>
@@ -532,9 +708,15 @@
             return `rgb(${r}, ${g}, ${b})`;
         }
 
+        // Detectar si es móvil
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
         // Crear gráfico lineal de evolución temporal
         function createTimelineChart() {
             const ctx = document.getElementById('timelineChart').getContext('2d');
+            const mobile = isMobile();
 
             new Chart(ctx, {
                 data: {
@@ -597,9 +779,11 @@
                         legend: {
                             labels: {
                                 color: '#8b92b0',
-                                font: { size: 12 },
-                                padding: 15
-                            }
+                                font: { size: mobile ? 10 : 12 },
+                                padding: mobile ? 8 : 15,
+                                boxWidth: mobile ? 30 : 40
+                            },
+                            position: mobile ? 'bottom' : 'top'
                         },
                         tooltip: {
                             backgroundColor: 'rgba(0, 0, 0, 0.9)',
@@ -607,7 +791,9 @@
                             bodyColor: '#fff',
                             borderColor: '#3b82f6',
                             borderWidth: 1,
-                            padding: 12,
+                            padding: mobile ? 8 : 12,
+                            titleFont: { size: mobile ? 11 : 13 },
+                            bodyFont: { size: mobile ? 10 : 12 },
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label || '';
@@ -630,7 +816,7 @@
                             beginAtZero: true,
                             position: 'left',
                             title: {
-                                display: true,
+                                display: !mobile,
                                 text: 'Conversaciones / Ventas',
                                 color: '#8b92b0',
                                 font: { size: 13, weight: 'bold' }
@@ -640,14 +826,15 @@
                             },
                             ticks: {
                                 color: '#8b92b0',
-                                callback: value => value.toLocaleString('es-AR')
+                                font: { size: mobile ? 9 : 11 },
+                                callback: value => mobile ? (value >= 1000 ? (value/1000).toFixed(0) + 'k' : value) : value.toLocaleString('es-AR')
                             }
                         },
                         y1: {
                             beginAtZero: true,
                             position: 'right',
                             title: {
-                                display: true,
+                                display: !mobile,
                                 text: 'Ingresos (Millones ARS)',
                                 color: '#10b981',
                                 font: { size: 13, weight: 'bold' }
@@ -657,6 +844,7 @@
                             },
                             ticks: {
                                 color: '#10b981',
+                                font: { size: mobile ? 9 : 11 },
                                 callback: value => '$' + value.toFixed(0) + 'M'
                             }
                         },
@@ -666,7 +854,9 @@
                             },
                             ticks: {
                                 color: '#8b92b0',
-                                font: { size: 11 }
+                                font: { size: mobile ? 9 : 11 },
+                                maxRotation: mobile ? 45 : 0,
+                                minRotation: mobile ? 45 : 0
                             }
                         }
                     }
@@ -677,6 +867,7 @@
         // Crear gráfico de comparación de crecimiento orgánico vs real
         function createGrowthComparisonChart() {
             const ctx = document.getElementById('growthComparisonChart').getContext('2d');
+            const mobile = isMobile();
 
             const chart = new Chart(ctx, {
                 type: 'line',
@@ -721,8 +912,11 @@
                         legend: {
                             labels: {
                                 color: '#8b92b0',
-                                font: { size: 12 }
-                            }
+                                font: { size: mobile ? 10 : 12 },
+                                padding: mobile ? 8 : 15,
+                                boxWidth: mobile ? 30 : 40
+                            },
+                            position: mobile ? 'bottom' : 'top'
                         },
                         tooltip: {
                             backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -730,6 +924,9 @@
                             bodyColor: '#fff',
                             borderColor: '#3b82f6',
                             borderWidth: 1,
+                            padding: mobile ? 8 : 12,
+                            titleFont: { size: mobile ? 11 : 13 },
+                            bodyFont: { size: mobile ? 10 : 12 },
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label || '';
@@ -807,7 +1004,7 @@
                         y: {
                             beginAtZero: true,
                             title: {
-                                display: true,
+                                display: !mobile,
                                 text: 'Ingresos (Millones ARS)',
                                 color: '#8b92b0'
                             },
@@ -816,6 +1013,7 @@
                             },
                             ticks: {
                                 color: '#8b92b0',
+                                font: { size: mobile ? 9 : 11 },
                                 callback: value => `$${value.toFixed(0)}M`
                             }
                         },
@@ -824,7 +1022,10 @@
                                 color: 'rgba(139, 146, 176, 0.1)'
                             },
                             ticks: {
-                                color: '#8b92b0'
+                                color: '#8b92b0',
+                                font: { size: mobile ? 9 : 11 },
+                                maxRotation: mobile ? 45 : 0,
+                                minRotation: mobile ? 45 : 0
                             }
                         }
                     }
@@ -835,6 +1036,7 @@
         // Crear gráfico de distribución horaria (conversaciones vs ventas 24h)
         function createHourlyDistributionChart() {
             const ctx = document.getElementById('hourlyDistributionChart').getContext('2d');
+            const mobile = isMobile();
             const hours = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}h`);
 
             // Calcular totales por hora desde los datos semanales
@@ -906,15 +1108,21 @@
                         legend: {
                             labels: {
                                 color: '#8b92b0',
-                                font: { size: 12 }
-                            }
+                                font: { size: mobile ? 9 : 12 },
+                                padding: mobile ? 6 : 15,
+                                boxWidth: mobile ? 25 : 40
+                            },
+                            position: mobile ? 'bottom' : 'top'
                         },
                         tooltip: {
                             backgroundColor: 'rgba(0, 0, 0, 0.8)',
                             titleColor: '#fff',
                             bodyColor: '#fff',
                             borderColor: '#3b82f6',
-                            borderWidth: 1
+                            borderWidth: 1,
+                            padding: mobile ? 6 : 12,
+                            titleFont: { size: mobile ? 10 : 13 },
+                            bodyFont: { size: mobile ? 9 : 12 }
                         },
                         annotation: {
                             annotations: {
@@ -943,7 +1151,7 @@
                             beginAtZero: true,
                             position: 'left',
                             title: {
-                                display: true,
+                                display: !mobile,
                                 text: 'Conversaciones',
                                 color: '#8b92b0'
                             },
@@ -951,14 +1159,15 @@
                                 color: 'rgba(139, 146, 176, 0.1)'
                             },
                             ticks: {
-                                color: '#8b92b0'
+                                color: '#8b92b0',
+                                font: { size: mobile ? 8 : 11 }
                             }
                         },
                         y1: {
                             beginAtZero: true,
                             position: 'right',
                             title: {
-                                display: true,
+                                display: !mobile,
                                 text: 'Ventas',
                                 color: '#8b92b0'
                             },
@@ -966,7 +1175,8 @@
                                 drawOnChartArea: false
                             },
                             ticks: {
-                                color: '#8b92b0'
+                                color: '#8b92b0',
+                                font: { size: mobile ? 8 : 11 }
                             }
                         },
                         x: {
@@ -974,7 +1184,10 @@
                                 color: 'rgba(139, 146, 176, 0.1)'
                             },
                             ticks: {
-                                color: '#8b92b0'
+                                color: '#8b92b0',
+                                font: { size: mobile ? 7 : 10 },
+                                maxRotation: mobile ? 90 : 0,
+                                minRotation: mobile ? 90 : 0
                             }
                         }
                     }
@@ -989,34 +1202,43 @@
 
             const days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
             const hours = Array.from({ length: 24 }, (_, i) => i);
+            const mobile = isMobile();
 
             // Encontrar el máximo valor para normalizar
             const allValues = days.flatMap(day => data[day]);
             const maxValue = Math.max(...allValues);
 
+            // Crear contenedor con scroll horizontal en móviles
+            const wrapper = document.createElement('div');
+            wrapper.style.overflowX = mobile ? 'auto' : 'visible';
+            wrapper.style.webkitOverflowScrolling = 'touch';
+            wrapper.style.marginBottom = '1rem';
+
             // Crear tabla de mapa de calor
             const table = document.createElement('table');
-            table.style.width = '100%';
+            table.style.width = mobile ? 'max-content' : '100%';
             table.style.borderCollapse = 'collapse';
 
             // Crear fila de encabezado con las horas
             const headerRow = document.createElement('tr');
             const emptyCell = document.createElement('th');
-            emptyCell.style.padding = '8px';
+            emptyCell.style.padding = mobile ? '6px' : '8px';
             emptyCell.style.textAlign = 'right';
             emptyCell.style.color = 'var(--text-muted)';
-            emptyCell.style.fontSize = '0.85rem';
-            emptyCell.style.width = '100px';
+            emptyCell.style.fontSize = mobile ? '0.7rem' : '0.85rem';
+            emptyCell.style.width = mobile ? '70px' : '100px';
+            emptyCell.style.minWidth = mobile ? '70px' : '100px';
             headerRow.appendChild(emptyCell);
 
             hours.forEach(hour => {
                 const th = document.createElement('th');
-                th.textContent = `${hour}h`;
-                th.style.padding = '4px 2px';
+                th.textContent = mobile && hour % 2 !== 0 ? '' : `${hour}h`;
+                th.style.padding = mobile ? '3px 1px' : '4px 2px';
                 th.style.textAlign = 'center';
                 th.style.color = 'var(--text-muted)';
-                th.style.fontSize = '0.7rem';
+                th.style.fontSize = mobile ? '0.6rem' : '0.7rem';
                 th.style.fontWeight = '400';
+                th.style.minWidth = mobile ? '20px' : 'auto';
                 headerRow.appendChild(th);
             });
             table.appendChild(headerRow);
@@ -1027,13 +1249,14 @@
 
                 // Celda de etiqueta del día
                 const dayCell = document.createElement('td');
-                dayCell.textContent = day;
-                dayCell.style.padding = '8px 12px';
+                dayCell.textContent = mobile ? day.substring(0, 3) : day;
+                dayCell.style.padding = mobile ? '6px 8px' : '8px 12px';
                 dayCell.style.textAlign = 'right';
                 dayCell.style.color = 'var(--text-muted)';
-                dayCell.style.fontSize = '0.875rem';
+                dayCell.style.fontSize = mobile ? '0.7rem' : '0.875rem';
                 dayCell.style.fontWeight = '500';
                 dayCell.style.borderRight = '1px solid var(--border)';
+                dayCell.style.whiteSpace = 'nowrap';
                 row.appendChild(dayCell);
 
                 // Celdas de calor para cada hora
@@ -1045,31 +1268,73 @@
                     const bgColor = getHeatColor(intensity);
 
                     cell.style.backgroundColor = bgColor;
-                    cell.style.padding = '12px 4px';
+                    cell.style.padding = mobile ? '10px 3px' : '12px 4px';
                     cell.style.textAlign = 'center';
-                    cell.style.fontSize = '0.75rem';
+                    cell.style.fontSize = mobile ? '0' : '0.75rem';
                     cell.style.fontWeight = '600';
                     cell.style.color = intensity > 0.5 ? '#fff' : 'var(--text-muted)';
                     cell.style.cursor = 'pointer';
                     cell.style.transition = 'all 0.2s ease';
                     cell.style.position = 'relative';
-                    cell.textContent = value > 0 ? value : '';
+                    cell.style.minWidth = mobile ? '20px' : 'auto';
+                    cell.style.width = mobile ? '20px' : 'auto';
+                    cell.textContent = value > 0 && !mobile ? value : '';
 
                     // Tooltip
                     cell.title = `${day} - ${hour}:00h: ${value} ${label}`;
 
-                    // Hover effect
-                    cell.addEventListener('mouseenter', () => {
-                        cell.style.transform = 'scale(1.15)';
-                        cell.style.zIndex = '10';
-                        cell.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
-                    });
+                    // Touch and hover effects
+                    if (mobile) {
+                        // Mejor interacción táctil en móviles
+                        cell.addEventListener('touchstart', (e) => {
+                            e.preventDefault();
+                            cell.style.transform = 'scale(1.2)';
+                            cell.style.zIndex = '10';
+                            cell.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.5)';
 
-                    cell.addEventListener('mouseleave', () => {
-                        cell.style.transform = 'scale(1)';
-                        cell.style.zIndex = '1';
-                        cell.style.boxShadow = 'none';
-                    });
+                            // Crear tooltip personalizado para móvil
+                            const tooltip = document.createElement('div');
+                            tooltip.textContent = `${value} ${label}`;
+                            tooltip.style.position = 'fixed';
+                            tooltip.style.background = 'rgba(0, 0, 0, 0.9)';
+                            tooltip.style.color = 'white';
+                            tooltip.style.padding = '8px 12px';
+                            tooltip.style.borderRadius = '6px';
+                            tooltip.style.fontSize = '0.85rem';
+                            tooltip.style.zIndex = '1000';
+                            tooltip.style.pointerEvents = 'none';
+
+                            const rect = cell.getBoundingClientRect();
+                            tooltip.style.left = `${rect.left + rect.width / 2}px`;
+                            tooltip.style.top = `${rect.top - 40}px`;
+                            tooltip.style.transform = 'translateX(-50%)';
+                            tooltip.id = 'mobile-tooltip';
+
+                            document.body.appendChild(tooltip);
+                        });
+
+                        cell.addEventListener('touchend', () => {
+                            cell.style.transform = 'scale(1)';
+                            cell.style.zIndex = '1';
+                            cell.style.boxShadow = 'none';
+
+                            const tooltip = document.getElementById('mobile-tooltip');
+                            if (tooltip) tooltip.remove();
+                        });
+                    } else {
+                        // Hover tradicional en desktop
+                        cell.addEventListener('mouseenter', () => {
+                            cell.style.transform = 'scale(1.15)';
+                            cell.style.zIndex = '10';
+                            cell.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.4)';
+                        });
+
+                        cell.addEventListener('mouseleave', () => {
+                            cell.style.transform = 'scale(1)';
+                            cell.style.zIndex = '1';
+                            cell.style.boxShadow = 'none';
+                        });
+                    }
 
                     row.appendChild(cell);
                 });
@@ -1077,7 +1342,20 @@
                 table.appendChild(row);
             });
 
-            container.appendChild(table);
+            wrapper.appendChild(table);
+            container.appendChild(wrapper);
+
+            // Agregar indicador de scroll en móviles
+            if (mobile) {
+                const scrollHint = document.createElement('div');
+                scrollHint.textContent = '← Desliza para ver todas las horas →';
+                scrollHint.style.textAlign = 'center';
+                scrollHint.style.color = 'var(--text-muted)';
+                scrollHint.style.fontSize = '0.75rem';
+                scrollHint.style.marginTop = '0.5rem';
+                scrollHint.style.fontStyle = 'italic';
+                container.appendChild(scrollHint);
+            }
         }
 
         // Calcular y actualizar ROI
@@ -1125,15 +1403,54 @@
                 formatter.format(multiplicador);
         }
 
-        // Inicializar dashboard
+        // Inicializar dashboard con optimización de rendimiento
         function init() {
-            createTimelineChart();
-            createGrowthComparisonChart();
-            createHourlyDistributionChart();
-            createWeeklyHeatmap('heatmapAfterWeek', DATA.weeklyHeatmap.after, 'ventas');
-            createWeeklyHeatmap('heatmapConversations', DATA.weeklyHeatmap.conversations, 'conversaciones');
+            // Renderizar elementos críticos primero
             calculateROI();
+
+            // En móviles, cargar gráficos de forma progresiva
+            if (isMobile()) {
+                // Cargar gráficos con pequeños delays para mejor experiencia
+                requestAnimationFrame(() => {
+                    createTimelineChart();
+
+                    setTimeout(() => {
+                        createGrowthComparisonChart();
+                    }, 100);
+
+                    setTimeout(() => {
+                        createHourlyDistributionChart();
+                    }, 200);
+
+                    setTimeout(() => {
+                        createWeeklyHeatmap('heatmapAfterWeek', DATA.weeklyHeatmap.after, 'ventas');
+                    }, 300);
+
+                    setTimeout(() => {
+                        createWeeklyHeatmap('heatmapConversations', DATA.weeklyHeatmap.conversations, 'conversaciones');
+                    }, 400);
+                });
+            } else {
+                // En desktop, cargar todo a la vez
+                createTimelineChart();
+                createGrowthComparisonChart();
+                createHourlyDistributionChart();
+                createWeeklyHeatmap('heatmapAfterWeek', DATA.weeklyHeatmap.after, 'ventas');
+                createWeeklyHeatmap('heatmapConversations', DATA.weeklyHeatmap.conversations, 'conversaciones');
+            }
         }
+
+        // Recargar gráficos cuando cambia la orientación en móviles
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                if (isMobile()) {
+                    // Re-inicializar solo si cambia significativamente el tamaño
+                    location.reload();
+                }
+            }, 500);
+        });
 
         // Ejecutar cuando el DOM esté listo
         if (document.readyState === 'loading') {
