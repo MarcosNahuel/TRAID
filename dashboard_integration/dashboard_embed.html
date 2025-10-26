@@ -1,0 +1,175 @@
+<!--
+    Dashboard Analytics ROHANA - Versión Embebible
+    Para integrar en una página existente
+
+    DEPENDENCIAS REQUERIDAS:
+    1. Chart.js 4.4.0 (CDN incluido abajo)
+    2. dashboard_styles.css (archivo incluido)
+    3. dashboard_script.js (archivo incluido al final)
+-->
+
+<!-- Dependencia: Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- Estilos del Dashboard -->
+<link rel="stylesheet" href="dashboard_styles.css">
+
+<div id="rohana-dashboard">
+    <div class="container">
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Total Conversaciones</div>
+                <div class="metric-value">14,439</div>
+                <div class="metric-detail">Jun - Oct 2025</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Total Ventas</div>
+                <div class="metric-value">3,879</div>
+                <div class="metric-detail">Dic 2024 - Ago 2025</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Ingresos Totales</div>
+                <div class="metric-value">$340.1M</div>
+                <div class="metric-detail">ARS acumulado</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Mejora Post-Agente</div>
+                <div class="metric-value">+79%</div>
+                <div class="metric-detail">Incremento en ventas</div>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h2 class="chart-title">Correlación: Conversaciones del Agente vs Ventas e Ingresos</h2>
+                <p class="chart-description">
+                    Histórico mensual mostrando cómo las conversaciones del agente (barras azules) se correlacionan directamente
+                    con el aumento de ventas (línea púrpura) e ingresos (línea verde). A mayor actividad del agente, mayores resultados comerciales.
+                </p>
+            </div>
+            <div class="chart-container">
+                <canvas id="timelineChart"></canvas>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h2 class="chart-title">Análisis de ROI (Retorno de Inversión)</h2>
+                <p class="chart-description">
+                    Impacto financiero del agente conversacional ROHANA considerando una inversión de $5,000,000 ARS.
+                </p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Inversión Total</div>
+                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: var(--text);">$5,000,000</div>
+                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Implementación + Operación</div>
+                </div>
+                <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">💵 Ingresos Incrementales</div>
+                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: #10b981;" id="roiIngresosAdicionales">$132.0M</div>
+                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Jun-Jul 2025 vs proyección</div>
+                </div>
+                <div class="metric-card" style="background: linear-gradient(135deg, #10b981, #059669); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 1.5rem;">
+                    <div class="metric-label" style="color: rgba(255,255,255,0.9); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">💰 ROI</div>
+                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: white;" id="roiPercentage">2,640%</div>
+                    <div class="metric-detail" style="color: rgba(255,255,255,0.9); font-size: 0.875rem; margin-top: 0.5rem;">Retorno sobre inversión</div>
+                </div>
+                <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">💸 Beneficio Neto</div>
+                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: var(--text);" id="roiBeneficioNeto">$127.0M</div>
+                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Ganancia después de inversión</div>
+                </div>
+            </div>
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1.5rem; margin-top: 2rem; border-radius: 8px;">
+                <h3 style="color: #10b981; margin: 0 0 1rem 0; font-size: 1.1rem;">💰 Conclusión del ROI</h3>
+                <p style="color: var(--text); line-height: 1.8; margin: 0;">
+                    Con una inversión de <strong>$5,000,000</strong>, el agente conversacional generó ingresos incrementales de
+                    <strong id="roiIngresosAdicionalesText">$132,015,974</strong> <em>por encima del crecimiento orgánico proyectado</em> en Jun-Jul 2025,
+                    resultando en un ROI de <strong id="roiPercentageText">2,640%</strong>.
+                    Esto significa que por cada peso invertido, se obtuvieron <strong id="roiMultiplier">$26.40</strong> en retorno incremental.
+                </p>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h2 class="chart-title">Impacto del Agente: Crecimiento Orgánico vs Real</h2>
+                <p class="chart-description">
+                    Comparación entre la proyección de crecimiento orgánico del negocio (línea punteada azul) y el crecimiento real con el agente (línea sólida verde).
+                    El área sombreada en verde representa el retorno incremental atribuible directamente al agente.
+                </p>
+            </div>
+            <div class="chart-container">
+                <canvas id="growthComparisonChart"></canvas>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <div class="chart-header">
+                <h2 class="chart-title">Distribución Horaria: Conversaciones vs Ventas (24 horas)</h2>
+                <p class="chart-description">
+                    Comparación del volumen de conversaciones y ventas ANTES (línea roja punteada) y DESPUÉS (línea verde sólida) del agente durante las 24 horas del día.
+                    La zona sombreada (9h-18h) representa el horario laboral tradicional. Note el incremento significativo en horarios no laborables.
+                </p>
+            </div>
+            <div class="chart-container">
+                <canvas id="hourlyDistributionChart"></canvas>
+            </div>
+        </section>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(600px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+            <section class="chart-section" style="margin-bottom: 0;">
+                <div class="chart-header">
+                    <h2 class="chart-title">Mapa de Calor: Ventas DESPUÉS del Agente</h2>
+                    <p class="chart-description">
+                        Distribución de ventas por día y hora después del agente (desde 6 jun 2025).
+                        Azul = sin ventas, Rojo intenso = alto volumen.
+                    </p>
+                </div>
+                <div class="heatmap-container">
+                    <div id="heatmapAfterWeek"></div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <span style="color: var(--text-muted);">Intensidad:</span>
+                            <div>
+                                <div class="legend-gradient" style="background: linear-gradient(to right, #1e3a8a, #3b82f6, #fbbf24, #f97316, #dc2626)"></div>
+                                <div class="legend-labels">
+                                    <span>Sin ventas</span>
+                                    <span>Alto volumen</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="chart-section" style="margin-bottom: 0;">
+                <div class="chart-header">
+                    <h2 class="chart-title">Mapa de Calor: Conversaciones del Agente</h2>
+                    <p class="chart-description">
+                        Distribución de conversaciones por día y hora desde la implementación.
+                        Azul = baja actividad, Rojo intenso = alta actividad.
+                    </p>
+                </div>
+                <div class="heatmap-container">
+                    <div id="heatmapConversations"></div>
+                    <div class="legend">
+                        <div class="legend-item">
+                            <span style="color: var(--text-muted);">Actividad:</span>
+                            <div>
+                                <div class="legend-gradient" style="background: linear-gradient(to right, #1e3a8a, #3b82f6, #fbbf24, #f97316, #dc2626)"></div>
+                                <div class="legend-labels">
+                                    <span>Baja</span>
+                                    <span>Alta</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="dashboard_script.js"></script>

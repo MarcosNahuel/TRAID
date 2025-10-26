@@ -1,0 +1,4 @@
+# robots.txt for TRAID Agency
+User-agent: *
+Allow: /
+Sitemap: https://traid-seven.vercel.app/sitemap.xml

@@ -6,10 +6,10 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('inicio');
 
   const menuItems = [
-    { label: 'Inicio', href: '#inicio' },
     { label: 'Servicios', href: '#servicios' },
-    { label: 'Casos de Éxito', href: '#casos-exito' },
-    { label: 'Sobre Nosotros', href: '#sobre-nosotros' },
+    { label: 'Metodología', href: '#metodologia' },
+    { label: 'Casos', href: '#casos' },
+    { label: 'Equipo', href: '#equipo' },
     { label: 'Contacto', href: '#contacto' },
   ];
 
@@ -83,6 +83,14 @@ export default function Navbar() {
                   {item.label}
                 </a>
               ))}
+              <a
+                href="https://wa.me/5492995904484?text=Hola%21%20Me%20gustar%C3%ADa%20obtener%20una%20consultor%C3%ADa%20sobre%20automatizaciones%20con%20IA%20para%20mi%20ecommerce"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold transition-colors ml-2"
+              >
+                Solicitar propuesta
+              </a>
             </div>
           </div>
           
