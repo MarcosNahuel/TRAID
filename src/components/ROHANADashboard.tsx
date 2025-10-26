@@ -39,6 +39,7 @@ const DATA = {
   monthly: {
     labels: ["Dic 24", "Ene 25", "Feb 25", "Mar 25", "Abr 25", "May 25", "Jun 25", "Jul 25"],
     conversations: [0, 0, 0, 0, 0, 0, 772, 6490],
+    conversationsWithCart: [0, 0, 0, 0, 0, 0, 250, 2100],
     orders: [3, 51, 260, 394, 203, 380, 821, 1565],
     revenue: [97986, 2277191, 17645758, 28806039, 14851302, 32591205, 74218305, 149461558],
     ordersActual: [3, 51, 260, 394, 203, 380, 821, 1565],
@@ -162,6 +163,22 @@ const ROHANADashboard: React.FC = () => {
           },
           {
             type: 'line' as const,
+            label: 'Carritos Enviados',
+            data: DATA.monthly.conversationsWithCart,
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245, 158, 11, 0.15)',
+            borderWidth: 3,
+            tension: 0.4,
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: '#f59e0b',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            yAxisID: 'y',
+            order: 2
+          },
+          {
+            type: 'line' as const,
             label: 'Cantidad de Ventas',
             data: DATA.monthly.orders,
             borderColor: '#8b5cf6',
@@ -191,7 +208,7 @@ const ROHANADashboard: React.FC = () => {
             pointBorderColor: '#fff',
             pointBorderWidth: 2,
             yAxisID: 'y1',
-            order: 2
+            order: 4
           }
         ]
       },
