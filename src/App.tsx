@@ -29,6 +29,7 @@ import Navbar from './components/Navbar';
 import WhatsAppButton from './components/WhatsAppButton';
 import ROHANADashboard from './components/ROHANADashboard';
 import DashboardTest from './components/DashboardTest';
+import VideoCalendlyEmbed from './components/VideoCalendlyEmbed';
 
 function App() {
   const [showDashboard, setShowDashboard] = useState(false);
@@ -49,9 +50,7 @@ function App() {
             </p>
             <div className="flex justify-center px-4">
               <a
-                href="https://wa.me/5492995904484?text=Hola%21%20Me%20gustar%C3%ADa%20obtener%20una%20consultor%C3%ADa%20sobre%20automatizaciones%20con%20IA%20para%20mi%20ecommerce"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#agenda"
                 className="inline-block px-6 py-3 sm:px-8 sm:py-3 text-base sm:text-lg font-semibold rounded-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 transform hover:scale-105"
               >
                 🚀 Contacta con nosotros
@@ -60,7 +59,22 @@ function App() {
           </div>
         </section>
 
-        {/* Qué Hacemos */}
+        {/* Demo y Agenda */}
+        <section id="agenda" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-black/40">
+          <div className="max-w-4xl mx-auto text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+              Mira la demo y agenda tu sesion
+            </h2>
+            <p className="text-base sm:text-lg text-gray-300 leading-relaxed px-2">
+              Conoce el flujo completo y reserva una llamada estrategica para implementar automatizaciones a medida.
+            </p>
+          </div>
+          <div className="max-w-6xl mx-auto">
+            <VideoCalendlyEmbed />
+          </div>
+        </section>
+
+        {/* Que Hacemos */}
         <section id="que-hacemos" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-black/30">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
