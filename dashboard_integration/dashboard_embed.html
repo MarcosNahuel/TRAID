@@ -56,39 +56,25 @@
             <div class="chart-header">
                 <h2 class="chart-title">Análisis de ROI (Retorno de Inversión)</h2>
                 <p class="chart-description">
-                    Impacto financiero del agente conversacional ROHANA considerando una inversión de $5,000,000 ARS.
+                    Impacto financiero del agente conversacional ROHANA comparando ganancias proyectadas vs reales.
                 </p>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
                 <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Inversión Total</div>
-                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: var(--text);">$5,000,000</div>
-                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Implementación + Operación</div>
+                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">📊 Ganancia Proyectada</div>
+                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: #3b82f6;" id="roiGananciaProyectada">$22.9M</div>
+                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Sin agente (orgánico)</div>
                 </div>
                 <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">💵 Ingresos Incrementales</div>
-                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: #10b981;" id="roiIngresosAdicionales">$132.0M</div>
-                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Jun-Jul 2025 vs proyección</div>
+                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">💵 Ganancia Real</div>
+                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: #10b981;" id="roiGananciaReal">$55.9M</div>
+                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Con agente (Jun-Jul 2025)</div>
                 </div>
                 <div class="metric-card" style="background: linear-gradient(135deg, #10b981, #059669); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 1.5rem;">
                     <div class="metric-label" style="color: rgba(255,255,255,0.9); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">💰 ROI</div>
-                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: white;" id="roiPercentage">2,640%</div>
-                    <div class="metric-detail" style="color: rgba(255,255,255,0.9); font-size: 0.875rem; margin-top: 0.5rem;">Retorno sobre inversión</div>
+                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: white;" id="roiPercentage">560%</div>
+                    <div class="metric-detail" style="color: rgba(255,255,255,0.9); font-size: 0.875rem; margin-top: 0.5rem;">+<span id="roiBeneficioNeto">$28.0M</span> beneficio</div>
                 </div>
-                <div class="metric-card" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
-                    <div class="metric-label" style="color: var(--text-muted); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">💸 Beneficio Neto</div>
-                    <div class="metric-value" style="font-size: 2rem; font-weight: 700; color: var(--text);" id="roiBeneficioNeto">$127.0M</div>
-                    <div class="metric-detail" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem;">Ganancia después de inversión</div>
-                </div>
-            </div>
-            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1.5rem; margin-top: 2rem; border-radius: 8px;">
-                <h3 style="color: #10b981; margin: 0 0 1rem 0; font-size: 1.1rem;">💰 Conclusión del ROI</h3>
-                <p style="color: var(--text); line-height: 1.8; margin: 0;">
-                    Con una inversión de <strong>$5,000,000</strong>, el agente conversacional generó ingresos incrementales de
-                    <strong id="roiIngresosAdicionalesText">$132,015,974</strong> <em>por encima del crecimiento orgánico proyectado</em> en Jun-Jul 2025,
-                    resultando en un ROI de <strong id="roiPercentageText">2,640%</strong>.
-                    Esto significa que por cada peso invertido, se obtuvieron <strong id="roiMultiplier">$26.40</strong> en retorno incremental.
-                </p>
             </div>
         </section>
 

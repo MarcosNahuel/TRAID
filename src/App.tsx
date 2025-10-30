@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { ComponentType, ReactNode, useState } from 'react';
 import {
   ShoppingCart,
   Store,
@@ -21,18 +21,90 @@ import {
   CheckCircle2,
   UserCheck,
   ChevronDown,
-  BarChart3,
   X
 } from 'lucide-react';
 import VantaBackground from './components/VantaBackground';
 import Navbar from './components/Navbar';
 import WhatsAppButton from './components/WhatsAppButton';
 import ROHANADashboard from './components/ROHANADashboard';
-import DashboardTest from './components/DashboardTest';
 import VideoCalendlyEmbed from './components/VideoCalendlyEmbed';
+import CaseGambimedicDashboard from './components/CaseGambimedicDashboard';
+import CaseMeliAnalyticsDashboard from './components/CaseMeliAnalyticsDashboard';
+
+type CaseStudy = {
+  id: string;
+  title: string;
+  summary: string;
+  icon: ReactNode;
+  cardBackground: string;
+  highlight: {
+    value: string;
+    label: string;
+    colorClass: string;
+  };
+  tags: string[];
+  component: ComponentType;
+  modalDescription: string;
+};
 
 function App() {
-  const [showDashboard, setShowDashboard] = useState(false);
+  const [activeCase, setActiveCase] = useState<CaseStudy | null>(null);
+  const caseStudies: CaseStudy[] = [
+    {
+      id: 'gambimedic-ia',
+      title: 'Gambimedic — Bot IA omnicanal',
+      summary:
+        'Implementación end-to-end para clínica médica que combina atención automática, entrega de estudios y seguimiento post consulta.',
+      icon: <Shield className="h-10 w-10 sm:h-12 sm:w-12 text-purple-300" />,
+      cardBackground:
+        'bg-gradient-to-br from-purple-950/40 to-indigo-900/20 hover:from-purple-900/50 hover:to-indigo-900/30 border border-purple-500/20',
+      highlight: {
+        value: '56.5%',
+        label: 'Respuestas gestionadas por IA',
+        colorClass: 'text-purple-300'
+      },
+      tags: ['Salud', 'Atención al paciente', 'Omnicanalidad'],
+      component: CaseGambimedicDashboard,
+      modalDescription:
+        'Dashboard que resume interacciones, performance del bot IA y workloads críticos (turnos, postventa, soporte técnico).'
+    },
+    {
+      id: 'rohana-recupero',
+      title: 'Rohana — Ventas & Conversaciones con IA',
+      summary:
+        'Secuencias conversacionales con IA y follow-up multicanal para evitar carritos abandonados y reactivar leads fríos.',
+      icon: <ShoppingCart className="h-10 w-10 sm:h-12 sm:w-12 text-green-400" />,
+      cardBackground:
+        'bg-gradient-to-br from-purple-900/40 to-purple-900/20 hover:from-purple-800/50 hover:to-purple-800/30 border border-purple-500/20',
+      highlight: {
+        value: '+28%',
+        label: 'Recuperación en 30 días',
+        colorClass: 'text-green-400'
+      },
+      tags: ['Retail moda', 'WhatsApp + Shopify', 'Automatización post-venta'],
+      component: ROHANADashboard,
+      modalDescription:
+        'Dashboard completo con mapeo de ventas antes y después del agente, correlaciones y mapa de calor de conversaciones.'
+    },
+    {
+      id: 'meli-analytics',
+      title: 'MELI Analytics — Antes/Después & Postventa IA',
+      summary:
+        'Sistema completo de IA para Mercado Libre que automatiza preventa y postventa. Incluye análisis de impacto (antes vs. después) y workflows de automatización.',
+      icon: <TrendingUp className="h-10 w-10 sm:h-12 sm:w-12 text-amber-300" />,
+      cardBackground:
+        'bg-gradient-to-br from-amber-900/40 to-purple-900/20 hover:from-amber-800/50 hover:to-purple-800/30 border border-amber-500/20',
+      highlight: {
+        value: '+61%',
+        label: 'Crecimiento en ventas',
+        colorClass: 'text-amber-300'
+      },
+      tags: ['Mercado Libre', 'Automatización IA', 'Workflows n8n'],
+      component: CaseMeliAnalyticsDashboard,
+      modalDescription:
+        'Dashboard con 2 pestañas: (1) Análisis de Impacto antes/después del sistema IA, y (2) Métricas de workflows de preventa, postventa y mensajes automatizados.'
+    }
+  ];
 
   return (
     <VantaBackground>
@@ -203,7 +275,7 @@ function App() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
               Metodología Ágil
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               <div className="p-4 sm:p-6 bg-purple-900/30 rounded-2xl border border-purple-500/20">
                 <div className="text-center mb-3 sm:mb-4">
                   <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-600 text-white font-bold text-base sm:text-lg mb-2 sm:mb-3">1</div>
@@ -211,40 +283,29 @@ function App() {
                   <p className="text-xs sm:text-sm text-purple-300">Semana 1</p>
                 </div>
                 <p className="text-gray-400 text-xs sm:text-sm text-center">
-                  30' call, checklist, métricas y accesos. Ajuste de credenciales y configuraciones iniciales.
+                  Auditoría inicial, relevamiento de procesos, métricas clave y configuración de accesos.
                 </p>
               </div>
 
               <div className="p-4 sm:p-6 bg-purple-900/30 rounded-2xl border border-purple-500/20">
                 <div className="text-center mb-3 sm:mb-4">
                   <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-600 text-white font-bold text-base sm:text-lg mb-2 sm:mb-3">2</div>
-                  <h3 className="text-lg sm:text-xl font-semibold">Propuesta y diseño</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold">Pruebas</h3>
                   <p className="text-xs sm:text-sm text-purple-300">Semana 2</p>
                 </div>
                 <p className="text-gray-400 text-xs sm:text-sm text-center">
-                  Alcance, entregables y cronograma. Entrega piloto para testing.
+                  Desarrollo e implementación del MVP. Testing controlado y ajustes iterativos.
                 </p>
               </div>
 
               <div className="p-4 sm:p-6 bg-purple-900/30 rounded-2xl border border-purple-500/20">
                 <div className="text-center mb-3 sm:mb-4">
                   <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-600 text-white font-bold text-base sm:text-lg mb-2 sm:mb-3">3</div>
-                  <h3 className="text-lg sm:text-xl font-semibold">Implementación</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold">Producción</h3>
                   <p className="text-xs sm:text-sm text-purple-300">Semanas 3-4</p>
                 </div>
                 <p className="text-gray-400 text-xs sm:text-sm text-center">
-                  Flujos n8n, integraciones, pruebas y prompt tuning
-                </p>
-              </div>
-
-              <div className="p-4 sm:p-6 bg-purple-900/30 rounded-2xl border border-purple-500/20">
-                <div className="text-center mb-3 sm:mb-4">
-                  <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-600 text-white font-bold text-base sm:text-lg mb-2 sm:mb-3">4</div>
-                  <h3 className="text-lg sm:text-xl font-semibold">Go-Live & Hypercare</h3>
-                  <p className="text-xs sm:text-sm text-purple-300">semana 5-6</p>
-                </div>
-                <p className="text-gray-400 text-xs sm:text-sm text-center">
-                  Monitoreo, ajustes y transferencia. Capacitación.
+                  Go-live, monitoreo activo, optimización continua y capacitación del equipo.
                 </p>
               </div>
             </div>
@@ -255,111 +316,115 @@ function App() {
           </div>
         </section>
 
-        {/* Casos de Éxito */}
+        {/* Casos de exito */}
         <section id="casos" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 sm:mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-              Casos de Éxito
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+              Casos de exito
             </h2>
-
-            {/* Botón grande para ver el dashboard */}
-            <div className="mb-8 sm:mb-12 text-center px-4">
-              <button
-                onClick={() => {
-                  console.log('Botón clickeado, abriendo dashboard...');
-                  setShowDashboard(true);
-                }}
-                className="group relative inline-flex items-center gap-3 sm:gap-4 px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl lg:text-2xl font-bold rounded-2xl bg-gradient-to-r from-green-500 via-green-600 to-emerald-600 hover:from-green-600 hover:via-green-700 hover:to-emerald-700 transition-all duration-300 shadow-2xl hover:shadow-green-500/50 transform hover:scale-105"
-              >
-                <BarChart3 className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 animate-pulse" />
-                <span>VER CASO DE ÉXITO REAL</span>
-                <div className="absolute -inset-1 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-300"></div>
-              </button>
-              <p className="mt-3 sm:mt-4 text-gray-400 text-xs sm:text-sm">Dashboard interactivo con métricas reales de uno de nuestros clientes</p>
-            </div>
+            <p className="text-center text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12">
+              Selecciona un caso para abrir su dashboard interactivo con resultados antes y despues del agente.
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-              <div className="p-6 sm:p-8 bg-gradient-to-br from-purple-900/40 to-purple-900/20 rounded-2xl hover:from-purple-800/50 hover:to-purple-800/30 transition-all duration-300 border border-purple-500/20">
-                <ShoppingCart className="h-10 w-10 sm:h-12 sm:w-12 mb-3 sm:mb-4 text-green-400" />
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">Recupero de carritos</h3>
-                <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">
-                  +28% en recuperación en 30 días con secuencia de WhatsApp integrada.
-                </p>
-                <div className="bg-black/30 p-3 sm:p-4 rounded-lg">
-                  <p className="text-2xl sm:text-3xl font-bold text-green-400">+28%</p>
-                  <p className="text-xs sm:text-sm text-gray-400">Recuperación en 30 días</p>
-                </div>
-              </div>
+              {caseStudies.map((study, index) => (
+                <div
+                  key={study.id}
+                  role="button"
+                  tabIndex={0}
+                  className={`p-6 sm:p-8 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500/60 ${study.cardBackground}`}
+                  onClick={() => setActiveCase(study)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setActiveCase(study);
+                    }
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <div className="flex items-center gap-3">
+                      {study.icon}
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-semibold">{study.title}</h3>
+                        <p className="text-xs sm:text-sm text-purple-300 uppercase tracking-wide">
+                          Caso #{(index + 1).toString().padStart(2, '0')}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="p-6 sm:p-8 bg-gradient-to-br from-purple-900/40 to-purple-900/20 rounded-2xl hover:from-purple-800/50 hover:to-purple-800/30 transition-all duration-300 border border-purple-500/20">
-                <Workflow className="h-10 w-10 sm:h-12 sm:w-12 mb-3 sm:mb-4 text-yellow-400" />
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">Automatización logística</h3>
-                <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">
-                  Sincronización multicanal y reducción de errores de picking en 75%.
-                </p>
-                <div className="bg-black/30 p-3 sm:p-4 rounded-lg">
-                  <p className="text-2xl sm:text-3xl font-bold text-yellow-400">-75%</p>
-                  <p className="text-xs sm:text-sm text-gray-400">Errores de picking</p>
-                </div>
-              </div>
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                    {study.summary}
+                  </p>
 
-              <div className="p-6 sm:p-8 bg-gradient-to-br from-purple-900/40 to-purple-900/20 rounded-2xl hover:from-purple-800/50 hover:to-purple-800/30 transition-all duration-300 border border-purple-500/20">
-                <Target className="h-10 w-10 sm:h-12 sm:w-12 mb-3 sm:mb-4 text-blue-400" />
-                <h3 className="text-lg sm:text-xl font-semibold mb-2">Automatización de ventas total</h3>
-                <p className="text-gray-300 mb-3 sm:mb-4 text-sm sm:text-base leading-relaxed">
-                  Liberó 3 horas/día del equipo comercial antes del cierre.
-                </p>
-                <div className="bg-black/30 p-3 sm:p-4 rounded-lg">
-                  <p className="text-2xl sm:text-3xl font-bold text-blue-400">3h/día</p>
-                  <p className="text-xs sm:text-sm text-gray-400">Tiempo liberado del equipo</p>
+                  <div className="flex flex-wrap gap-2 mt-4 sm:mt-6">
+                    {study.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-xs sm:text-sm text-gray-300 bg-black/30 border border-purple-500/10 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 sm:mt-6 bg-black/30 p-3 sm:p-4 rounded-lg">
+                    <p className={`text-2xl sm:text-3xl font-bold ${study.highlight.colorClass}`}>
+                      {study.highlight.value}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-400">{study.highlight.label}</p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="mt-6 inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-green-500/30"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setActiveCase(study);
+                    }}
+                  >
+                    Ver dashboard
+                  </button>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Modal del Dashboard */}
-        {showDashboard && (
+        {/* Modal del dashboard */}
+        {activeCase && (
           <div
             className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 bg-black/90 backdrop-blur-sm"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                setShowDashboard(false);
+            onClick={(event) => {
+              if (event.target === event.currentTarget) {
+                setActiveCase(null);
               }
             }}
           >
             <div className="relative w-full max-w-[95vw] h-[90vh] sm:max-w-[95vw] sm:h-[95vh] bg-gradient-to-br from-[#0a0e1a] to-[#141829] rounded-2xl shadow-2xl overflow-hidden border-2 border-purple-500/30">
-              {/* Header del Dashboard */}
               <div className="sticky top-0 z-[10001] bg-gradient-to-r from-purple-900/90 to-indigo-900/90 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4 border-b border-purple-500/30 flex items-center justify-between">
                 <div>
-                  <h2 className="text-lg sm:text-2xl font-bold text-white">Dashboard Analytics ROHANA</h2>
-                  <p className="text-xs sm:text-sm text-purple-300">Caso de éxito real - Métricas verificadas</p>
+                  <h2 className="text-lg sm:text-2xl font-bold text-white">Dashboard - {activeCase.title}</h2>
+                  <p className="text-xs sm:text-sm text-purple-300">{activeCase.modalDescription}</p>
                 </div>
-
-                {/* Botón cerrar */}
                 <button
-                  onClick={() => {
-                    console.log('Cerrando dashboard...');
-                    setShowDashboard(false);
-                  }}
+                  type="button"
+                  onClick={() => setActiveCase(null)}
                   className="p-2 sm:p-3 bg-red-600 hover:bg-red-700 rounded-full transition-all duration-300 shadow-lg hover:shadow-red-500/50 transform hover:scale-110"
+                  aria-label="Cerrar dashboard"
                 >
                   <X className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </button>
               </div>
-
-              {/* Contenedor del dashboard con scroll */}
               <div className="w-full h-[calc(90vh-80px)] sm:h-[calc(95vh-100px)] overflow-y-auto p-2 sm:p-8 bg-[#0a0e1a]">
-                <ROHANADashboard />
+                {(() => {
+                  const DashboardComponent = activeCase.component;
+                  return <DashboardComponent />;
+                })()}
               </div>
             </div>
           </div>
         )}
-
-        {/* Debug: Mostrar estado */}
-        <div className="fixed bottom-4 left-4 bg-black/80 text-white p-2 rounded text-xs z-[10001]">
-          Dashboard: {showDashboard ? 'ABIERTO' : 'CERRADO'}
-        </div>
 
         {/* Equipo */}
         <section id="equipo" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-black/30">

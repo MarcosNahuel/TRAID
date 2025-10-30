@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Dashboard MELI Analytics - Sistema Completo de IA</title>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+ <style>
+   :root {
+     --bg: #0a0e1a;
+     --bg-card: #141829;
+     --bg-card-hover: #1a1f3a;
+     --text: #e8eaf0;
+     --text-muted: #8b92b0;
+     --border: rgba(139, 146, 176, 0.12);
+     --accent-blue: #3b82f6;
+     --accent-purple: #8b5cf6;
+     --accent-green: #10b981;
+     --accent-orange: #f59e0b;
+   }
+
+   * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+
+   body {
+     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+     background: linear-gradient(135deg, #0a0e1a 0%, #141829 100%);
+     color: var(--text);
+     padding: 2rem;
+     min-height: 100vh;
+     line-height: 1.6;
+   }
+
+   .container {
+     max-width: 1600px;
+     margin: 0 auto;
+   }
+
+   header {
+     text-align: center;
+     margin-bottom: 3rem;
+     padding-bottom: 2rem;
+     border-bottom: 2px solid var(--border);
+   }
+
+   h1 {
+     font-size: 2.5rem;
+     font-weight: 700;
+     color: var(--text);
+     margin-bottom: 1rem;
+     background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     background-clip: text;
+   }
+
+   .subtitle {
+     color: var(--text-muted);
+     font-size: 1rem;
+     margin-bottom: 1rem;
+   }
+
+   .period-info {
+     display: inline-block;
+     background: var(--bg-card);
+     border: 1px solid var(--border);
+     padding: 0.5rem 1rem;
+     border-radius: 6px;
+     font-size: 0.875rem;
+     color: var(--text-muted);
+   }
+
+   .kpi-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     gap: 1.5rem;
+     margin-bottom: 3rem;
+   }
+
+   .kpi-card {
+     background: var(--bg-card);
+     border: 1px solid var(--border);
+     border-radius: 12px;
+     padding: 1.5rem;
+     transition: all 0.3s ease;
+   }
+
+   .kpi-card:hover {
+     background: var(--bg-card-hover);
+     transform: translateY(-4px);
+     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+   }
+
+   .kpi-card.highlight {
+     background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+     border: none;
+   }
+
+   .kpi-card.highlight h3,
+   .kpi-card.highlight .kpi-value,
+   .kpi-card.highlight .kpi-change {
+     color: white;
+   }
+
+   .kpi-card h3 {
+     font-size: 0.875rem;
+     color: var(--text-muted);
+     margin-bottom: 0.75rem;
+     text-transform: uppercase;
+     letter-spacing: 0.05em;
+     font-weight: 600;
+   }
+
+   .kpi-value {
+     font-size: 2.5rem;
+     font-weight: 700;
+     color: var(--text);
+     margin-bottom: 0.5rem;
+   }
+
+   .kpi-change {
+     font-size: 0.875rem;
+     color: var(--accent-green);
+   }
+
+   .section {
+     background: var(--bg-card);
+     border: 1px solid var(--border);
+     border-radius: 16px;
+     padding: 2rem;
+     margin-bottom: 2rem;
+   }
+
+   .section h2 {
+     font-size: 1.75rem;
+     font-weight: 700;
+     color: var(--text);
+     margin-bottom: 1.5rem;
+     padding-bottom: 1rem;
+     border-bottom: 2px solid var(--border);
+   }
+
+   .workflow-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+     gap: 1.5rem;
+     margin-bottom: 2rem;
+   }
+
+   .workflow-card {
+     background: rgba(139, 146, 176, 0.05);
+     border-radius: 12px;
+     padding: 1.5rem;
+     border-left: 4px solid var(--accent-purple);
+     transition: all 0.3s ease;
+   }
+
+   .workflow-card:hover {
+     background: rgba(139, 146, 176, 0.08);
+     transform: translateX(4px);
+   }
+
+   .workflow-card.postventa {
+     border-left-color: var(--accent-green);
+   }
+
+   .workflow-card.mensaje {
+     border-left-color: var(--accent-orange);
+   }
+
+   .workflow-card h3 {
+     color: var(--text);
+     margin-bottom: 1rem;
+     font-size: 1.125rem;
+     font-weight: 600;
+   }
+
+   .workflow-stat {
+     display: flex;
+     justify-content: space-between;
+     margin-bottom: 0.75rem;
+     font-size: 0.875rem;
+   }
+
+   .workflow-stat span:first-child {
+     color: var(--text-muted);
+   }
+
+   .workflow-stat span:last-child {
+     font-weight: 600;
+     color: var(--text);
+   }
+
+   .chart-container {
+     position: relative;
+     height: 300px;
+     margin-top: 20px;
+   }
+
+   .chart-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+     gap: 30px;
+   }
+
+   table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 1.5rem;
+   }
+
+   th, td {
+     padding: 1rem;
+     text-align: left;
+     border-bottom: 1px solid var(--border);
+   }
+
+   th {
+     background: rgba(139, 92, 246, 0.1);
+     font-weight: 600;
+     color: var(--accent-purple);
+     font-size: 0.875rem;
+     text-transform: uppercase;
+     letter-spacing: 0.05em;
+   }
+
+   td {
+     color: var(--text);
+   }
+
+   tr:hover {
+     background: rgba(139, 146, 176, 0.05);
+   }
+
+   .badge {
+     display: inline-block;
+     padding: 0.25rem 0.75rem;
+     border-radius: 12px;
+     font-size: 0.75rem;
+     font-weight: 600;
+   }
+
+   .badge.success {
+     background: rgba(16, 185, 129, 0.2);
+     color: var(--accent-green);
+   }
+
+   .badge.info {
+     background: rgba(59, 130, 246, 0.2);
+     color: var(--accent-blue);
+   }
+
+   .badge.warning {
+     background: rgba(245, 158, 11, 0.2);
+     color: var(--accent-orange);
+   }
+
+   footer {
+     text-align: center;
+     color: var(--text-muted);
+     margin-top: 3rem;
+     padding: 2rem;
+     font-size: 0.875rem;
+     border-top: 1px solid var(--border);
+   }
+
+   .btn {
+     display: inline-block;
+     padding: 0.75rem 1.5rem;
+     background: var(--accent-purple);
+     color: white;
+     border: none;
+     border-radius: 8px;
+     cursor: pointer;
+     font-size: 0.875rem;
+     font-weight: 600;
+     text-decoration: none;
+     transition: all 0.2s;
+     margin-right: 1rem;
+   }
+
+   .btn:hover {
+     background: var(--accent-blue);
+     transform: translateY(-2px);
+     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+   }
+
+   .error {
+     background: rgba(239, 68, 68, 0.1);
+     border: 1px solid rgba(239, 68, 68, 0.3);
+     color: #ef4444;
+     padding: 1.5rem;
+     border-radius: 8px;
+     margin: 1.5rem 0;
+   }
+ </style>
+</head>
+<body>
+ <div class="container">
+   <header>
+     <h1>Dashboard MELI Analytics - Sistema Completo de IA</h1>
+     <div class="subtitle">Análisis de rendimiento de los 3 workflows de automatización</div>
+     <div class="period-info" id="period">Cargando período...</div>
+   </header>
+
+   <!-- KPIs Principales -->
+   <div class="kpi-grid" id="main-kpis">
+     <div class="kpi-card highlight">
+       <h3>Total Interacciones</h3>
+       <div class="kpi-value" id="total-interactions">-</div>
+       <div class="kpi-change">Automatizadas exitosamente</div>
+     </div>
+     <div class="kpi-card highlight">
+       <h3>Tiempo Ahorrado</h3>
+       <div class="kpi-value" id="total-hours">-</div>
+       <div class="kpi-change" id="total-days">-</div>
+     </div>
+     <div class="kpi-card">
+       <h3>Revenue Total</h3>
+       <div class="kpi-value" id="total-revenue">-</div>
+       <div class="kpi-change">Todas las órdenes MELI</div>
+     </div>
+     <div class="kpi-card">
+       <h3>Entregas Automatizadas</h3>
+       <div class="kpi-value" id="delivery-revenue">-</div>
+       <div class="kpi-change" id="delivery-count">-</div>
+     </div>
+   </div>
+
+   <!-- Desglose por Workflow -->
+   <div class="section">
+     <h2>Desglose por Workflow</h2>
+     <div class="workflow-grid">
+       <div class="workflow-card">
+         <h3>Pre-venta (Respuestas Automáticas)</h3>
+         <div class="workflow-stat">
+           <span>Total respuestas:</span>
+           <span id="preventa-count">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Tiempo ahorrado:</span>
+           <span id="preventa-hours">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Eficiencia:</span>
+           <span id="preventa-efficiency">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Tiempo respuesta promedio:</span>
+           <span id="preventa-avg">-</span>
+         </div>
+       </div>
+
+       <div class="workflow-card postventa">
+         <h3>Post-venta (Entrega de Códigos)</h3>
+         <div class="workflow-stat">
+           <span>Total entregas:</span>
+           <span id="postventa-count">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Tiempo ahorrado:</span>
+           <span id="postventa-hours">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Eficiencia:</span>
+           <span id="postventa-efficiency">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Tiempo entrega promedio:</span>
+           <span id="postventa-avg">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Revenue entregado:</span>
+           <span id="postventa-revenue">-</span>
+         </div>
+       </div>
+
+       <div class="workflow-card mensaje">
+         <h3>Mensaje Inicial (Bienvenida)</h3>
+         <div class="workflow-stat">
+           <span>Total mensajes:</span>
+           <span id="mensaje-count">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Tiempo ahorrado:</span>
+           <span id="mensaje-hours">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Eficiencia:</span>
+           <span id="mensaje-efficiency">-</span>
+         </div>
+         <div class="workflow-stat">
+           <span>Tiempo promedio:</span>
+           <span id="mensaje-avg">-</span>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <!-- Gráficos -->
+   <div class="section">
+     <h2>Visualizaciones</h2>
+     <div class="chart-grid">
+       <div>
+         <h3 style="margin-bottom: 15px;">Distribución de Interacciones</h3>
+         <div class="chart-container">
+           <canvas id="workflowChart"></canvas>
+         </div>
+       </div>
+       <div>
+         <h3 style="margin-bottom: 15px;">Tiempo Ahorrado por Workflow</h3>
+         <div class="chart-container">
+           <canvas id="timeChart"></canvas>
+         </div>
+       </div>
+     </div>
+   </div>
+
+   <!-- Análisis de Productos -->
+   <div class="section">
+     <h2>Análisis de Productos</h2>
+     <div class="chart-grid">
+       <div>
+         <h3 style="margin-bottom: 15px;">Distribución por Producto</h3>
+         <div class="chart-container">
+           <canvas id="productChart"></canvas>
+         </div>
+       </div>
+       <div>
+         <h3 style="margin-bottom: 15px;">Revenue por Producto</h3>
+         <div class="chart-container">
+           <canvas id="revenueChart"></canvas>
+         </div>
+       </div>
+     </div>
+
+     <h3 style="margin-top: 30px; margin-bottom: 15px;">Top Productos</h3>
+     <table id="products-table">
+       <thead>
+         <tr>
+           <th>Producto</th>
+           <th>Cantidad</th>
+           <th>Valor Unitario</th>
+           <th>Revenue Total</th>
+           <th>% del Total</th>
+         </tr>
+       </thead>
+       <tbody id="products-tbody">
+       </tbody>
+     </table>
+   </div>
+
+   <!-- Acciones -->
+   <div class="section">
+     <h2>Exportar Datos</h2>
+     <button class="btn" onclick="downloadCSV()">Descargar Reporte CSV</button>
+     <button class="btn" onclick="window.location.reload()">Actualizar Dashboard</button>
+   </div>
+ </div>
+
+ <footer>
+   Dashboard generado automáticamente | Última actualización: <span id="last-update"></span>
+ </footer>
+
+ <script>
+   // Datos mock embebidos
+   const metricsData = {
+     preventa: {
+       total_executions: 4250,
+       avg_duration_ms: 2300,
+       earliest_date: '2024-06-15',
+       latest_date: '2024-10-30'
+     },
+     postventa: {
+       execution_stats: {
+         total_executions: 2150,
+         avg_duration_ms: 3500
+       },
+       matched_orders: 1950,
+       delivery_revenue_usd: 125000
+     },
+     mensajeInicial: {
+       total_executions: 5800,
+       avg_duration_ms: 1200
+     },
+     time_savings: {
+       preventa: { saved_hours: 106, efficiency_percent: 88 },
+       postventa: { saved_hours: 75, efficiency_percent: 85 },
+       mensajeInicial: { saved_hours: 32, efficiency_percent: 90 },
+       total: { saved_hours: 213, saved_days: 26.6 }
+     },
+     totals: {
+       total_interactions: 12200,
+       total_revenue_usd: 385000,
+       delivery_revenue_usd: 125000
+     },
+     products: {
+       totalRevenue: 385000,
+       products: [
+         { product_type: 'PlayStation 5', count: 450, unit_value_usd: 499, total_revenue_usd: 224550 },
+         { product_type: 'Xbox Series X', count: 280, unit_value_usd: 449, total_revenue_usd: 125720 },
+         { product_type: 'Nintendo Switch', count: 320, unit_value_usd: 299, total_revenue_usd: 95680 },
+         { product_type: 'Steam Deck', count: 150, unit_value_usd: 399, total_revenue_usd: 59850 },
+         { product_type: 'Meta Quest 3', count: 120, unit_value_usd: 499, total_revenue_usd: 59880 },
+         { product_type: 'Gaming Headset', count: 650, unit_value_usd: 79, total_revenue_usd: 51350 },
+         { product_type: 'Mechanical Keyboard', count: 480, unit_value_usd: 120, total_revenue_usd: 57600 }
+       ]
+     },
+     analysis_date: '2024-10-30T15:30:00Z'
+   };
+
+   // Inicializar dashboard
+   function loadData() {
+     renderDashboard();
+   }
+
+   function formatNumber(num) {
+     return new Intl.NumberFormat('es-AR').format(Math.round(num));
+   }
+
+   function formatCurrency(num) {
+     return '$' + formatNumber(num) + ' USD';
+   }
+
+   function renderDashboard() {
+     const m = metricsData;
+
+     // Período
+     const earliestDate = new Date(m.preventa.earliest_date).toLocaleDateString('es-AR');
+     const latestDate = new Date(m.preventa.latest_date).toLocaleDateString('es-AR');
+     document.getElementById('period').textContent = `Período analizado: ${earliestDate} - ${latestDate}`;
+
+     // KPIs principales
+     document.getElementById('total-interactions').textContent = formatNumber(m.totals.total_interactions);
+     document.getElementById('total-hours').textContent = formatNumber(m.time_savings.total.saved_hours) + 'h';
+     document.getElementById('total-days').textContent = formatNumber(m.time_savings.total.saved_days) + ' días laborales';
+     document.getElementById('total-revenue').textContent = formatCurrency(m.totals.total_revenue_usd);
+     document.getElementById('delivery-revenue').textContent = formatCurrency(m.totals.delivery_revenue_usd);
+     document.getElementById('delivery-count').textContent = formatNumber(m.postventa.matched_orders) + ' órdenes entregadas';
+
+     // Pre-venta
+     document.getElementById('preventa-count').textContent = formatNumber(m.preventa.total_executions);
+     document.getElementById('preventa-hours').textContent = formatNumber(m.time_savings.preventa.saved_hours) + 'h';
+     document.getElementById('preventa-efficiency').textContent = m.time_savings.preventa.efficiency_percent + '%';
+     document.getElementById('preventa-avg').textContent = (m.preventa.avg_duration_ms / 1000).toFixed(2) + 's';
+
+     // Post-venta
+     document.getElementById('postventa-count').textContent = formatNumber(m.postventa.execution_stats.total_executions);
+     document.getElementById('postventa-hours').textContent = formatNumber(m.time_savings.postventa.saved_hours) + 'h';
+     document.getElementById('postventa-efficiency').textContent = m.time_savings.postventa.efficiency_percent + '%';
+     document.getElementById('postventa-avg').textContent = (m.postventa.execution_stats.avg_duration_ms / 1000).toFixed(2) + 's';
+     document.getElementById('postventa-revenue').textContent = formatCurrency(m.postventa.delivery_revenue_usd);
+
+     // Mensaje inicial
+     document.getElementById('mensaje-count').textContent = formatNumber(m.mensajeInicial.total_executions);
+     document.getElementById('mensaje-hours').textContent = formatNumber(m.time_savings.mensajeInicial.saved_hours) + 'h';
+     document.getElementById('mensaje-efficiency').textContent = m.time_savings.mensajeInicial.efficiency_percent + '%';
+     document.getElementById('mensaje-avg').textContent = (m.mensajeInicial.avg_duration_ms / 1000).toFixed(2) + 's';
+
+     // Tabla de productos
+     const totalRevenue = m.products.totalRevenue;
+     const tbody = document.getElementById('products-tbody');
+     tbody.innerHTML = '';
+
+     m.products.products.slice(0, 10).forEach(product => {
+       const percent = ((product.total_revenue_usd / totalRevenue) * 100).toFixed(1);
+       const row = tbody.insertRow();
+       row.innerHTML = `
+         <td><span class="badge info">${product.product_type}</span></td>
+         <td>${formatNumber(product.count)}</td>
+         <td>${formatCurrency(product.unit_value_usd)}</td>
+         <td><strong>${formatCurrency(product.total_revenue_usd)}</strong></td>
+         <td>${percent}%</td>
+       `;
+     });
+
+     // Última actualización
+     document.getElementById('last-update').textContent = new Date(m.analysis_date).toLocaleString('es-AR');
+
+     // Renderizar gráficos
+     renderCharts();
+   }
+
+   function renderCharts() {
+     const m = metricsData;
+
+     // Gráfico de workflows
+     new Chart(document.getElementById('workflowChart'), {
+       type: 'doughnut',
+       data: {
+         labels: ['Pre-venta', 'Post-venta', 'Mensaje Inicial'],
+         datasets: [{
+           data: [
+             m.preventa.total_executions,
+             m.postventa.execution_stats.total_executions,
+             m.mensajeInicial.total_executions
+           ],
+           backgroundColor: ['#667eea', '#22c55e', '#f59e0b']
+         }]
+       },
+       options: {
+         responsive: true,
+         maintainAspectRatio: false,
+         plugins: {
+           legend: {
+             position: 'bottom'
+           }
+         }
+       }
+     });
+
+     // Gráfico de tiempo ahorrado
+     new Chart(document.getElementById('timeChart'), {
+       type: 'bar',
+       data: {
+         labels: ['Pre-venta', 'Post-venta', 'Mensaje Inicial'],
+         datasets: [{
+           label: 'Horas Ahorradas',
+           data: [
+             m.time_savings.preventa.saved_hours,
+             m.time_savings.postventa.saved_hours,
+             m.time_savings.mensajeInicial.saved_hours
+           ],
+           backgroundColor: ['#667eea', '#22c55e', '#f59e0b']
+         }]
+       },
+       options: {
+         responsive: true,
+         maintainAspectRatio: false,
+         scales: {
+           y: {
+             beginAtZero: true
+           }
+         },
+         plugins: {
+           legend: {
+             display: false
+           }
+         }
+       }
+     });
+
+     // Gráfico de productos (cantidad)
+     const productLabels = m.products.products.slice(0, 7).map(p => p.product_type);
+     const productCounts = m.products.products.slice(0, 7).map(p => p.count);
+
+     new Chart(document.getElementById('productChart'), {
+       type: 'bar',
+       data: {
+         labels: productLabels,
+         datasets: [{
+           label: 'Unidades Vendidas',
+           data: productCounts,
+           backgroundColor: '#667eea'
+         }]
+       },
+       options: {
+         responsive: true,
+         maintainAspectRatio: false,
+         scales: {
+           y: {
+             beginAtZero: true
+           }
+         }
+       }
+     });
+
+     // Gráfico de revenue por producto
+     const revenueData = m.products.products.slice(0, 7).map(p => p.total_revenue_usd);
+
+     new Chart(document.getElementById('revenueChart'), {
+       type: 'bar',
+       data: {
+         labels: productLabels,
+         datasets: [{
+           label: 'Revenue (USD)',
+           data: revenueData,
+           backgroundColor: '#22c55e'
+         }]
+       },
+       options: {
+         responsive: true,
+         maintainAspectRatio: false,
+         scales: {
+           y: {
+             beginAtZero: true,
+             ticks: {
+               callback: function(value) {
+                 return '$' + value.toLocaleString();
+               }
+             }
+           }
+         }
+       }
+     });
+   }
+
+   function downloadCSV() {
+     if (!metricsData) return;
+
+     const m = metricsData;
+     let csv = 'Métrica,Valor\n';
+     csv += `Total Interacciones,${m.totals.total_interactions}\n`;
+     csv += `Tiempo Ahorrado (horas),${m.time_savings.total.saved_hours}\n`;
+     csv += `Tiempo Ahorrado (días),${m.time_savings.total.saved_days}\n`;
+     csv += `Revenue Total,${m.totals.total_revenue_usd}\n`;
+     csv += `Revenue Entregas,${m.totals.delivery_revenue_usd}\n`;
+     csv += '\nWorkflow,Ejecuciones,Horas Ahorradas,Eficiencia\n';
+     csv += `Pre-venta,${m.preventa.total_executions},${m.time_savings.preventa.saved_hours},${m.time_savings.preventa.efficiency_percent}%\n`;
+     csv += `Post-venta,${m.postventa.execution_stats.total_executions},${m.time_savings.postventa.saved_hours},${m.time_savings.postventa.efficiency_percent}%\n`;
+     csv += `Mensaje Inicial,${m.mensajeInicial.total_executions},${m.time_savings.mensajeInicial.saved_hours},${m.time_savings.mensajeInicial.efficiency_percent}%\n`;
+     csv += '\nProducto,Cantidad,Valor Unitario,Revenue Total\n';
+     m.products.products.forEach(p => {
+       csv += `${p.product_type},${p.count},${p.unit_value_usd},${p.total_revenue_usd}\n`;
+     });
+
+     const blob = new Blob([csv], { type: 'text/csv' });
+     const url = window.URL.createObjectURL(blob);
+     const a = document.createElement('a');
+     a.href = url;
+     a.download = 'meli_analytics_complete.csv';
+     a.click();
+   }
+
+   // Cargar al inicio
+   loadData();
+ </script>
+</body>
+</html>
