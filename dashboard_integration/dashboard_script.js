@@ -3,6 +3,7 @@ const DATA = {
     monthly: {
         labels: ["Dic 24", "Ene 25", "Feb 25", "Mar 25", "Abr 25", "May 25", "Jun 25", "Jul 25"],
         conversations: [0, 0, 0, 0, 0, 0, 772, 6490],
+        conversationsWithCart: [0, 0, 0, 0, 0, 0, 250, 2100], // Conversaciones con "Se envió carrito" = "si"
         orders: [3, 51, 260, 394, 203, 380, 821, 1565],
         revenue: [97986, 2277191, 17645758, 28806039, 14851302, 32591205, 74218305, 149461558],
         // Ventas reales vs proyección orgánica (sin agente)
@@ -98,7 +99,23 @@ function createTimelineChart() {
                     borderWidth: 2,
                     borderRadius: 8,
                     yAxisID: 'y',
-                    order: 3
+                    order: 4
+                },
+                {
+                    type: 'line',
+                    label: 'Carritos Enviados',
+                    data: DATA.monthly.conversationsWithCart,
+                    borderColor: '#f59e0b',
+                    backgroundColor: 'rgba(245, 158, 11, 0.15)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#f59e0b',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    yAxisID: 'y',
+                    order: 2
                 },
                 {
                     type: 'line',
@@ -113,7 +130,7 @@ function createTimelineChart() {
                     pointBackgroundColor: '#8b5cf6',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
-                    yAxisID: 'y',
+                    yAxisID: 'y2',
                     order: 1
                 },
                 {
@@ -180,15 +197,15 @@ function createTimelineChart() {
                     position: 'left',
                     title: {
                         display: true,
-                        text: 'Conversaciones / Ventas',
-                        color: '#8b92b0',
+                        text: 'Conversaciones',
+                        color: '#3b82f6',
                         font: { size: 13, weight: 'bold' }
                     },
                     grid: {
                         color: 'rgba(139, 146, 176, 0.1)'
                     },
                     ticks: {
-                        color: '#8b92b0',
+                        color: '#3b82f6',
                         callback: value => value.toLocaleString('es-AR')
                     }
                 },
@@ -207,6 +224,23 @@ function createTimelineChart() {
                     ticks: {
                         color: '#10b981',
                         callback: value => '$' + value.toFixed(0) + 'M'
+                    }
+                },
+                y2: {
+                    beginAtZero: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Cantidad de Ventas',
+                        color: '#8b5cf6',
+                        font: { size: 13, weight: 'bold' }
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    },
+                    ticks: {
+                        color: '#8b5cf6',
+                        callback: value => value.toLocaleString('es-AR')
                     }
                 },
                 x: {
@@ -632,6 +666,7 @@ function createWeeklyHeatmap(containerId, data, label) {
 // Calcular y actualizar ROI
 function calculateROI() {
     const inversion = 5000000; // $5,000,000 ARS
+    const margenGanancia = 0.25; // 25% de margen de ganancia
 
     // Ingresos reales desde junio (con agente): Jun, Jul
     const ingresosRealesConAgente = 74218305 + 149461558; // = 223,679,863
@@ -639,12 +674,18 @@ function calculateROI() {
     // Ingresos proyectados sin agente (crecimiento orgánico): Jun, Jul
     const ingresosProyectadosSinAgente = 40739506 + 50924383; // = 91,663,889
 
-    // Retorno incremental atribuible al agente
+    // Ingresos incrementales atribuibles al agente
     const ingresosIncrementales = ingresosRealesConAgente - ingresosProyectadosSinAgente;
 
-    const beneficioNeto = ingresosIncrementales - inversion;
-    const roi = (ingresosIncrementales / inversion) * 100;
-    const multiplicador = ingresosIncrementales / inversion;
+    // Ganancia incremental (aplicando margen del 25%)
+    const gananciaIncremental = ingresosIncrementales * margenGanancia;
+
+    // Beneficio neto (después de restar inversión)
+    const beneficioNeto = gananciaIncremental - inversion;
+
+    // ROI = (Beneficio neto / Inversión) × 100
+    const roi = (beneficioNeto / inversion) * 100;
+    const multiplicador = beneficioNeto / inversion;
 
     // Formatear números
     const formatter = new Intl.NumberFormat('es-AR', {
@@ -658,20 +699,48 @@ function calculateROI() {
         maximumFractionDigits: 2
     });
 
+    // Calcular ganancia proyectada (sin agente, con margen del 25%)
+    const gananciaProyectada = ingresosProyectadosSinAgente * margenGanancia;
+
+    // Calcular ganancia real (con agente, con margen del 25%)
+    const gananciaReal = ingresosRealesConAgente * margenGanancia;
+
     // Actualizar elementos
-    document.getElementById('roiIngresosAdicionales').textContent =
-        formatter.format(ingresosIncrementales).replace('ARS', '').trim();
+    const gananciaProyectadaElement = document.getElementById('roiGananciaProyectada');
+    if (gananciaProyectadaElement) {
+        gananciaProyectadaElement.textContent = formatter.format(gananciaProyectada).replace('ARS', '').trim();
+    }
+
+    const gananciaRealElement = document.getElementById('roiGananciaReal');
+    if (gananciaRealElement) {
+        gananciaRealElement.textContent = formatter.format(gananciaReal).replace('ARS', '').trim();
+    }
+
     document.getElementById('roiPercentage').textContent =
         formatterDecimal.format(roi) + '%';
     document.getElementById('roiBeneficioNeto').textContent =
         formatter.format(beneficioNeto).replace('ARS', '').trim();
 
-    document.getElementById('roiIngresosAdicionalesText').textContent =
-        formatter.format(ingresosIncrementales);
-    document.getElementById('roiPercentageText').textContent =
-        formatterDecimal.format(roi) + '%';
-    document.getElementById('roiMultiplier').textContent =
-        formatter.format(multiplicador);
+    // Actualizar elementos de texto si existen
+    const ingresosAdicionalesTextElement = document.getElementById('roiIngresosAdicionalesText');
+    if (ingresosAdicionalesTextElement) {
+        ingresosAdicionalesTextElement.textContent = formatter.format(gananciaIncremental);
+    }
+
+    const beneficioNetoTextElement = document.getElementById('roiBeneficioNetoText');
+    if (beneficioNetoTextElement) {
+        beneficioNetoTextElement.textContent = formatter.format(beneficioNeto);
+    }
+
+    const roiPercentageTextElement = document.getElementById('roiPercentageText');
+    if (roiPercentageTextElement) {
+        roiPercentageTextElement.textContent = formatterDecimal.format(roi) + '%';
+    }
+
+    const roiMultiplierElement = document.getElementById('roiMultiplier');
+    if (roiMultiplierElement) {
+        roiMultiplierElement.textContent = formatter.format(multiplicador);
+    }
 }
 
 // Inicializar dashboard

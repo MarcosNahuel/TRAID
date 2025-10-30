@@ -1,16 +1,22 @@
 {
   "mcpServers": {
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "env": {}
+    },
     "context7": {
-      "transport": "http",
+      "type": "http",
       "url": "https://mcp.context7.com/mcp",
       "headers": {
         "Authorization": "Bearer ctx7sk-e904f296-3cc7-444d-a138-2f554890837c"
       }
-    },
-    "chrome-devtools": {
-      "transport": "stdio",
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
     }
   }
 }

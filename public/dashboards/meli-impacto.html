@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Dashboard MELI Analytics - Impacto del Sistema de IA</title>
+ <style>
+   :root {
+     --bg: #0a0e1a;
+     --bg-card: #141829;
+     --bg-card-hover: #1a1f3a;
+     --text: #e8eaf0;
+     --text-muted: #8b92b0;
+     --border: rgba(139, 146, 176, 0.12);
+     --accent-blue: #3b82f6;
+     --accent-purple: #8b5cf6;
+     --accent-green: #10b981;
+     --accent-yellow: #fbbf24;
+   }
+
+   * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+   }
+
+   body {
+     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+     background: linear-gradient(135deg, #0a0e1a 0%, #141829 100%);
+     color: var(--text);
+     padding: 2rem;
+     min-height: 100vh;
+     line-height: 1.6;
+   }
+
+   .container {
+     max-width: 1600px;
+     margin: 0 auto;
+   }
+
+   header {
+     text-align: center;
+     margin-bottom: 3rem;
+     padding-bottom: 2rem;
+     border-bottom: 2px solid var(--border);
+   }
+
+   h1 {
+     font-size: 2.5rem;
+     font-weight: 700;
+     color: var(--text);
+     margin-bottom: 1rem;
+     background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     background-clip: text;
+   }
+
+   .subtitle {
+     color: var(--text-muted);
+     font-size: 1rem;
+     margin-bottom: 0.5rem;
+   }
+
+   .kpi-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+     gap: 1.5rem;
+     margin-bottom: 3rem;
+   }
+
+   .kpi-card {
+     background: var(--bg-card);
+     border: 1px solid var(--border);
+     border-radius: 12px;
+     padding: 1.5rem;
+     transition: all 0.3s ease;
+   }
+
+   .kpi-card:hover {
+     background: var(--bg-card-hover);
+     transform: translateY(-4px);
+     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+   }
+
+   .kpi-card h3 {
+     font-size: 0.875rem;
+     color: var(--text-muted);
+     margin-bottom: 0.75rem;
+     text-transform: uppercase;
+     letter-spacing: 0.05em;
+     font-weight: 600;
+   }
+
+   .kpi-value {
+     font-size: 2.5rem;
+     font-weight: 700;
+     color: var(--text);
+     margin-bottom: 0.5rem;
+   }
+
+   .kpi-change {
+     font-size: 0.875rem;
+     color: var(--accent-green);
+   }
+
+   .kpi-change.negative {
+     color: #ef4444;
+   }
+
+   .section {
+     background: var(--bg-card);
+     border: 1px solid var(--border);
+     border-radius: 16px;
+     padding: 2rem;
+     margin-bottom: 2rem;
+   }
+
+   .section h2 {
+     font-size: 1.75rem;
+     font-weight: 700;
+     color: var(--text);
+     margin-bottom: 1.5rem;
+     padding-bottom: 1rem;
+     border-bottom: 2px solid var(--border);
+   }
+
+   .chart-container {
+     position: relative;
+     height: 300px;
+     margin-bottom: 20px;
+   }
+
+   table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 1.5rem;
+   }
+
+   th, td {
+     padding: 1rem;
+     text-align: left;
+     border-bottom: 1px solid var(--border);
+   }
+
+   th {
+     background: rgba(139, 92, 246, 0.1);
+     font-weight: 600;
+     color: var(--accent-purple);
+     font-size: 0.875rem;
+     text-transform: uppercase;
+     letter-spacing: 0.05em;
+   }
+
+   td {
+     color: var(--text);
+   }
+
+   tr:hover {
+     background: rgba(139, 146, 176, 0.05);
+   }
+
+   .highlight {
+     background: rgba(245, 158, 11, 0.1);
+     border-left: 3px solid var(--accent-yellow);
+     padding: 1.5rem;
+     border-radius: 8px;
+     margin-top: 1.5rem;
+   }
+
+   .highlight strong {
+     color: var(--accent-yellow);
+   }
+
+   button {
+     background: var(--accent-purple);
+     color: white;
+     border: none;
+     padding: 0.75rem 1.5rem;
+     border-radius: 8px;
+     font-size: 0.875rem;
+     font-weight: 600;
+     cursor: pointer;
+     transition: all 0.2s;
+     margin-top: 1.5rem;
+   }
+
+   button:hover {
+     background: var(--accent-blue);
+     transform: translateY(-2px);
+     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+   }
+
+   .loading {
+     text-align: center;
+     padding: 4rem;
+     color: var(--text);
+     font-size: 1.125rem;
+   }
+
+   .error {
+     background: rgba(239, 68, 68, 0.1);
+     border: 1px solid rgba(239, 68, 68, 0.3);
+     color: #ef4444;
+     padding: 1.5rem;
+     border-radius: 8px;
+     margin: 1.5rem 0;
+   }
+ </style>
+</head>
+<body>
+ <div class="container">
+   <div id="loading" class="loading">
+     Cargando datos...
+   </div>
+
+   <div id="content" style="display: none;">
+     <header>
+       <h1>📊 Dashboard MELI Analytics</h1>
+       <p class="subtitle">Análisis de impacto del sistema de IA en ventas y atención al cliente</p>
+       <p class="subtitle" id="go-live-date"></p>
+     </header>
+
+     <!-- KPIs Principales -->
+     <div class="kpi-grid">
+       <div class="kpi-card">
+         <h3>Ventas Totales (Después)</h3>
+         <div class="kpi-value" id="kpi-sales-after">-</div>
+         <div class="kpi-change" id="kpi-sales-change">-</div>
+       </div>
+
+       <div class="kpi-card">
+         <h3>Respuestas Automatizadas</h3>
+         <div class="kpi-value" id="kpi-responses">-</div>
+         <div class="kpi-change">Después del go-live</div>
+       </div>
+
+       <div class="kpi-card">
+         <h3>Tiempo Promedio de Respuesta</h3>
+         <div class="kpi-value" id="kpi-avg-time">-</div>
+         <div class="kpi-change">Respuesta automática</div>
+       </div>
+
+       <div class="kpi-card">
+         <h3>⏰ Horas Ahorradas</h3>
+         <div class="kpi-value" id="kpi-hours-saved">-</div>
+         <div class="kpi-change" id="kpi-efficiency">-</div>
+       </div>
+     </div>
+
+     <!-- Sección Ventas -->
+     <div class="section">
+       <h2>💰 Análisis de Ventas: Antes vs. Después</h2>
+       <div class="chart-container">
+         <canvas id="salesChart"></canvas>
+       </div>
+
+       <table>
+         <thead>
+           <tr>
+             <th>Período</th>
+             <th>Cantidad de Órdenes</th>
+             <th>Monto Total</th>
+             <th>Ticket Promedio</th>
+           </tr>
+         </thead>
+         <tbody id="sales-table">
+         </tbody>
+       </table>
+     </div>
+
+     <!-- Sección Respuestas -->
+     <div class="section">
+       <h2>⚡ Análisis de Respuestas Automatizadas</h2>
+       <div class="chart-container">
+         <canvas id="responseTimeChart"></canvas>
+       </div>
+
+       <table>
+         <thead>
+           <tr>
+             <th>Métrica</th>
+             <th>Valor</th>
+           </tr>
+         </thead>
+         <tbody id="response-table">
+         </tbody>
+       </table>
+
+       <div class="highlight">
+         <strong>💡 Impacto:</strong> El sistema respondió <span id="total-responses">-</span> preguntas
+         en un tiempo promedio de <span id="avg-response-time">-</span> segundos,
+         ahorrando aproximadamente <strong><span id="hours-saved">-</span> horas</strong> de trabajo manual.
+       </div>
+     </div>
+
+     <!-- Sección Conversaciones -->
+     <div class="section">
+       <h2>💬 Análisis de Conversaciones</h2>
+       <table>
+         <thead>
+           <tr>
+             <th>Métrica</th>
+             <th>Valor</th>
+           </tr>
+         </thead>
+         <tbody id="conversations-table">
+         </tbody>
+       </table>
+     </div>
+
+     <button onclick="downloadCSV()">📥 Descargar Datos en CSV</button>
+   </div>
+ </div>
+
+ <!-- Chart.js embebido -->
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+ <script>
+   // Datos mock embebidos
+   const metricsData = {
+     sales: {
+       before: { count: 850, sum: 45000, avg_ticket: 52.94 },
+       after: { count: 1369, sum: 85000, avg_ticket: 62.09 },
+       growth: { count_pct: 61.06 }
+     },
+     responses: {
+       total_agent_replies: 4250,
+       avg_seconds: 2.3,
+       median_seconds: 1.8,
+       p90_seconds: 4.5
+     },
+     conversations: {
+       total: 3890,
+       total_messages: 15600,
+       avg_messages_per_conversation: 4.01
+     },
+     time_saved: {
+       time_saved_hours: 212.5,
+       efficiency_pct: 87
+     },
+     metadata: {
+       go_live_date: '2024-06-15T00:00:00Z'
+     }
+   };
+
+   // Inicializar dashboard
+   function loadMetrics() {
+     renderDashboard();
+   }
+
+   function renderDashboard() {
+     document.getElementById('loading').style.display = 'none';
+     document.getElementById('content').style.display = 'block';
+
+     const { sales, responses, conversations, time_saved, metadata } = metricsData;
+
+     // Fecha de go-live
+     document.getElementById('go-live-date').textContent =
+       `Fecha de go-live del sistema de IA: ${new Date(metadata.go_live_date).toLocaleString('es-AR')}`;
+
+     // KPIs
+     document.getElementById('kpi-sales-after').textContent = sales.after.count;
+     document.getElementById('kpi-sales-change').textContent =
+       `${sales.growth.count_pct >= 0 ? '+' : ''}${sales.growth.count_pct.toFixed(1)}% vs. período anterior`;
+     document.getElementById('kpi-sales-change').className =
+       sales.growth.count_pct >= 0 ? 'kpi-change' : 'kpi-change negative';
+
+     document.getElementById('kpi-responses').textContent = responses.total_agent_replies;
+
+     document.getElementById('kpi-avg-time').textContent =
+       `${responses.avg_seconds.toFixed(1)}s`;
+
+     document.getElementById('kpi-hours-saved').textContent =
+       `${time_saved.time_saved_hours.toFixed(1)}h`;
+
+     document.getElementById('kpi-efficiency').textContent =
+       `${time_saved.efficiency_pct.toFixed(0)}% más eficiente`;
+
+     // Tabla de ventas
+     const salesTable = document.getElementById('sales-table');
+     salesTable.innerHTML = `
+       <tr>
+         <td><strong>Antes del go-live</strong></td>
+         <td>${sales.before.count}</td>
+         <td>$${sales.before.sum.toFixed(2)}</td>
+         <td>$${sales.before.avg_ticket.toFixed(2)}</td>
+       </tr>
+       <tr>
+         <td><strong>Después del go-live</strong></td>
+         <td>${sales.after.count}</td>
+         <td>$${sales.after.sum.toFixed(2)}</td>
+         <td>$${sales.after.avg_ticket.toFixed(2)}</td>
+       </tr>
+     `;
+
+     // Gráfico de ventas
+     new Chart(document.getElementById('salesChart'), {
+       type: 'bar',
+       data: {
+         labels: ['Antes', 'Después'],
+         datasets: [{
+           label: 'Cantidad de Órdenes',
+           data: [sales.before.count, sales.after.count],
+           backgroundColor: ['#fbbf24', '#667eea']
+         }]
+       },
+       options: {
+         responsive: true,
+         maintainAspectRatio: false,
+         plugins: {
+           legend: { display: true }
+         }
+       }
+     });
+
+     // Tabla de respuestas
+     const responseTable = document.getElementById('response-table');
+     responseTable.innerHTML = `
+       <tr>
+         <td>Total de respuestas automatizadas</td>
+         <td><strong>${responses.total_agent_replies}</strong></td>
+       </tr>
+       <tr>
+         <td>Tiempo promedio de respuesta</td>
+         <td>${responses.avg_seconds.toFixed(2)} segundos</td>
+       </tr>
+       <tr>
+         <td>Tiempo mediano de respuesta</td>
+         <td>${responses.median_seconds.toFixed(2)} segundos</td>
+       </tr>
+       <tr>
+         <td>Percentil 90 (P90)</td>
+         <td>${responses.p90_seconds.toFixed(2)} segundos</td>
+       </tr>
+     `;
+
+     // Gráfico de tiempos de respuesta
+     new Chart(document.getElementById('responseTimeChart'), {
+       type: 'bar',
+       data: {
+         labels: ['Promedio', 'Mediana', 'P90'],
+         datasets: [{
+           label: 'Tiempo de Respuesta (segundos)',
+           data: [
+             responses.avg_seconds,
+             responses.median_seconds,
+             responses.p90_seconds
+           ],
+           backgroundColor: ['#667eea', '#764ba2', '#22c55e']
+         }]
+       },
+       options: {
+         responsive: true,
+         maintainAspectRatio: false,
+         plugins: {
+           legend: { display: false }
+         }
+       }
+     });
+
+     // Highlight
+     document.getElementById('total-responses').textContent = responses.total_agent_replies;
+     document.getElementById('avg-response-time').textContent = responses.avg_seconds.toFixed(1);
+     document.getElementById('hours-saved').textContent = time_saved.time_saved_hours.toFixed(1);
+
+     // Tabla de conversaciones
+     const conversationsTable = document.getElementById('conversations-table');
+     conversationsTable.innerHTML = `
+       <tr>
+         <td>Total de conversaciones</td>
+         <td><strong>${conversations.total}</strong></td>
+       </tr>
+       <tr>
+         <td>Total de mensajes</td>
+         <td>${conversations.total_messages}</td>
+       </tr>
+       <tr>
+         <td>Promedio de mensajes por conversación</td>
+         <td>${conversations.avg_messages_per_conversation.toFixed(1)}</td>
+       </tr>
+     `;
+   }
+
+   function downloadCSV() {
+     if (!metricsData) return;
+
+     const { sales, responses, time_saved } = metricsData;
+
+     let csv = 'Métrica,Valor\n';
+     csv += `Ventas Antes,${sales.before.count}\n`;
+     csv += `Ventas Después,${sales.after.count}\n`;
+     csv += `Crecimiento en Ventas (%),${sales.growth.count_pct.toFixed(2)}\n`;
+     csv += `Respuestas Automatizadas,${responses.total_agent_replies}\n`;
+     csv += `Tiempo Promedio Respuesta (seg),${responses.avg_seconds.toFixed(2)}\n`;
+     csv += `Horas Ahorradas,${time_saved.time_saved_hours.toFixed(2)}\n`;
+
+     const blob = new Blob([csv], { type: 'text/csv' });
+     const url = URL.createObjectURL(blob);
+     const a = document.createElement('a');
+     a.href = url;
+     a.download = 'meli_analytics.csv';
+     a.click();
+   }
+
+   // Inicializar
+   loadMetrics();
+ </script>
+</body>
+</html>
