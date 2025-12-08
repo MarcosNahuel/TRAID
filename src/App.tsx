@@ -29,7 +29,6 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import VideoCalendlyEmbed from "./components/VideoCalendlyEmbed";
 import {
   ROHANADashboard,
-  CaseGambimedicDashboard,
   CaseGambimedicV2Dashboard,
   CaseMeliAnalyticsDashboard,
   CaseMundialShopDashboard,
@@ -54,24 +53,6 @@ type CaseStudy = {
 function App() {
   const [activeCase, setActiveCase] = useState<CaseStudy | null>(null);
   const caseStudies: CaseStudy[] = [
-    {
-      id: "gambimedic-ia",
-      title: "Gambimedic — Bot IA omnicanal",
-      summary:
-        "Implementación end-to-end para clínica médica que combina atención automática, entrega de estudios y seguimiento post consulta.",
-      icon: <Shield className="h-10 w-10 sm:h-12 sm:w-12 text-purple-300" />,
-      cardBackground:
-        "bg-gradient-to-br from-purple-950/40 to-indigo-900/20 hover:from-purple-900/50 hover:to-indigo-900/30 border border-purple-500/20",
-      highlight: {
-        value: "56.5%",
-        label: "Respuestas gestionadas por IA",
-        colorClass: "text-purple-300",
-      },
-      tags: ["Salud", "Atención al paciente", "Omnicanalidad"],
-      component: CaseGambimedicDashboard,
-      modalDescription:
-        "Dashboard que resume interacciones, performance del bot IA y workloads críticos (turnos, postventa, soporte técnico).",
-    },
     {
       id: "rohana-recupero",
       title: "Rohana — Ventas & Conversaciones con IA",

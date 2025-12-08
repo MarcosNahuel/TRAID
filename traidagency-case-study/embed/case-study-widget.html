@@ -1,0 +1,1089 @@
+<!--
+    TRAID Agency - Case Study Widget
+    Version: 1.0.0
+
+    USO: Copia este archivo completo e insertalo en tu pagina web
+    O usa un iframe: <iframe src="case-study-widget.html" width="100%" height="800"></iframe>
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso de Exito | TRAID Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* ==========================================
+           TRAID Agency - Case Study Dashboard
+           Embedded Version - All-in-One
+           ========================================== */
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --accent: #10b981;
+            --accent-light: #34d399;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-elevated: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+        }
+
+        .traid-widget * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .traid-widget {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1f35 100%);
+            color: var(--text-primary);
+            padding: 20px;
+        }
+
+        .traid-widget .dashboard {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .traid-widget .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background: linear-gradient(90deg, var(--bg-elevated), var(--bg-card));
+            border-bottom: 1px solid var(--border);
+        }
+
+        .traid-widget .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .traid-widget .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+
+        .traid-widget .logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .traid-widget .logo-text .agency {
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        .traid-widget .header-title h1 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .traid-widget .header-title .client {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .traid-widget .badge {
+            background: linear-gradient(135deg, var(--accent), #059669);
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .traid-widget .badge-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .traid-widget .badge-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .traid-widget .main-content {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 20px;
+            padding: 20px 30px;
+        }
+
+        .traid-widget .chart-section {
+            background: var(--bg-elevated);
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .traid-widget .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .traid-widget .chart-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .traid-widget .chart-container {
+            position: relative;
+            height: 260px;
+        }
+
+        .traid-widget .metrics-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .traid-widget .kpi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .traid-widget .kpi-card {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .traid-widget .kpi-card.highlight {
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+            border-color: rgba(16,185,129,0.3);
+        }
+
+        .traid-widget .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .traid-widget .kpi-card:not(.highlight) .kpi-value {
+            color: var(--primary-light);
+        }
+
+        .traid-widget .kpi-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .traid-widget .kpi-period {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .traid-widget .comparison-card {
+            background: var(--bg-elevated);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid var(--border);
+        }
+
+        .traid-widget .comparison-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .traid-widget .slope-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .traid-widget .slope-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .traid-widget .slope-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .traid-widget .slope-value {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .traid-widget .slope-item.pre .slope-value {
+            color: #f59e0b;
+        }
+
+        .traid-widget .slope-item.post .slope-value {
+            color: #10b981;
+        }
+
+        .traid-widget .slope-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .traid-widget .slope-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .traid-widget .pre-fill {
+            width: 15%;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+
+        .traid-widget .post-fill {
+            width: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+
+        .traid-widget .slope-increase {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .traid-widget .slope-increase span {
+            color: var(--text-secondary);
+        }
+
+        .traid-widget .slope-increase strong {
+            color: #10b981;
+            font-size: 1.1rem;
+        }
+
+        .traid-widget .revenue-card {
+            background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(99,102,241,0.05));
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(99,102,241,0.2);
+        }
+
+        .traid-widget .revenue-card h3 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .traid-widget .revenue-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .traid-widget .revenue-row:first-of-type {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .traid-widget .amount {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .traid-widget .amount.accent {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .traid-widget .heatmap-section {
+            padding: 15px 30px;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+        }
+
+        .traid-widget .heatmap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .traid-widget .heatmap-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .traid-widget .heatmap-legend {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .traid-widget .legend-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .traid-widget .gradient-bar {
+            width: 100px;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #3b82f6, #22d3ee, #a3e635, #facc15, #f97316, #ef4444);
+        }
+
+        .traid-widget .heatmap-container {
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .traid-widget .heatmap-grid {
+            display: grid;
+            grid-template-columns: 45px repeat(24, 1fr);
+            gap: 2px;
+            min-width: 600px;
+        }
+
+        .traid-widget .heatmap-cell {
+            aspect-ratio: 1;
+            min-width: 18px;
+            min-height: 18px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.55rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            transition: transform 0.15s;
+            cursor: default;
+        }
+
+        .traid-widget .heatmap-cell:hover {
+            transform: scale(1.2);
+            z-index: 10;
+        }
+
+        .traid-widget .heatmap-cell.header {
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.6rem;
+        }
+
+        .traid-widget .heatmap-cell.day-label {
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            justify-content: flex-end;
+            padding-right: 8px;
+        }
+
+        .traid-widget .heatmap-cell.outside-hours {
+            border: 1px solid rgba(139, 92, 246, 0.4);
+        }
+
+        .traid-widget .heatmap-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .traid-widget .heatmap-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .traid-widget .heatmap-stat .stat-icon {
+            font-size: 1.2rem;
+        }
+
+        .traid-widget .heatmap-stat .stat-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .traid-widget .heatmap-stat .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .traid-widget .heatmap-stat.highlight-stat .stat-value {
+            color: var(--accent);
+        }
+
+        .traid-widget .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 30px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+        }
+
+        .traid-widget .footer-stats {
+            display: flex;
+            gap: 30px;
+        }
+
+        .traid-widget .stat {
+            text-align: center;
+        }
+
+        .traid-widget .stat-value {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .traid-widget .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .traid-widget .footer-cta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .traid-widget .footer-cta span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .traid-widget .cta-button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .traid-widget .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99,102,241,0.3);
+        }
+
+        @media (max-width: 900px) {
+            .traid-widget .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .traid-widget .header {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .traid-widget .footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .traid-widget .footer-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="traid-widget">
+        <div class="dashboard">
+            <!-- Header -->
+            <header class="header">
+                <div class="logo">
+                    <span class="logo-icon">T</span>
+                    <span class="logo-text">TRAID<span class="agency">agency</span></span>
+                </div>
+                <div class="header-title">
+                    <h1>Caso de Exito: Automatizacion WhatsApp</h1>
+                    <p class="client">Mundial Shop Colombia | E-commerce Mayorista</p>
+                </div>
+                <div class="badge">
+                    <span class="badge-value" id="badgeGrowth">+0%</span>
+                    <span class="badge-label">vs Tendencia</span>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <section class="chart-section">
+                    <div class="chart-header">
+                        <h2>Impacto en Ordenes Semanales (2025)</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="metrics-section">
+                    <div class="kpi-grid">
+                        <div class="kpi-card highlight">
+                            <div class="kpi-value" id="extraOrders">+0</div>
+                            <div class="kpi-label">Ordenes Extra</div>
+                            <div class="kpi-period">Post-implementacion</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value" id="growthRate">+0%</div>
+                            <div class="kpi-label">Sobre Tendencia</div>
+                            <div class="kpi-period">vs proyeccion</div>
+                        </div>
+                    </div>
+
+                    <div class="comparison-card slopes-card">
+                        <h3>Comparativa de Pendientes</h3>
+                        <div class="slope-comparison">
+                            <div class="slope-item pre">
+                                <div class="slope-label">Antes del Agente</div>
+                                <div class="slope-value" id="preSlope">+0.35 ord/sem</div>
+                                <div class="slope-bar">
+                                    <div class="slope-fill pre-fill"></div>
+                                </div>
+                            </div>
+                            <div class="slope-item post">
+                                <div class="slope-label">Despues del Agente</div>
+                                <div class="slope-value" id="postSlope">+2.46 ord/sem</div>
+                                <div class="slope-bar">
+                                    <div class="slope-fill post-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slope-increase">
+                            <span>Aceleracion del crecimiento:</span>
+                            <strong id="slopeIncrease">+600%</strong>
+                        </div>
+                    </div>
+
+                    <div class="revenue-card">
+                        <h3>Impacto en Ingresos</h3>
+                        <div class="revenue-row">
+                            <span>Ventas Incrementales</span>
+                            <span class="amount" id="extraRevenue">$0 COP</span>
+                        </div>
+                        <div class="revenue-row">
+                            <span>Utilidad (25% margen)</span>
+                            <span class="amount accent" id="profit">$0 COP</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Heatmap Section -->
+            <section class="heatmap-section">
+                <div class="heatmap-header">
+                    <h2>Actividad del Agente por Horario</h2>
+                    <div class="heatmap-legend">
+                        <span class="legend-label">Baja</span>
+                        <div class="gradient-bar"></div>
+                        <span class="legend-label">Alta</span>
+                    </div>
+                </div>
+                <div class="heatmap-container">
+                    <div class="heatmap-grid" id="heatmapGrid"></div>
+                </div>
+                <div class="heatmap-stats">
+                    <div class="heatmap-stat">
+                        <span class="stat-icon">&#127769;</span>
+                        <span class="stat-value" id="outsideHoursPercent">38%</span>
+                        <span class="stat-label">Atencion fuera horario</span>
+                    </div>
+                    <div class="heatmap-stat">
+                        <span class="stat-icon">&#128200;</span>
+                        <span class="stat-value" id="peakDay">Viernes 12h</span>
+                        <span class="stat-label">Hora pico</span>
+                    </div>
+                    <div class="heatmap-stat highlight-stat">
+                        <span class="stat-icon">&#129302;</span>
+                        <span class="stat-value">24/7</span>
+                        <span class="stat-label">Sin interrupciones</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-stats">
+                    <div class="stat">
+                        <span class="stat-value">24/7</span>
+                        <span class="stat-label">Disponibilidad</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">30s</span>
+                        <span class="stat-label">Tiempo Respuesta</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">79%</span>
+                        <span class="stat-label">Resolucion IA</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">38%</span>
+                        <span class="stat-label">Atencion Nocturna</span>
+                    </div>
+                </div>
+                <div class="footer-cta">
+                    <span>Listo para automatizar tu negocio?</span>
+                    <a href="https://traidagency.com" class="cta-button">Contactanos</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+    // ==========================================
+    //   TRAID Agency - Case Study Data & Charts
+    //   All-in-One Embedded Version
+    // ==========================================
+
+    const caseStudyData = {
+        client: {
+            name: "Mundial Shop Colombia",
+            industry: "E-commerce Mayorista",
+            implementation: "Semana 40 (Octubre 2025)"
+        },
+        monthlyReference: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            realOrders: [40, 42, 44, 46, 48, 50, 53, 55, 58, 72, 83, 96],
+            projectedOrders: [40, 42, 44, 46, 48, 50, 53, 55, 58, 60, 62, 64]
+        },
+        weekly: {
+            labels: (function() {
+                const labels = [];
+                for (let i = 1; i <= 52; i++) labels.push('S' + i);
+                return labels;
+            })(),
+            realOrders: [
+                9, 11, 10, 10, 10, 11, 11, 10, 8, 9, 9, 9, 9,
+                11, 12, 11, 12, 9, 10, 10, 9, 10, 12, 13, 12, 13,
+                13, 13, 14, 13, 10, 11, 12, 11, 11, 14, 15, 14, 15,
+                16, 18, 19, 19, 15, 17, 17, 17, 17, 22, 24, 25, 25
+            ],
+            implementationWeek: 39,
+            avgTicketCOP: 154000
+        },
+        heatmapData: {
+            days: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+            hours: ['0h','1h','2h','3h','4h','5h','6h','7h','8h','9h','10h','11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h','23h'],
+            conversations: [
+                [22, 15, 5, 3, 2, 2, 7, 20, 60, 80, 98, 105, 95, 85, 70, 75, 65, 72, 70, 80, 65, 55, 37, 25],
+                [25, 18, 6, 4, 2, 3, 8, 23, 72, 93, 114, 122, 110, 98, 81, 87, 75, 83, 81, 93, 72, 65, 43, 28],
+                [28, 20, 7, 4, 3, 3, 9, 26, 65, 80, 104, 128, 137, 124, 110, 91, 98, 85, 94, 91, 104, 81, 68, 34],
+                [30, 22, 7, 4, 3, 3, 10, 28, 70, 86, 112, 138, 148, 134, 119, 98, 106, 92, 102, 98, 112, 87, 73, 38],
+                [33, 24, 8, 5, 4, 4, 11, 31, 77, 95, 123, 152, 163, 147, 131, 108, 117, 101, 112, 103, 123, 96, 80, 42],
+                [20, 14, 5, 3, 2, 2, 6, 18, 45, 72, 89, 95, 86, 76, 63, 68, 65, 61, 65, 72, 47, 42, 33, 22],
+                [10, 7, 2, 1, 1, 1, 3, 9, 22, 27, 36, 44, 47, 43, 38, 31, 34, 29, 32, 31, 36, 28, 23, 17]
+            ],
+            workingHours: { start: 8, end: 18 }
+        }
+    };
+
+    function linearRegression(data, startIdx, endIdx) {
+        const n = endIdx - startIdx + 1;
+        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+        for (let i = startIdx; i <= endIdx; i++) {
+            const x = i - startIdx;
+            const y = data[i];
+            sumX += x; sumY += y; sumXY += x * y; sumX2 += x * x;
+        }
+        const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+        const intercept = (sumY - slope * sumX) / n;
+        return { slope, intercept, n };
+    }
+
+    function calculateImpactMetrics() {
+        const data = caseStudyData.weekly;
+        const monthly = caseStudyData.monthlyReference;
+        const implWeek = data.implementationWeek;
+        const orders = data.realOrders;
+
+        const preTrend = linearRegression(orders, 0, implWeek - 1);
+        const postTrend = linearRegression(orders, implWeek, orders.length - 1);
+
+        const projectedTrend = [];
+        for (let i = 0; i < orders.length; i++) {
+            projectedTrend.push(preTrend.intercept + preTrend.slope * i);
+        }
+
+        const postRealMonthly = monthly.realOrders.slice(9).reduce((a, b) => a + b, 0);
+        const postProjectedMonthly = monthly.projectedOrders.slice(9).reduce((a, b) => a + b, 0);
+        const extraOrders = postRealMonthly - postProjectedMonthly;
+        const growthPercent = Math.round((postRealMonthly / postProjectedMonthly - 1) * 100);
+
+        const extraRevenue = extraOrders * data.avgTicketCOP;
+        const profit = extraRevenue * 0.25;
+
+        return {
+            preTrend: { slope: preTrend.slope, description: '+' + preTrend.slope.toFixed(2) + ' ord/sem' },
+            postTrend: { slope: postTrend.slope, description: '+' + postTrend.slope.toFixed(2) + ' ord/sem' },
+            projectedTrend: projectedTrend,
+            totals: { postReal: postRealMonthly, postProjected: postProjectedMonthly, extraOrders: extraOrders, growthPercent: growthPercent },
+            revenue: {
+                extraRevenue: extraRevenue,
+                extraRevenueFormatted: '$' + (extraRevenue / 1000000).toFixed(1) + 'M COP',
+                profit: profit,
+                profitFormatted: '$' + (profit / 1000000).toFixed(1) + 'M COP'
+            },
+            slopeIncrease: Math.round((postTrend.slope / preTrend.slope - 1) * 100) + '%'
+        };
+    }
+
+    function calculateHeatmapMetrics() {
+        const data = caseStudyData.heatmapData;
+        let totalConversations = 0, outsideHoursConversations = 0;
+        let peakHour = { day: 0, hour: 0, value: 0 };
+
+        for (let d = 0; d < data.conversations.length; d++) {
+            for (let h = 0; h < data.conversations[d].length; h++) {
+                const val = data.conversations[d][h];
+                totalConversations += val;
+                if (h < data.workingHours.start || h >= data.workingHours.end) {
+                    outsideHoursConversations += val;
+                }
+                if (val > peakHour.value) {
+                    peakHour = { day: d, hour: h, value: val };
+                }
+            }
+        }
+
+        return {
+            total: totalConversations,
+            outsideHours: outsideHoursConversations,
+            outsideHoursPercent: Math.round((outsideHoursConversations / totalConversations) * 100),
+            peakDay: data.days[peakHour.day],
+            peakTime: data.hours[peakHour.hour]
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initOrdersChart();
+        initHeatmap();
+        updateKPIs();
+    });
+
+    function initOrdersChart() {
+        const ctx = document.getElementById('ordersChart').getContext('2d');
+        const data = caseStudyData.weekly;
+        const implWeek = data.implementationWeek;
+        const metrics = calculateImpactMetrics();
+
+        const implementationLinePlugin = {
+            id: 'implementationLine',
+            afterDraw: (chart) => {
+                const ctx = chart.ctx;
+                const xScale = chart.scales.x;
+                const yScale = chart.scales.y;
+                const x = xScale.getPixelForValue(implWeek - 0.5);
+
+                ctx.save();
+                ctx.strokeStyle = '#10b981';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([6, 4]);
+                ctx.beginPath();
+                ctx.moveTo(x, yScale.top);
+                ctx.lineTo(x, yScale.bottom);
+                ctx.stroke();
+
+                ctx.setLineDash([]);
+                ctx.fillStyle = '#10b981';
+                ctx.font = 'bold 10px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('IMPLEMENTACION', x, yScale.top + 12);
+                ctx.fillText('AGENTE IA', x, yScale.top + 24);
+                ctx.restore();
+            }
+        };
+
+        const improvementAreaPlugin = {
+            id: 'improvementArea',
+            beforeDatasetsDraw: (chart) => {
+                const ctx = chart.ctx;
+                const realMeta = chart.getDatasetMeta(0);
+                const trendMeta = chart.getDatasetMeta(1);
+                if (!realMeta.data.length || !trendMeta.data.length) return;
+
+                ctx.save();
+                ctx.globalAlpha = 0.25;
+                ctx.fillStyle = '#10b981';
+                ctx.beginPath();
+
+                for (let i = implWeek; i < realMeta.data.length; i++) {
+                    const point = realMeta.data[i];
+                    if (i === implWeek) ctx.moveTo(point.x, point.y);
+                    else ctx.lineTo(point.x, point.y);
+                }
+
+                for (let i = trendMeta.data.length - 1; i >= implWeek; i--) {
+                    ctx.lineTo(trendMeta.data[i].x, trendMeta.data[i].y);
+                }
+
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+        };
+
+        const slopeLinesPlugin = {
+            id: 'slopeLines',
+            afterDatasetsDraw: (chart) => {
+                const ctx = chart.ctx;
+                const yScale = chart.scales.y;
+                const realMeta = chart.getDatasetMeta(0);
+                const postStart = realMeta.data[implWeek];
+                const postEnd = realMeta.data[realMeta.data.length - 1];
+
+                ctx.save();
+                ctx.lineWidth = 3;
+                ctx.setLineDash([]);
+
+                ctx.strokeStyle = '#f59e0b';
+                ctx.beginPath();
+                const preY1 = yScale.getPixelForValue(metrics.projectedTrend[0]);
+                const preY2 = yScale.getPixelForValue(metrics.projectedTrend[implWeek - 1]);
+                ctx.moveTo(realMeta.data[0].x, preY1);
+                ctx.lineTo(realMeta.data[implWeek - 1].x, preY2);
+                ctx.stroke();
+
+                ctx.fillStyle = '#f59e0b';
+                ctx.font = 'bold 11px Inter, sans-serif';
+                const preMidX = (realMeta.data[0].x + realMeta.data[implWeek - 1].x) / 2;
+                ctx.fillText(metrics.preTrend.description, preMidX, (preY1 + preY2) / 2 - 15);
+
+                ctx.strokeStyle = '#10b981';
+                ctx.beginPath();
+                const postRegression = linearRegression(data.realOrders, implWeek, data.realOrders.length - 1);
+                const postY1 = yScale.getPixelForValue(postRegression.intercept);
+                const postY2 = yScale.getPixelForValue(postRegression.intercept + postRegression.slope * (data.realOrders.length - 1 - implWeek));
+                ctx.moveTo(postStart.x, postY1);
+                ctx.lineTo(postEnd.x, postY2);
+                ctx.stroke();
+
+                ctx.fillStyle = '#10b981';
+                ctx.fillText(metrics.postTrend.description, (postStart.x + postEnd.x) / 2, (postY1 + postY2) / 2 - 15);
+
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.9)';
+                const badgeX = postEnd.x - 60;
+                const badgeY = postEnd.y - 40;
+                ctx.beginPath();
+                ctx.roundRect(badgeX - 35, badgeY - 12, 70, 24, 6);
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 11px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('+' + metrics.slopeIncrease + ' veloc.', badgeX, badgeY + 4);
+
+                ctx.restore();
+            }
+        };
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.labels,
+                datasets: [
+                    {
+                        label: 'Ordenes Reales',
+                        data: data.realOrders,
+                        borderColor: '#6366f1',
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        pointBackgroundColor: '#6366f1',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 1,
+                        tension: 0.2,
+                        fill: false
+                    },
+                    {
+                        label: 'Tendencia Pre-Agente',
+                        data: metrics.projectedTrend,
+                        borderColor: 'rgba(239, 68, 68, 0.6)',
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        pointRadius: 0,
+                        tension: 0,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'end',
+                        labels: { boxWidth: 12, padding: 15, color: '#94a3b8', font: { size: 10 } }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.95)',
+                        titleColor: '#f8fafc',
+                        bodyColor: '#94a3b8',
+                        borderColor: '#334155',
+                        borderWidth: 1,
+                        padding: 12
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                        ticks: {
+                            color: '#64748b',
+                            font: { size: 9 },
+                            maxRotation: 0,
+                            callback: function(val, index) {
+                                if (index === 0) return 'Ene';
+                                if (index === 8) return 'Mar';
+                                if (index === 17) return 'May';
+                                if (index === 26) return 'Jul';
+                                if (index === 35) return 'Sep';
+                                if (index === 39) return 'Oct';
+                                if (index === 43) return 'Nov';
+                                if (index === 48) return 'Dic';
+                                return '';
+                            }
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 65,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                        ticks: { color: '#64748b', font: { size: 10 }, stepSize: 10 }
+                    }
+                }
+            },
+            plugins: [implementationLinePlugin, improvementAreaPlugin, slopeLinesPlugin]
+        });
+    }
+
+    function updateKPIs() {
+        const metrics = calculateImpactMetrics();
+        document.getElementById('badgeGrowth').textContent = '+' + metrics.totals.growthPercent + '%';
+        document.getElementById('extraOrders').textContent = '+' + metrics.totals.extraOrders;
+        document.getElementById('growthRate').textContent = '+' + metrics.totals.growthPercent + '%';
+        document.getElementById('extraRevenue').textContent = metrics.revenue.extraRevenueFormatted;
+        document.getElementById('profit').textContent = metrics.revenue.profitFormatted;
+        document.getElementById('preSlope').textContent = metrics.preTrend.description;
+        document.getElementById('postSlope').textContent = metrics.postTrend.description;
+        document.getElementById('slopeIncrease').textContent = '+' + metrics.slopeIncrease;
+    }
+
+    function initHeatmap() {
+        const heatmap = caseStudyData.heatmapData;
+        const grid = document.getElementById('heatmapGrid');
+        if (!grid) return;
+
+        let maxVal = 0;
+        heatmap.conversations.forEach(day => day.forEach(val => { if (val > maxVal) maxVal = val; }));
+
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'heatmap-cell header';
+        grid.appendChild(emptyCell);
+
+        heatmap.hours.forEach((hour, idx) => {
+            const cell = document.createElement('div');
+            cell.className = 'heatmap-cell header';
+            cell.textContent = idx % 2 === 0 ? hour : '';
+            grid.appendChild(cell);
+        });
+
+        heatmap.days.forEach((day, dayIdx) => {
+            const dayCell = document.createElement('div');
+            dayCell.className = 'heatmap-cell day-label';
+            dayCell.textContent = day;
+            grid.appendChild(dayCell);
+
+            heatmap.conversations[dayIdx].forEach((val, hourIdx) => {
+                const cell = document.createElement('div');
+                cell.className = 'heatmap-cell';
+                if (hourIdx < heatmap.workingHours.start || hourIdx >= heatmap.workingHours.end) {
+                    cell.classList.add('outside-hours');
+                }
+                cell.style.backgroundColor = getHeatColor(val / maxVal);
+                if (val >= 30) cell.textContent = val;
+                cell.title = `${day} ${heatmap.hours[hourIdx]}: ${val} conversaciones`;
+                grid.appendChild(cell);
+            });
+        });
+
+        const metrics = calculateHeatmapMetrics();
+        document.getElementById('outsideHoursPercent').textContent = metrics.outsideHoursPercent + '%';
+        document.getElementById('peakDay').textContent = metrics.peakDay + ' ' + metrics.peakTime;
+    }
+
+    function getHeatColor(intensity) {
+        const colors = [
+            { pos: 0.0, r: 59, g: 130, b: 246 },
+            { pos: 0.2, r: 34, g: 211, b: 238 },
+            { pos: 0.4, r: 163, g: 230, b: 53 },
+            { pos: 0.6, r: 250, g: 204, b: 21 },
+            { pos: 0.8, r: 249, g: 115, b: 22 },
+            { pos: 1.0, r: 239, g: 68, b: 68 }
+        ];
+
+        let lower = colors[0], upper = colors[colors.length - 1];
+        for (let i = 0; i < colors.length - 1; i++) {
+            if (intensity >= colors[i].pos && intensity <= colors[i + 1].pos) {
+                lower = colors[i];
+                upper = colors[i + 1];
+                break;
+            }
+        }
+
+        const range = upper.pos - lower.pos;
+        const t = range === 0 ? 0 : (intensity - lower.pos) / range;
+
+        return `rgb(${Math.round(lower.r + (upper.r - lower.r) * t)}, ${Math.round(lower.g + (upper.g - lower.g) * t)}, ${Math.round(lower.b + (upper.b - lower.b) * t)})`;
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso de Exito: Agente WhatsApp IA | TRAID Agency</title>
+    <meta name="description" content="Caso de estudio: Como un agente de WhatsApp IA incremento las ventas de Mundial Shop Colombia en un 35%">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">T</span>
+                <span class="logo-text">TRAID<span class="agency">agency</span></span>
+            </div>
+            <div class="header-title">
+                <h1>Caso de Exito: Automatizacion WhatsApp</h1>
+                <p class="client">Mundial Shop Colombia | E-commerce Mayorista</p>
+            </div>
+            <div class="badge">
+                <span class="badge-value" id="badgeGrowth">+0%</span>
+                <span class="badge-label">vs Tendencia</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left: Chart -->
+            <section class="chart-section">
+                <div class="chart-header">
+                    <h2>Impacto en Ordenes Semanales (2025)</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ordersChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Right: Metrics -->
+            <section class="metrics-section">
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card highlight">
+                        <div class="kpi-value" id="extraOrders">+0</div>
+                        <div class="kpi-label">Ordenes Extra</div>
+                        <div class="kpi-period">Post-implementacion</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value" id="growthRate">+0%</div>
+                        <div class="kpi-label">Sobre Tendencia</div>
+                        <div class="kpi-period">vs proyeccion</div>
+                    </div>
+                </div>
+
+                <!-- Slope Comparison -->
+                <div class="comparison-card slopes-card">
+                    <h3>Comparativa de Pendientes</h3>
+                    <div class="slope-comparison">
+                        <div class="slope-item pre">
+                            <div class="slope-label">Antes del Agente</div>
+                            <div class="slope-value" id="preSlope">+0.35 ord/sem</div>
+                            <div class="slope-bar">
+                                <div class="slope-fill pre-fill"></div>
+                            </div>
+                        </div>
+                        <div class="slope-item post">
+                            <div class="slope-label">Despues del Agente</div>
+                            <div class="slope-value" id="postSlope">+2.46 ord/sem</div>
+                            <div class="slope-bar">
+                                <div class="slope-fill post-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slope-increase">
+                        <span>Aceleracion del crecimiento:</span>
+                        <strong id="slopeIncrease">+600%</strong>
+                    </div>
+                </div>
+
+                <!-- Revenue Impact -->
+                <div class="revenue-card">
+                    <h3>Impacto en Ingresos</h3>
+                    <div class="revenue-row">
+                        <span>Ventas Incrementales</span>
+                        <span class="amount" id="extraRevenue">$0 COP</span>
+                    </div>
+                    <div class="revenue-row">
+                        <span>Utilidad (25% margen)</span>
+                        <span class="amount accent" id="profit">$0 COP</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Heatmap Section -->
+        <section class="heatmap-section">
+            <div class="heatmap-header">
+                <h2>Actividad del Agente por Horario</h2>
+                <div class="heatmap-legend">
+                    <span class="legend-label">Baja</span>
+                    <div class="gradient-bar"></div>
+                    <span class="legend-label">Alta</span>
+                </div>
+            </div>
+            <div class="heatmap-container">
+                <div class="heatmap-grid" id="heatmapGrid"></div>
+            </div>
+            <div class="heatmap-stats">
+                <div class="heatmap-stat">
+                    <span class="stat-icon">&#127769;</span>
+                    <span class="stat-value" id="outsideHoursPercent">38%</span>
+                    <span class="stat-label">Atencion fuera horario</span>
+                </div>
+                <div class="heatmap-stat">
+                    <span class="stat-icon">&#128200;</span>
+                    <span class="stat-value" id="peakDay">Viernes 12h</span>
+                    <span class="stat-label">Hora pico</span>
+                </div>
+                <div class="heatmap-stat highlight-stat">
+                    <span class="stat-icon">&#129302;</span>
+                    <span class="stat-value">24/7</span>
+                    <span class="stat-label">Sin interrupciones</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-stats">
+                <div class="stat">
+                    <span class="stat-value">24/7</span>
+                    <span class="stat-label">Disponibilidad</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">30s</span>
+                    <span class="stat-label">Tiempo Respuesta</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">79%</span>
+                    <span class="stat-label">Resolucion IA</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">38%</span>
+                    <span class="stat-label">Atencion Nocturna</span>
+                </div>
+            </div>
+            <div class="footer-cta">
+                <span>Listo para automatizar tu negocio?</span>
+                <a href="https://traidagency.com" class="cta-button">Contactanos</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="chart.js"></script>
+</body>
+</html>
