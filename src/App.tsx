@@ -26,10 +26,14 @@ import {
 import VantaBackground from "./components/VantaBackground";
 import Navbar from "./components/Navbar";
 import WhatsAppButton from "./components/WhatsAppButton";
-import ROHANADashboard from "./components/ROHANADashboard";
 import VideoCalendlyEmbed from "./components/VideoCalendlyEmbed";
-import CaseGambimedicDashboard from "./components/CaseGambimedicDashboard";
-import CaseMeliAnalyticsDashboard from "./components/CaseMeliAnalyticsDashboard";
+import {
+  ROHANADashboard,
+  CaseGambimedicDashboard,
+  CaseGambimedicV2Dashboard,
+  CaseMeliAnalyticsDashboard,
+  CaseMundialShopDashboard,
+} from "./components/casos-de-exito";
 
 type CaseStudy = {
   id: string;
@@ -105,6 +109,42 @@ function App() {
       component: CaseMeliAnalyticsDashboard,
       modalDescription:
         "Dashboard con 2 pestañas: (1) Análisis de Impacto antes/después del sistema IA, y (2) Métricas de workflows de preventa, postventa y mensajes automatizados.",
+    },
+    {
+      id: "gambimedic-v2",
+      title: "Gambimedic — Dashboard Ejecutivo",
+      summary:
+        "Resumen ejecutivo del desempeño del asistente automático en MercadoLibre. Métricas de velocidad, eficiencia y retorno de inversión.",
+      icon: <Award className="h-10 w-10 sm:h-12 sm:w-12 text-blue-300" />,
+      cardBackground:
+        "bg-gradient-to-br from-blue-900/40 to-cyan-900/20 hover:from-blue-800/50 hover:to-cyan-800/30 border border-blue-500/20",
+      highlight: {
+        value: "58x",
+        label: "Velocidad vs. humano",
+        colorClass: "text-blue-300",
+      },
+      tags: ["Salud", "MercadoLibre", "Bot IA"],
+      component: CaseGambimedicV2Dashboard,
+      modalDescription:
+        "Dashboard ejecutivo con métricas clave del bot IA: tiempo de respuesta, velocidad relativa, automatización y análisis de ingresos.",
+    },
+    {
+      id: "mundial-shop",
+      title: "Mundial Shop — WhatsApp IA",
+      summary:
+        "Agente de WhatsApp IA que automatiza ventas mayoristas en Colombia. +35% de crecimiento sobre tendencia y atención 24/7.",
+      icon: <MessageCircle className="h-10 w-10 sm:h-12 sm:w-12 text-emerald-300" />,
+      cardBackground:
+        "bg-gradient-to-br from-emerald-900/40 to-teal-900/20 hover:from-emerald-800/50 hover:to-teal-800/30 border border-emerald-500/20",
+      highlight: {
+        value: "+35%",
+        label: "Crecimiento vs tendencia",
+        colorClass: "text-emerald-300",
+      },
+      tags: ["E-commerce", "WhatsApp IA", "Mayorista"],
+      component: CaseMundialShopDashboard,
+      modalDescription:
+        "Dashboard con análisis de impacto semanal, comparativa de pendientes antes/después, heatmap de actividad 24/7 y métricas de ROI.",
     },
   ];
 
@@ -422,7 +462,7 @@ function App() {
               resultados antes y despues del agente.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
               {caseStudies.map((study, index) => (
                 <div
                   key={study.id}
