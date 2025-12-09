@@ -29,9 +29,10 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import VideoCalendlyEmbed from "./components/VideoCalendlyEmbed";
 import {
   ROHANADashboard,
-  CaseGambimedicV2Dashboard,
+  CaseGambimedicDashboard,
   CaseMeliAnalyticsDashboard,
   CaseMundialShopDashboard,
+  CaseHuancomDashboard,
 } from "./components/casos-de-exito";
 
 type CaseStudy = {
@@ -92,7 +93,7 @@ function App() {
         "Dashboard con 2 pestañas: (1) Análisis de Impacto antes/después del sistema IA, y (2) Métricas de workflows de preventa, postventa y mensajes automatizados.",
     },
     {
-      id: "gambimedic-v2",
+      id: "gambimedic",
       title: "Gambimedic — Dashboard Ejecutivo",
       summary:
         "Resumen ejecutivo del desempeño del asistente automático en MercadoLibre. Métricas de velocidad, eficiencia y retorno de inversión.",
@@ -105,7 +106,7 @@ function App() {
         colorClass: "text-blue-300",
       },
       tags: ["Salud", "MercadoLibre", "Bot IA"],
-      component: CaseGambimedicV2Dashboard,
+      component: CaseGambimedicDashboard,
       modalDescription:
         "Dashboard ejecutivo con métricas clave del bot IA: tiempo de respuesta, velocidad relativa, automatización y análisis de ingresos.",
     },
@@ -126,6 +127,24 @@ function App() {
       component: CaseMundialShopDashboard,
       modalDescription:
         "Dashboard con análisis de impacto semanal, comparativa de pendientes antes/después, heatmap de actividad 24/7 y métricas de ROI.",
+    },
+    {
+      id: "huancom",
+      title: "Huancom Group — Energía Solar",
+      summary:
+        "Transformación digital en e-commerce. MercadoLíder Silver con +1,000 ventas y 97% de opiniones positivas. Workflows n8n que revirtieron tendencia negativa.",
+      icon: <Zap className="h-10 w-10 sm:h-12 sm:w-12 text-yellow-300" />,
+      cardBackground:
+        "bg-gradient-to-br from-yellow-900/40 to-orange-900/20 hover:from-yellow-800/50 hover:to-orange-800/30 border border-yellow-500/20",
+      highlight: {
+        value: "+47.9%",
+        label: "Reversión de tendencia",
+        colorClass: "text-yellow-300",
+      },
+      tags: ["Energía Solar", "MercadoLibre", "n8n Workflows"],
+      component: CaseHuancomDashboard,
+      modalDescription:
+        "Dashboard con métricas de MercadoLibre, análisis de impacto de implementación n8n, serie temporal de ventas y KPIs de calidad del vendedor.",
     },
   ];
 
