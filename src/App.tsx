@@ -177,20 +177,135 @@ function App() {
           </div>
         </section>
 
+        {/* Casos de exito */}
+        <section
+          id="casos"
+          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-black/40"
+        >
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+              Casos de exito
+            </h2>
+            <p className="text-center text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12">
+              Selecciona un caso para abrir su dashboard interactivo con
+              resultados antes y despues del agente.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+              {caseStudies.map((study, index) => (
+                <div
+                  key={study.id}
+                  role="button"
+                  tabIndex={0}
+                  className={`p-6 sm:p-8 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500/60 ${study.cardBackground}`}
+                  onClick={() => setActiveCase(study)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setActiveCase(study);
+                    }
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <div className="flex items-center gap-3">
+                      {study.icon}
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-semibold">
+                          {study.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-purple-300 uppercase tracking-wide">
+                          Caso #{(index + 1).toString().padStart(2, "0")}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+                    {study.summary}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mt-4 sm:mt-6">
+                    {study.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 text-xs sm:text-sm text-gray-300 bg-black/30 border border-purple-500/10 rounded-full"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-5 sm:mt-6 bg-black/30 p-3 sm:p-4 rounded-lg">
+                    <p
+                      className={`text-2xl sm:text-3xl font-bold ${study.highlight.colorClass}`}
+                    >
+                      {study.highlight.value}
+                    </p>
+                    <p className="text-xs sm:text-sm text-gray-400">
+                      {study.highlight.label}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="mt-6 inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-green-500/30"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setActiveCase(study);
+                    }}
+                  >
+                    Ver dashboard
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Modal del dashboard */}
+        {activeCase && (
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 bg-black/90 backdrop-blur-sm"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) {
+                setActiveCase(null);
+              }
+            }}
+          >
+            <div className="relative w-full max-w-[95vw] h-[90vh] sm:max-w-[95vw] sm:h-[95vh] bg-gradient-to-br from-[#0a0e1a] to-[#141829] rounded-2xl shadow-2xl overflow-hidden border-2 border-purple-500/30">
+              <div className="sticky top-0 z-[10001] bg-gradient-to-r from-purple-900/90 to-indigo-900/90 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4 border-b border-purple-500/30 flex items-center justify-between">
+                <div>
+                  <h2 className="text-lg sm:text-2xl font-bold text-white">
+                    Dashboard - {activeCase.title}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-purple-300">
+                    {activeCase.modalDescription}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setActiveCase(null)}
+                  className="p-2 sm:p-3 bg-red-600 hover:bg-red-700 rounded-full transition-all duration-300 shadow-lg hover:shadow-red-500/50 transform hover:scale-110"
+                  aria-label="Cerrar dashboard"
+                >
+                  <X className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
+                </button>
+              </div>
+              <div className="w-full h-[calc(90vh-80px)] sm:h-[calc(95vh-100px)] overflow-y-auto p-2 sm:p-8 bg-[#0a0e1a]">
+                {(() => {
+                  const DashboardComponent = activeCase.component;
+                  return <DashboardComponent />;
+                })()}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Demo y Agenda */}
         <section
           id="agenda"
-          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-black/40"
+          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
         >
-          <div className="max-w-4xl mx-auto text-center mb-8 sm:mb-12">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-              Mira la demo y agenda tu sesion
-            </h2>
-            <p className="text-base sm:text-lg text-gray-300 leading-relaxed px-2">
-              Conoce el flujo completo y reserva una llamada estrategica para
-              implementar automatizaciones a medida.
-            </p>
-          </div>
           <div className="max-w-6xl mx-auto">
             <VideoCalendlyEmbed />
           </div>
@@ -448,155 +563,31 @@ function App() {
           </div>
         </section>
 
-        {/* Casos de exito */}
-        <section
-          id="casos"
-          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
-        >
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-              Casos de exito
-            </h2>
-            <p className="text-center text-sm sm:text-base text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12">
-              Selecciona un caso para abrir su dashboard interactivo con
-              resultados antes y despues del agente.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
-              {caseStudies.map((study, index) => (
-                <div
-                  key={study.id}
-                  role="button"
-                  tabIndex={0}
-                  className={`p-6 sm:p-8 rounded-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500/60 ${study.cardBackground}`}
-                  onClick={() => setActiveCase(study)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      setActiveCase(study);
-                    }
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
-                    <div className="flex items-center gap-3">
-                      {study.icon}
-                      <div>
-                        <h3 className="text-lg sm:text-xl font-semibold">
-                          {study.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-purple-300 uppercase tracking-wide">
-                          Caso #{(index + 1).toString().padStart(2, "0")}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-                    {study.summary}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mt-4 sm:mt-6">
-                    {study.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 text-xs sm:text-sm text-gray-300 bg-black/30 border border-purple-500/10 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-5 sm:mt-6 bg-black/30 p-3 sm:p-4 rounded-lg">
-                    <p
-                      className={`text-2xl sm:text-3xl font-bold ${study.highlight.colorClass}`}
-                    >
-                      {study.highlight.value}
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-400">
-                      {study.highlight.label}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="mt-6 inline-flex items-center justify-center px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white rounded-xl transition-all duration-300 shadow-lg hover:shadow-green-500/30"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setActiveCase(study);
-                    }}
-                  >
-                    Ver dashboard
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Modal del dashboard */}
-        {activeCase && (
-          <div
-            className="fixed inset-0 z-[9999] flex items-center justify-center p-2 sm:p-4 bg-black/90 backdrop-blur-sm"
-            onClick={(event) => {
-              if (event.target === event.currentTarget) {
-                setActiveCase(null);
-              }
-            }}
-          >
-            <div className="relative w-full max-w-[95vw] h-[90vh] sm:max-w-[95vw] sm:h-[95vh] bg-gradient-to-br from-[#0a0e1a] to-[#141829] rounded-2xl shadow-2xl overflow-hidden border-2 border-purple-500/30">
-              <div className="sticky top-0 z-[10001] bg-gradient-to-r from-purple-900/90 to-indigo-900/90 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4 border-b border-purple-500/30 flex items-center justify-between">
-                <div>
-                  <h2 className="text-lg sm:text-2xl font-bold text-white">
-                    Dashboard - {activeCase.title}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-purple-300">
-                    {activeCase.modalDescription}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setActiveCase(null)}
-                  className="p-2 sm:p-3 bg-red-600 hover:bg-red-700 rounded-full transition-all duration-300 shadow-lg hover:shadow-red-500/50 transform hover:scale-110"
-                  aria-label="Cerrar dashboard"
-                >
-                  <X className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-                </button>
-              </div>
-              <div className="w-full h-[calc(90vh-80px)] sm:h-[calc(95vh-100px)] overflow-y-auto p-2 sm:p-8 bg-[#0a0e1a]">
-                {(() => {
-                  const DashboardComponent = activeCase.component;
-                  return <DashboardComponent />;
-                })()}
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Equipo */}
         <section
           id="equipo"
           className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-black/30"
         >
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 sm:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
               Nuestro Equipo
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <div className="p-6 sm:p-8 bg-gradient-to-br from-purple-900/40 to-purple-900/20 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300">
                 <div className="text-center mb-4 sm:mb-6">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                    <UserCheck className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
+                    <Rocket className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-1 sm:mb-2">
                     Nacho Leo
                   </h3>
                   <p className="text-purple-300 font-medium text-sm sm:text-base">
-                    Líder técnico
+                    Founder & CEO
                   </p>
                 </div>
                 <p className="text-gray-300 text-center leading-relaxed text-sm sm:text-base">
                   Experto en automatizaciones con IA, docente en UDIA.
-                  Responsable de arquitectura, QA y plantillas n8n.
+                  Responsable de arquitectura, QA, plantillas n8n y estrategia comercial.
                 </p>
               </div>
 
@@ -609,30 +600,12 @@ function App() {
                     Nahuel Albornoz
                   </h3>
                   <p className="text-purple-300 font-medium text-sm sm:text-base">
-                    Data & GenAI Ops
+                    Co-founder & Product Manager
                   </p>
                 </div>
                 <p className="text-gray-300 text-center leading-relaxed text-sm sm:text-base">
                   Científico de datos y desarrollador, especialista en
-                  aplicaciones de IA generativa.
-                </p>
-              </div>
-
-              <div className="p-6 sm:p-8 bg-gradient-to-br from-purple-900/40 to-purple-900/20 rounded-2xl border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300">
-                <div className="text-center mb-4 sm:mb-6">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                    <TrendingUp className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold mb-1 sm:mb-2">
-                    Ignacio Ana
-                  </h3>
-                  <p className="text-purple-300 font-medium text-sm sm:text-base">
-                    Growth & Ecommerce
-                  </p>
-                </div>
-                <p className="text-gray-300 text-center leading-relaxed text-sm sm:text-base">
-                  Especialista en ecommerce y marketing. Responsable de
-                  estrategia comercial, generación de leads y contenidos.
+                  aplicaciones de IA generativa y gestión de producto.
                 </p>
               </div>
             </div>
