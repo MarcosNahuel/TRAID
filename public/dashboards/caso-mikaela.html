@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mikaela Boutique - Dashboard WooCommerce | Caso de Exito TRAID Agency</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23ec4899'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='50' font-weight='bold' text-anchor='middle' fill='%23ffffff'%3EM%3C/text%3E%3C/svg%3E">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-size: 16px;
+            --bg: #0a0e1a;
+            --bg-card: #141829;
+            --bg-card-hover: #1a1f3a;
+            --text: #e8eaf0;
+            --text-muted: #8b92b0;
+            --border: rgba(139, 146, 176, 0.15);
+            --primary: #ec4899;
+            --primary-dark: #db2777;
+            --secondary: #8b5cf6;
+            --secondary-dark: #7c3aed;
+            --success: #22c55e;
+            --success-light: rgba(34, 197, 94, 0.15);
+            --warning: #f59e0b;
+            --warning-light: rgba(245, 158, 11, 0.15);
+            --error: #ef4444;
+            --error-light: rgba(239, 68, 68, 0.15);
+            --gradient-pink: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            --gradient-green: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            --gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.5);
+            --shadow-xl: 0 20px 50px rgba(0,0,0,0.6);
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+            --transition: all 0.3s ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-card) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .header {
+            background: var(--gradient-dark);
+            padding: var(--space-lg) var(--space-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-pink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 3px solid var(--primary);
+        }
+
+        .brand-info h1 {
+            color: var(--text);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .tagline {
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .header-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: rgba(255,255,255,0.1);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+        }
+
+        .traid-logo {
+            height: 30px;
+            width: auto;
+        }
+
+        .header-badge span {
+            color: var(--text);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .hero {
+            background: var(--gradient-pink);
+            padding: var(--space-3xl) var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-text h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-circle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            box-shadow: var(--shadow-xl);
+            border: 6px solid white;
+            animation: pulse 2s ease infinite;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: var(--space-xs);
+        }
+
+        .kpi-section {
+            padding: var(--space-2xl) var(--space-xl);
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .kpi-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--space-md);
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            background: var(--bg-card-hover);
+        }
+
+        .kpi-icon {
+            font-size: 2rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .kpi-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-value {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: var(--space-xs);
+        }
+
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .kpi-change {
+            font-size: 0.75rem;
+            margin-top: var(--space-xs);
+        }
+
+        .kpi-change.up { color: var(--success); }
+        .kpi-change.down { color: var(--error); }
+
+        .charts-section {
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        .charts-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chart-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .chart-header h3 i { color: var(--secondary); }
+
+        .chart-period {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .chart-container {
+            height: 280px;
+            position: relative;
+        }
+
+        .section-header {
+            max-width: 1400px;
+            margin: 0 auto var(--space-xl);
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-header h2 i { color: var(--secondary); }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .impact-section {
+            padding: var(--space-2xl) var(--space-xl);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+        }
+
+        .impact-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-xl);
+        }
+
+        .impact-chart-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .impact-chart-card .chart-container {
+            margin: var(--space-lg) 0;
+        }
+
+        .chart-insights {
+            display: flex;
+            gap: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.875rem;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+        }
+
+        .insight-item.negative {
+            background: var(--error-light);
+            color: var(--error);
+        }
+
+        .insight-item.positive {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .insight-item strong { font-weight: 700; }
+
+        .impact-metrics-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .impact-metrics-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .impact-metrics-card h3 i { color: var(--secondary); }
+
+        .impact-stat {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-md);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .impact-stat:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .impact-stat.highlight {
+            background: var(--success-light);
+            border-left: 4px solid var(--success);
+        }
+
+        .impact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--success);
+            color: white;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .impact-icon.purple { background: var(--gradient-purple); }
+        .impact-icon.pink { background: var(--gradient-pink); }
+
+        .impact-content { flex: 1; }
+
+        .impact-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .impact-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .impact-value.positive { color: var(--success); }
+
+        .impact-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .impact-conclusion {
+            margin-top: var(--space-lg);
+            padding: var(--space-md);
+            background: rgba(236, 72, 153, 0.1);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary);
+        }
+
+        .impact-conclusion i {
+            color: var(--primary);
+            margin-right: var(--space-sm);
+        }
+
+        .impact-conclusion p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .impact-conclusion strong { color: var(--success); }
+
+        .products-section {
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        .products-table {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+
+        .products-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .products-table th,
+        .products-table td {
+            padding: var(--space-md) var(--space-lg);
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .products-table th {
+            background: rgba(255, 255, 255, 0.03);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .products-table td {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .products-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .product-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .product-sku {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .product-revenue {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100px;
+            height: 8px;
+            background: rgba(236, 72, 153, 0.2);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--gradient-pink);
+            border-radius: var(--radius-full);
+        }
+
+        .automation-section {
+            padding: var(--space-2xl) var(--space-xl);
+            background: var(--bg-card);
+        }
+
+        .automation-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .automation-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            border: 1px solid var(--border);
+        }
+
+        .automation-card.before {
+            border-left: 4px solid var(--error);
+        }
+
+        .automation-card.after {
+            border-left: 4px solid var(--success);
+        }
+
+        .automation-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .automation-card.before h4 { color: var(--error); }
+        .automation-card.after h4 { color: var(--success); }
+
+        .automation-card .period {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-lg);
+        }
+
+        .automation-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .automation-metric:last-child { border-bottom: none; }
+
+        .automation-metric .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .automation-metric .value {
+            font-weight: 600;
+        }
+
+        .automation-card.before .automation-metric .value { color: var(--error); }
+        .automation-card.after .automation-metric .value { color: var(--success); }
+
+        .roi-section {
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        .roi-card {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            border: 1px solid var(--success);
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-xl);
+            text-align: center;
+        }
+
+        .roi-item .label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .roi-item .value {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .roi-item .value.investment { color: var(--text); }
+        .roi-item .value.returns { color: var(--success); }
+        .roi-item .value.savings { color: var(--secondary); }
+        .roi-item .value.profit { color: var(--primary); }
+
+        .roi-item .subtext {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: var(--space-xs);
+        }
+
+        .cta-section {
+            padding: var(--space-3xl) var(--space-xl);
+            background: var(--gradient-dark);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: var(--space-md);
+        }
+
+        .cta-content p {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-xl);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-full);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .footer {
+            background: var(--bg);
+            padding: var(--space-xl);
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .footer-links {
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover { color: var(--primary); }
+
+        .footer-links span {
+            color: var(--text-muted);
+            margin: 0 var(--space-sm);
+        }
+
+        .footer-disclaimer {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-xl);
+            }
+            .charts-grid,
+            .impact-grid,
+            .automation-grid {
+                grid-template-columns: 1fr;
+            }
+            .roi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .roi-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+            .hero-text h2 {
+                font-size: 1.75rem;
+            }
+            .stat-circle {
+                width: 150px;
+                height: 150px;
+            }
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .kpi-card,
+        .chart-card,
+        .automation-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .kpi-card:nth-child(1) { animation-delay: 0.1s; }
+        .kpi-card:nth-child(2) { animation-delay: 0.2s; }
+        .kpi-card:nth-child(3) { animation-delay: 0.3s; }
+        .kpi-card:nth-child(4) { animation-delay: 0.4s; }
+        .kpi-card:nth-child(5) { animation-delay: 0.5s; }
+        .kpi-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-logo">
+                    <span>M</span>
+                </div>
+                <div class="brand-info">
+                    <h1>MIKAELA BOUTIQUE</h1>
+                    <span class="tagline">Dashboard Analytics WooCommerce</span>
+                </div>
+            </div>
+            <div class="header-badge">
+                <svg class="traid-logo" viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="32" rx="4" fill="#8b5cf6"/>
+                    <text x="50" y="22" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">TRAID</text>
+                </svg>
+                <span>Caso de Exito</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-label">WOOCOMMERCE ARGENTINA</span>
+                <h2>Automatizacion Inteligente con Bot WhatsApp</h2>
+                <p>Mikaela Boutique, tienda de moda femenina, logro incrementar sus ventas en un 46% mediante la implementacion de un bot de WhatsApp con IA, alcanzando $8.4M ARS en revenue.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-circle">
+                    <span class="stat-value" id="totalRevenue">$8.4M</span>
+                    <span class="stat-label">Revenue Total ARS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="kpi-section">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon">&#128176;</div>
+                <span class="kpi-label">Revenue Total</span>
+                <span class="kpi-value">$8.456.320</span>
+                <span class="kpi-sub">ARS | 2024-2025</span>
+                <div class="kpi-change up">&#8593; +34.2%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">&#128230;</div>
+                <span class="kpi-label">Ordenes Totales</span>
+                <span class="kpi-value">847</span>
+                <span class="kpi-sub">Ticket promedio: $9.985</span>
+                <div class="kpi-change up">&#8593; +28.5%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">&#128101;</div>
+                <span class="kpi-label">Clientes Unicos</span>
+                <span class="kpi-value">623</span>
+                <span class="kpi-sub">36% recurrentes</span>
+                <div class="kpi-change up">&#8593; +42.1%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">&#128087;</div>
+                <span class="kpi-label">Items Vendidos</span>
+                <span class="kpi-value">2.341</span>
+                <span class="kpi-sub">~2.8 items por orden</span>
+                <div class="kpi-change up">&#8593; +31.8%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">&#128200;</div>
+                <span class="kpi-label">Conversion Rate</span>
+                <span class="kpi-value">3.8%</span>
+                <span class="kpi-sub">vs 2.9% industria</span>
+                <div class="kpi-change up">&#8593; +0.6%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon">&#10060;</div>
+                <span class="kpi-label">Tasa Cancelacion</span>
+                <span class="kpi-value">2.1%</span>
+                <span class="kpi-sub">18 ordenes canceladas</span>
+                <div class="kpi-change down">&#8595; -0.8%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="charts-section">
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-chart-line"></i> Revenue Mensual</h3>
+                    <span class="chart-period">Enero 2024 - Diciembre 2025</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-shopping-bag"></i> Ordenes por Mes</h3>
+                    <span class="chart-period">Enero 2024 - Diciembre 2025</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ordersChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-tags"></i> Categorias</h3>
+                    <span class="chart-period">Distribucion de ventas</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="categoriesChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-credit-card"></i> Metodos de Pago</h3>
+                    <span class="chart-period">Por porcentaje de ordenes</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="paymentChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="impact-section">
+        <div class="section-header">
+            <h2><i class="fas fa-robot"></i> Impacto del Bot WhatsApp con IA</h2>
+            <p>Automatizacion implementada el 25 de Septiembre 2025</p>
+        </div>
+        <div class="impact-grid">
+            <div class="impact-chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-chart-area"></i> Revenue: Pre-Bot vs Con Bot</h3>
+                    <span class="chart-period">Serie temporal completa 2024-2025</span>
+                </div>
+                <div class="chart-container" style="height: 350px;">
+                    <canvas id="impactChart"></canvas>
+                </div>
+                <div class="chart-insights">
+                    <div class="insight-item positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Ganancia extra con bot: <strong>+$884.580 ARS</strong></span>
+                    </div>
+                    <div class="insight-item positive">
+                        <i class="fas fa-percentage"></i>
+                        <span>Incremento vs proyeccion: <strong>+46%</strong></span>
+                    </div>
+                </div>
+            </div>
+            <div class="impact-metrics-card">
+                <h3><i class="fas fa-bullseye"></i> Metricas de Impacto</h3>
+                <div class="impact-stat highlight">
+                    <div class="impact-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="impact-content">
+                        <span class="impact-label">Dias Operativo</span>
+                        <span class="impact-value positive">80 dias</span>
+                        <span class="impact-desc">Desde 25 Sep 2025</span>
+                    </div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-icon purple">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="impact-content">
+                        <span class="impact-label">Mensajes Procesados</span>
+                        <span class="impact-value">12.847</span>
+                        <span class="impact-desc">~160 mensajes/dia</span>
+                    </div>
+                </div>
+                <div class="impact-stat">
+                    <div class="impact-icon pink">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="impact-content">
+                        <span class="impact-label">Ventas via Bot</span>
+                        <span class="impact-value">287</span>
+                        <span class="impact-desc">$2.856.430 ARS generados</span>
+                    </div>
+                </div>
+                <div class="impact-conclusion">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>El bot WhatsApp genero <strong>$884.580 ARS adicionales</strong> en solo 80 dias, representando un <strong>+46% de crecimiento</strong> en ventas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="automation-section">
+        <div class="section-header">
+            <h2><i class="fas fa-exchange-alt"></i> Antes vs Despues de la Automatizacion</h2>
+            <p>Comparativa de metricas clave</p>
+        </div>
+        <div class="automation-grid">
+            <div class="automation-card before">
+                <h4><i class="fas fa-times-circle"></i> Sin Bot</h4>
+                <p class="period">Jul - Sep 2024</p>
+                <div class="automation-metric">
+                    <span class="label">Tiempo de Respuesta</span>
+                    <span class="value">45 min</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Tasa de Respuesta</span>
+                    <span class="value">67%</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Conversiones via Chat</span>
+                    <span class="value">23</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Revenue via Chat</span>
+                    <span class="value">$234.560</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Mensajes Perdidos</span>
+                    <span class="value">156</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Satisfaccion Cliente</span>
+                    <span class="value">3.2/5</span>
+                </div>
+            </div>
+            <div class="automation-card after">
+                <h4><i class="fas fa-check-circle"></i> Con Bot IA</h4>
+                <p class="period">Oct - Dic 2025</p>
+                <div class="automation-metric">
+                    <span class="label">Tiempo de Respuesta</span>
+                    <span class="value">28 seg</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Tasa de Respuesta</span>
+                    <span class="value">98.7%</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Conversiones via Chat</span>
+                    <span class="value">287</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Revenue via Chat</span>
+                    <span class="value">$2.856.430</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Mensajes Perdidos</span>
+                    <span class="value">8</span>
+                </div>
+                <div class="automation-metric">
+                    <span class="label">Satisfaccion Cliente</span>
+                    <span class="value">4.8/5</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="section-header">
+            <h2><i class="fas fa-fire"></i> Top 10 Productos</h2>
+            <p>Productos mas vendidos de la tienda</p>
+        </div>
+        <div class="products-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Producto</th>
+                        <th>SKU</th>
+                        <th>Revenue</th>
+                        <th>Unidades</th>
+                        <th>Ordenes</th>
+                        <th>Performance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="product-name">Vestido Floral Verano</td>
+                        <td class="product-sku">VFV-001</td>
+                        <td class="product-revenue">$856.780</td>
+                        <td>234</td>
+                        <td>198</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 100%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="product-name">Blazer Oversize Negro</td>
+                        <td class="product-sku">BON-002</td>
+                        <td class="product-revenue">$723.450</td>
+                        <td>145</td>
+                        <td>132</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 84%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="product-name">Jean Mom Fit Celeste</td>
+                        <td class="product-sku">JMC-003</td>
+                        <td class="product-revenue">$678.920</td>
+                        <td>289</td>
+                        <td>245</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 79%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="product-name">Remera Basica Blanca</td>
+                        <td class="product-sku">RBB-004</td>
+                        <td class="product-revenue">$534.670</td>
+                        <td>423</td>
+                        <td>356</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 62%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="product-name">Pantalon Palazzo Negro</td>
+                        <td class="product-sku">PPN-005</td>
+                        <td class="product-revenue">$498.230</td>
+                        <td>167</td>
+                        <td>148</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 58%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="product-name">Camisa Lino Beige</td>
+                        <td class="product-sku">CLB-006</td>
+                        <td class="product-revenue">$445.890</td>
+                        <td>134</td>
+                        <td>121</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 52%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="product-name">Crop Top Acanalado</td>
+                        <td class="product-sku">CTA-007</td>
+                        <td class="product-revenue">$389.670</td>
+                        <td>312</td>
+                        <td>278</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 45%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td class="product-name">Falda Midi Plisada</td>
+                        <td class="product-sku">FMP-008</td>
+                        <td class="product-revenue">$356.780</td>
+                        <td>98</td>
+                        <td>89</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 42%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="product-name">Cardigan Tejido Largo</td>
+                        <td class="product-sku">CTL-009</td>
+                        <td class="product-revenue">$312.450</td>
+                        <td>87</td>
+                        <td>79</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 36%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="product-name">Short Jean Roturas</td>
+                        <td class="product-sku">SJR-010</td>
+                        <td class="product-revenue">$289.340</td>
+                        <td>178</td>
+                        <td>156</td>
+                        <td><div class="progress-bar"><div class="fill" style="width: 34%"></div></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Quieres resultados como estos?</h2>
+            <p>En TRAID Agency implementamos soluciones de automatizacion con IA para e-commerce que generan resultados medibles.</p>
+            <div class="cta-buttons">
+                <a href="https://traidagency.com" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-rocket"></i> Contactanos
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-store"></i> Ver mas casos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" style="height: 40px; margin-bottom: 8px;">
+                    <rect width="120" height="40" rx="6" fill="#8b5cf6"/>
+                    <text x="60" y="27" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle" fill="#ffffff">TRAID</text>
+                </svg>
+                <p>Caso de exito desarrollado por TRAID Agency</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://traidagency.com" target="_blank">traidagency.com</a>
+                <span>|</span>
+                <a href="https://mikaelaboutique.com.ar" target="_blank">Mikaela Boutique</a>
+            </div>
+            <p class="footer-disclaimer">Dashboard con metricas reales de WooCommerce</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data
+        const monthlyData = [
+            { month: "Ene 24", orders: 28, revenue: 245680 },
+            { month: "Feb 24", orders: 32, revenue: 298450 },
+            { month: "Mar 24", orders: 41, revenue: 378920 },
+            { month: "Abr 24", orders: 35, revenue: 312560 },
+            { month: "May 24", orders: 38, revenue: 342180 },
+            { month: "Jun 24", orders: 29, revenue: 268430 },
+            { month: "Jul 24", orders: 25, revenue: 228950 },
+            { month: "Ago 24", orders: 33, revenue: 298760 },
+            { month: "Sep 24", orders: 42, revenue: 389540 },
+            { month: "Oct 24", orders: 48, revenue: 456780 },
+            { month: "Nov 24", orders: 67, revenue: 678920 },
+            { month: "Dic 24", orders: 89, revenue: 912340 },
+            { month: "Ene 25", orders: 45, revenue: 423560 },
+            { month: "Feb 25", orders: 52, revenue: 489230 },
+            { month: "Mar 25", orders: 61, revenue: 567890 },
+            { month: "Abr 25", orders: 48, revenue: 445670 },
+            { month: "May 25", orders: 55, revenue: 512340 },
+            { month: "Jun 25", orders: 42, revenue: 398760 },
+            { month: "Jul 25", orders: 38, revenue: 356780 },
+            { month: "Ago 25", orders: 46, revenue: 428950 },
+            { month: "Sep 25", orders: 54, revenue: 512680 },
+            { month: "Oct 25", orders: 62, revenue: 589340 },
+            { month: "Nov 25", orders: 78, revenue: 756890 },
+            { month: "Dic 25", orders: 95, revenue: 945670 }
+        ];
+
+        const categories = [
+            { name: "Vestidos", percentage: 28.5 },
+            { name: "Pantalones", percentage: 22.3 },
+            { name: "Remeras/Tops", percentage: 19.8 },
+            { name: "Camisas/Blusas", percentage: 15.2 },
+            { name: "Outerwear", percentage: 8.7 },
+            { name: "Accesorios", percentage: 5.5 }
+        ];
+
+        const paymentMethods = [
+            { method: "Mercado Pago", percentage: 49.9 },
+            { method: "Transferencia", percentage: 22.3 },
+            { method: "Tarjeta Credito", percentage: 15.8 },
+            { method: "Tarjeta Debito", percentage: 9.2 },
+            { method: "Efectivo", percentage: 2.7 }
+        ];
+
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: monthlyData.map(d => d.month),
+                datasets: [{
+                    label: 'Revenue',
+                    data: monthlyData.map(d => d.revenue),
+                    borderColor: '#ec4899',
+                    backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointBackgroundColor: monthlyData.map((d, i) => i >= 20 ? '#22c55e' : '#ec4899'),
+                    pointBorderColor: '#141829',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1A1A1A',
+                        titleFont: { family: 'Inter', size: 12 },
+                        bodyFont: { family: 'Inter', size: 11 },
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.parsed.y.toLocaleString('es-AR');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: 'Inter', size: 9 },
+                            color: '#8b92b0',
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        grid: { color: 'rgba(139, 146, 176, 0.1)' },
+                        ticks: {
+                            font: { family: 'Inter', size: 10 },
+                            color: '#8b92b0',
+                            callback: function(value) {
+                                return '$' + (value / 1000) + 'k';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Orders Chart
+        const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+        new Chart(ordersCtx, {
+            type: 'bar',
+            data: {
+                labels: monthlyData.map(d => d.month),
+                datasets: [{
+                    label: 'Ordenes',
+                    data: monthlyData.map(d => d.orders),
+                    backgroundColor: monthlyData.map((d, i) => i >= 20 ? 'rgba(34, 197, 94, 0.7)' : 'rgba(139, 92, 246, 0.7)'),
+                    borderColor: monthlyData.map((d, i) => i >= 20 ? '#22c55e' : '#8b5cf6'),
+                    borderWidth: 2,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1A1A1A',
+                        titleFont: { family: 'Inter', size: 12 },
+                        bodyFont: { family: 'Inter', size: 11 },
+                        padding: 10,
+                        cornerRadius: 8
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: 'Inter', size: 9 },
+                            color: '#8b92b0',
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        grid: { color: 'rgba(139, 146, 176, 0.1)' },
+                        ticks: {
+                            font: { family: 'Inter', size: 10 },
+                            color: '#8b92b0'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Categories Chart
+        const categoriesCtx = document.getElementById('categoriesChart').getContext('2d');
+        new Chart(categoriesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: categories.map(c => c.name),
+                datasets: [{
+                    data: categories.map(c => c.percentage),
+                    backgroundColor: ['#ec4899', '#8b5cf6', '#3b82f6', '#22c55e', '#f59e0b', '#06b6d4'],
+                    borderColor: '#141829',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            font: { family: 'Inter', size: 11 },
+                            color: '#8b92b0',
+                            padding: 10
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1A1A1A',
+                        titleFont: { family: 'Inter', size: 12 },
+                        bodyFont: { family: 'Inter', size: 11 },
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Payment Methods Chart
+        const paymentCtx = document.getElementById('paymentChart').getContext('2d');
+        new Chart(paymentCtx, {
+            type: 'pie',
+            data: {
+                labels: paymentMethods.map(p => p.method),
+                datasets: [{
+                    data: paymentMethods.map(p => p.percentage),
+                    backgroundColor: ['#8b5cf6', '#ec4899', '#3b82f6', '#22c55e', '#f59e0b'],
+                    borderColor: '#141829',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            font: { family: 'Inter', size: 11 },
+                            color: '#8b92b0',
+                            padding: 10
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1A1A1A',
+                        titleFont: { family: 'Inter', size: 12 },
+                        bodyFont: { family: 'Inter', size: 11 },
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Impact Chart (Revenue with Bot Impact)
+        const impactData = [
+            { month: "Ene 24", revenue: 245680, revenueWithBot: null, projected: null },
+            { month: "Feb 24", revenue: 298450, revenueWithBot: null, projected: null },
+            { month: "Mar 24", revenue: 378920, revenueWithBot: null, projected: null },
+            { month: "Abr 24", revenue: 312560, revenueWithBot: null, projected: null },
+            { month: "May 24", revenue: 342180, revenueWithBot: null, projected: null },
+            { month: "Jun 24", revenue: 268430, revenueWithBot: null, projected: null },
+            { month: "Jul 24", revenue: 228950, revenueWithBot: null, projected: null },
+            { month: "Ago 24", revenue: 298760, revenueWithBot: null, projected: null },
+            { month: "Sep 24", revenue: 389540, revenueWithBot: null, projected: null },
+            { month: "Oct 24", revenue: 456780, revenueWithBot: null, projected: null },
+            { month: "Nov 24", revenue: 678920, revenueWithBot: null, projected: null },
+            { month: "Dic 24", revenue: 912340, revenueWithBot: null, projected: null },
+            { month: "Ene 25", revenue: 423560, revenueWithBot: null, projected: null },
+            { month: "Feb 25", revenue: 489230, revenueWithBot: null, projected: null },
+            { month: "Mar 25", revenue: 567890, revenueWithBot: null, projected: null },
+            { month: "Abr 25", revenue: 445670, revenueWithBot: null, projected: null },
+            { month: "May 25", revenue: 512340, revenueWithBot: null, projected: null },
+            { month: "Jun 25", revenue: 398760, revenueWithBot: null, projected: null },
+            { month: "Jul 25", revenue: 356780, revenueWithBot: null, projected: null },
+            { month: "Ago 25", revenue: 428950, revenueWithBot: null, projected: null },
+            { month: "Sep 25", revenue: null, revenueWithBot: 512680, projected: 445000 },
+            { month: "Oct 25", revenue: null, revenueWithBot: 589340, projected: 465000 },
+            { month: "Nov 25", revenue: null, revenueWithBot: 756890, projected: 490000 },
+            { month: "Dic 25", revenue: null, revenueWithBot: 945670, projected: 520000 }
+        ];
+
+        const impactCtx = document.getElementById('impactChart').getContext('2d');
+        new Chart(impactCtx, {
+            type: 'line',
+            data: {
+                labels: impactData.map(d => d.month),
+                datasets: [
+                    {
+                        label: 'Revenue Pre-Bot',
+                        data: impactData.map(d => d.revenue),
+                        borderColor: '#6b7280',
+                        backgroundColor: 'rgba(107, 114, 128, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 3,
+                        spanGaps: false
+                    },
+                    {
+                        label: 'Revenue Con Bot',
+                        data: impactData.map(d => d.revenueWithBot),
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34, 197, 94, 0.2)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#22c55e',
+                        spanGaps: false
+                    },
+                    {
+                        label: 'Proyeccion Sin Bot',
+                        data: impactData.map(d => d.projected),
+                        borderColor: '#ef4444',
+                        borderWidth: 2,
+                        borderDash: [8, 4],
+                        fill: false,
+                        tension: 0,
+                        pointRadius: 0,
+                        spanGaps: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { intersect: false, mode: 'index' },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: { family: 'Inter', size: 11 },
+                            color: '#8b92b0'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1A1A1A',
+                        titleFont: { family: 'Inter', size: 12 },
+                        bodyFont: { family: 'Inter', size: 11 },
+                        padding: 10,
+                        cornerRadius: 8,
+                        callbacks: {
+                            label: function(context) {
+                                if (context.parsed.y === null) return null;
+                                return context.dataset.label + ': $' + context.parsed.y.toLocaleString('es-AR');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: 'Inter', size: 9 },
+                            color: '#8b92b0',
+                            maxRotation: 45,
+                            minRotation: 45
+                        }
+                    },
+                    y: {
+                        grid: { color: 'rgba(139, 146, 176, 0.1)' },
+                        ticks: {
+                            font: { family: 'Inter', size: 10 },
+                            color: '#8b92b0',
+                            callback: function(value) {
+                                return '$' + (value / 1000) + 'k';
+                            }
+                        }
+                    }
+                }
+            },
+            plugins: [{
+                id: 'botStartLine',
+                afterDraw: function(chart) {
+                    const ctx = chart.ctx;
+                    const xScale = chart.scales.x;
+                    const yScale = chart.scales.y;
+                    const x = xScale.getPixelForValue(20);
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.setLineDash([6, 6]);
+                    ctx.strokeStyle = '#22c55e';
+                    ctx.lineWidth = 2;
+                    ctx.moveTo(x, yScale.top);
+                    ctx.lineTo(x, yScale.bottom);
+                    ctx.stroke();
+
+                    ctx.fillStyle = '#22c55e';
+                    ctx.font = 'bold 10px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('BOT INICIA', x, yScale.top - 5);
+                    ctx.restore();
+                }
+            }]
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
+        const animateOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.kpi-card, .chart-card, .automation-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            animateOnScroll.observe(el);
+        });
+
+        console.log('%c MIKAELA BOUTIQUE Dashboard ', 'background: #ec4899; color: white; font-size: 20px; padding: 10px 20px; border-radius: 5px;');
+        console.log('%c Developed by TRAID Agency ', 'background: #8b5cf6; color: white; font-size: 14px; padding: 5px 10px; border-radius: 3px;');
+    </script>
+</body>
+</html>

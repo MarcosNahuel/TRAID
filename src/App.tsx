@@ -33,6 +33,7 @@ import {
   CaseMeliAnalyticsDashboard,
   CaseMundialShopDashboard,
   CaseHuancomDashboard,
+  CaseMikaelaDashboard,
 } from "./components/casos-de-exito";
 
 type CaseStudy = {
@@ -145,6 +146,24 @@ function App() {
       component: CaseHuancomDashboard,
       modalDescription:
         "Dashboard con métricas de MercadoLibre, análisis de impacto de implementación n8n, serie temporal de ventas y KPIs de calidad del vendedor.",
+    },
+    {
+      id: "mikaela",
+      title: "Mikaela Boutique — Bot WhatsApp IA",
+      summary:
+        "Boutique de moda femenina que incrementó ventas 46% con bot WhatsApp IA. $8.4M ARS en revenue y +$884K adicionales generados por automatización.",
+      icon: <Store className="h-10 w-10 sm:h-12 sm:w-12 text-pink-400" />,
+      cardBackground:
+        "bg-gradient-to-br from-pink-900/40 to-purple-900/20 hover:from-pink-800/50 hover:to-purple-800/30 border border-pink-500/20",
+      highlight: {
+        value: "+46%",
+        label: "Crecimiento en ventas",
+        colorClass: "text-pink-400",
+      },
+      tags: ["Moda", "WooCommerce", "WhatsApp Bot IA"],
+      component: CaseMikaelaDashboard,
+      modalDescription:
+        "Dashboard WooCommerce con análisis de impacto del bot WhatsApp IA, comparativa antes/después y métricas de automatización.",
     },
   ];
 
