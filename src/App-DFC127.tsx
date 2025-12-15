@@ -13,7 +13,6 @@ import {
   Phone,
   MessageCircle,
   Lightbulb,
-  Leaf,
   Workflow,
   Code2,
   Briefcase,
@@ -60,20 +59,6 @@ type CaseStudy = {
 
 function App() {
   const [activeCase, setActiveCase] = useState<CaseStudy | null>(null);
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const container = scrollRef.current;
-      const scrollAmount = container.clientWidth / (window.innerWidth >= 1280 ? 3 : window.innerWidth >= 768 ? 2 : 1);
-      container.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
-
   const caseStudies: CaseStudy[] = [
     {
       id: "rohana-recupero",
@@ -168,22 +153,6 @@ function App() {
         "Dashboard con métricas de MercadoLibre, análisis de impacto de implementación n8n, serie temporal de ventas y KPIs de calidad del vendedor.",
     },
     {
-      id: "natural-vya",
-      title: "NATURAL VyA",
-      summary: "Dashboard interactivo que muestra la eficiencia y optimización de la cadena de suministro de NATURAL VyA.",
-      icon: <Truck className="h-10 w-10 sm:h-12 sm:w-12 text-cyan-400" />,
-      cardBackground: "bg-gradient-to-br from-cyan-900/40 to-blue-900/20 hover:from-cyan-800/50 hover:to-blue-800/30 border border-cyan-500/20",
-      highlight: {
-        value: "+20%",
-        label: "Reducción de costos",
-        colorClass: "text-cyan-400",
-      },
-      tags: ["Logística", "Inteligencia Artificial", "Cadena de Suministro"],
-      component: CaseConjuntoEconomicoDashboard,
-      modalDescription: "Dashboard interactivo que muestra la eficiencia y optimización de la cadena de suministro de NATURAL VyA.",
-      hideModalHeader: true,
-    },
-    {
       id: "mikaela",
       title: "Mikaela Boutique — Bot WhatsApp IA",
       summary:
@@ -201,7 +170,36 @@ function App() {
       modalDescription:
         "Dashboard WooCommerce con análisis de impacto del bot WhatsApp IA, comparativa antes/después y métricas de automatización.",
     },
+    {
+      id: "natural-vya",
+      title: "NATURAL VyA",
+      summary: "",
+      icon: <Truck className="h-10 w-10 sm:h-12 sm:w-12 text-cyan-400" />,
+      cardBackground: "bg-gradient-to-br from-cyan-900/40 to-blue-900/20 hover:from-cyan-800/50 hover:to-blue-800/30 border border-cyan-500/20",
+      highlight: {
+        value: "+20%",
+        label: "Reducción de costos",
+        colorClass: "text-cyan-400",
+      },
+      tags: ["Logística", "Inteligencia Artificial", "Cadena de Suministro"],
+      component: CaseConjuntoEconomicoDashboard,
+      modalDescription: "Dashboard interactivo que muestra la eficiencia y optimización de la cadena de suministro de NATURAL VyA.",
+      hideModalHeader: true,
+    },
   ];
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const scrollAmount = container.clientWidth / (window.innerWidth >= 1280 ? 3 : window.innerWidth >= 768 ? 2 : 1);
+      container.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <VantaBackground>
@@ -263,7 +261,7 @@ function App() {
                 {caseStudies.map((study, index) => (
                   <div
                     key={study.id}
-                    className="flex-none w-full md:w-[calc(50%-1rem)] xl:w-[calc(33.333%-1.33rem)] snap-center"
+                    className={`flex-none w-full md:w-[calc(50%-1rem)] xl:w-[calc(33.333%-1.33rem)] snap-center`}
                   >
                     <div
                       role="button"
@@ -388,8 +386,8 @@ function App() {
 
               <div
                 className={`w-full h-full overflow-y-auto bg-[#0a0e1a] ${activeCase.hideModalHeader
-                  ? ""
-                  : "h-[calc(90vh-80px)] sm:h-[calc(95vh-100px)] p-2 sm:p-8"
+                    ? ""
+                    : "h-[calc(90vh-80px)] sm:h-[calc(95vh-100px)] p-2 sm:p-8"
                   }`}
               >
                 {(() => {
@@ -407,9 +405,6 @@ function App() {
           className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
         >
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 pb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-              Agente Shopify - Venta 100% Automática
-            </h2>
             <VideoCalendlyEmbed />
           </div>
         </section>
@@ -837,41 +832,38 @@ function App() {
                 <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm text-gray-400">
                   <li>
                     <a
-                      href="https://wa.me/5491136579967"
-                      className="hover:text-purple-300 transition-colors"
+                      href="https://wa.me/5492995904484"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-green-400 transition-colors"
                     >
                       WhatsApp
                     </a>
                   </li>
                   <li>
                     <a
-                      href="mailto:contacto@traid.agency"
+                      href="mailto:contacto@traidagency.com"
                       className="hover:text-purple-300 transition-colors"
                     >
                       Email
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/company/traid-agency"
-                      className="hover:text-purple-300 transition-colors"
-                    >
-                      LinkedIn
-                    </a>
-                  </li>
+                  <li>LATAM • Remote-first</li>
                 </ul>
               </div>
             </div>
-            <div className="pt-6 sm:pt-8 border-t border-purple-500/20 text-center">
-              <p className="text-xs sm:text-sm text-gray-500">
-                &copy; {new Date().getFullYear()} TRAID Agency. Todos los derechos reservados.
-              </p>
+            <div className="border-t border-purple-500/20 pt-4 sm:pt-8 text-center text-gray-400 text-xs sm:text-sm">
+              <p>© 2025 TRAID Agency. Todos los derechos reservados.</p>
             </div>
           </div>
         </footer>
-      </div>
 
-      <WhatsAppButton phoneNumber="5491136579967" />
+        {/* Floating WhatsApp Button */}
+        <WhatsAppButton
+          phoneNumber="+5492995904484"
+          message="Hola! Me gustaría obtener una consultoría sobre sistemas de IA para mi negocio."
+        />
+      </div>
     </VantaBackground>
   );
 }
