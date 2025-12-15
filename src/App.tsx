@@ -24,8 +24,11 @@ import {
   ChevronDown,
   X,
   Truck,
+<<<<<<< HEAD
   ChevronLeft,
   ChevronRight,
+=======
+>>>>>>> 5b286793030263da0cb7e65b0f2914f36ed12728
 } from "lucide-react";
 import VantaBackground from "./components/VantaBackground";
 import Navbar from "./components/Navbar";
@@ -200,6 +203,21 @@ function App() {
       component: CaseMikaelaDashboard,
       modalDescription:
         "Dashboard WooCommerce con análisis de impacto del bot WhatsApp IA, comparativa antes/después y métricas de automatización.",
+    },
+    {
+      id: "natural-vya",
+      title: "NATURAL VyA",
+      summary: "",
+      icon: <Truck className="h-10 w-10 sm:h-12 sm:w-12 text-cyan-400" />,
+      cardBackground: "bg-gradient-to-br from-cyan-900/40 to-blue-900/20 hover:from-cyan-800/50 hover:to-blue-800/30 border border-cyan-500/20",
+      highlight: {
+        value: "+20%",
+        label: "Reducción de costos",
+        colorClass: "text-cyan-400",
+      },
+      tags: ["Logística", "Inteligencia Artificial", "Cadena de Suministro"],
+      component: CaseConjuntoEconomicoDashboard,
+      modalDescription: "Dashboard interactivo que muestra la eficiencia y optimización de la cadena de suministro de NATURAL VyA.",
     },
   ];
 
