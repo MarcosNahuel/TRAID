@@ -169,8 +169,8 @@ function App() {
     },
     {
       id: "natural-vya",
-      title: "NATURAL VyA — Optimización Logística",
-      summary: "Optimización de procesos logísticos con IA, mejorando la eficiencia en la cadena de suministro y reduciendo costos operativos.",
+      title: "NATURAL VyA",
+      summary: "",
       icon: <Truck className="h-10 w-10 sm:h-12 sm:w-12 text-cyan-400" />,
       cardBackground: "bg-gradient-to-br from-cyan-900/40 to-blue-900/20 hover:from-cyan-800/50 hover:to-blue-800/30 border border-cyan-500/20",
       highlight: {
