@@ -5,4 +5,4 @@ export { default as CaseHuancomDashboard } from './CaseHuancomDashboard';
 export { default as CaseMikaelaDashboard } from './CaseMikaelaDashboard';
 export { default as CaseConjuntoEconomicoDashboard } from './CaseConjuntoEconomicoDashboard';
 export { default as ROHANADashboard } from './ROHANADashboard';
-export { default as CaseConjuntoEconomicoDashboard } from './CaseConjuntoEconomicoDashboard';
+

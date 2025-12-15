@@ -24,11 +24,8 @@ import {
   ChevronDown,
   X,
   Truck,
-<<<<<<< HEAD
   ChevronLeft,
   ChevronRight,
-=======
->>>>>>> 5b286793030263da0cb7e65b0f2914f36ed12728
 } from "lucide-react";
 import VantaBackground from "./components/VantaBackground";
 import Navbar from "./components/Navbar";
