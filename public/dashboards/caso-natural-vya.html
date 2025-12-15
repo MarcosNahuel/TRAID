@@ -1,0 +1,2768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conjunto Economico Natural VyA - Dashboard | Caso de Exito TRAID Agency</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2322c55e'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='50' font-weight='bold' text-anchor='middle' fill='%23ffffff'%3EN%3C/text%3E%3C/svg%3E">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            color-scheme: dark;
+            font-size: 16px;
+            --bg: #0a0e1a;
+            --bg-card: #141829;
+            --bg-card-hover: #1a1f3a;
+            --text: #e8eaf0;
+            --text-muted: #8b92b0;
+            --border: rgba(139, 146, 176, 0.15);
+            --natural: #22c55e;
+            --lovex: #ec4899;
+            --jumpbox: #3b82f6;
+            --primary: #22c55e;
+            --secondary: #8b5cf6;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.5);
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --transition: all 0.3s ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-card) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: var(--space-lg) var(--space-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-lg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 3px solid var(--natural);
+        }
+
+        .brand-info h1 {
+            color: var(--text);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .tagline {
+            color: var(--natural);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .header-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem var(--space-md);
+            border-radius: 999px;
+            border: 1px solid var(--border);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            padding: 3rem var(--space-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            max-width: 700px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.25rem var(--space-md);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-text h2 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-text p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.125rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .stat-circle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            box-shadow: var(--shadow-lg);
+            border: 5px solid white;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--natural);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .kpi-section {
+            padding: var(--space-2xl) var(--space-xl);
+            margin-top: -40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .kpi-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: var(--space-md);
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .kpi-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .kpi-value {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .charts-section {
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        .section-header {
+            max-width: 1400px;
+            margin: 0 auto var(--space-xl);
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+        }
+
+        .charts-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .chart-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chart-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chart-period {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .chart-container {
+            height: 350px;
+            position: relative;
+        }
+
+        .chart-container.tall {
+            height: 450px;
+        }
+
+        .cliente-legend {
+            display: flex;
+            gap: var(--space-lg);
+            justify-content: center;
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-color.natural { background: var(--natural); }
+        .legend-color.lovex { background: var(--lovex); }
+        .legend-color.jumpbox { background: var(--jumpbox); }
+
+        .impacto-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .impacto-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+        }
+
+        .impacto-card.natural {
+            border-left: 4px solid var(--natural);
+        }
+
+        .impacto-card.lovex {
+            border-left: 4px solid var(--lovex);
+        }
+
+        .impacto-card.jumpbox {
+            border-left: 4px solid var(--jumpbox);
+        }
+
+        .impacto-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .impacto-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .impacto-metric .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .impacto-metric .value {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .no-automatizacion {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .footer {
+            background: var(--bg);
+            padding: var(--space-xl);
+            text-align: center;
+            border-top: 1px solid var(--border);
+            margin-top: var(--space-2xl);
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--space-xl);
+            }
+            .charts-grid,
+            .impacto-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-text h2 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-logo">
+                    <span>N</span>
+                </div>
+                <div class="brand-info">
+                    <h1>NATURAL VyA</h1>
+                    <span class="tagline">Dashboard Analytics - Conjunto Economico</span>
+                </div>
+            </div>
+            <div class="header-badge">
+                <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg" style="height: 30px;">
+                    <rect width="100" height="32" rx="4" fill="#8b5cf6"/>
+                    <text x="50" y="22" font-family="Inter" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">TRAID</text>
+                </svg>
+                <span>Caso de Exito</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-label">CONJUNTO ECONOMICO SHOPIFY</span>
+                <h2>Automatizacion con IA en E-commerce Multi-Marca</h2>
+                <p>Conjunto economico integrado por Natural, Lovex y JumpBox. Sistema de automatizacion implementado por TRAID Agency para optimizar operaciones y aumentar conversiones.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-circle">
+                    <span class="stat-value" id="heroOrdenes">-</span>
+                    <span class="stat-label">Ordenes Totales</span>
+                </div>
+                <div class="stat-circle">
+                    <span class="stat-value" id="heroRevenue">-</span>
+                    <span class="stat-label">Revenue ARS</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="kpi-section">
+        <div class="kpi-grid" id="kpiGrid"></div>
+    </section>
+
+    <section class="charts-section">
+        <div class="section-header">
+            <h2><i class="fas fa-chart-line"></i> Series Temporales de Ventas</h2>
+            <p>Analisis semanal de revenue y ordenes por cliente</p>
+        </div>
+        <div class="charts-grid">
+            <div class="chart-card full">
+                <div class="chart-header">
+                    <h3><i class="fas fa-chart-area"></i> Revenue Semanal por Cliente</h3>
+                    <span class="chart-period" id="dateRange"></span>
+                </div>
+                <div class="chart-container tall">
+                    <canvas id="revenueByClientChart"></canvas>
+                </div>
+                <div class="cliente-legend">
+                    <div class="legend-item">
+                        <div class="legend-color natural"></div>
+                        <span>Natural (Auto: 15 Oct)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color lovex"></div>
+                        <span>Lovex (Auto: 8 Oct)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color jumpbox"></div>
+                        <span>JumpBox (Sin Auto)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-shopping-bag"></i> Ordenes por Cliente</h3>
+                    <span class="chart-period">Distribucion</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ordenesPorClienteChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-dollar-sign"></i> Revenue por Cliente</h3>
+                    <span class="chart-period">Distribucion</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="revenuePorClienteChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card full">
+                <div class="chart-header">
+                    <h3><i class="fas fa-map-marker-alt"></i> Top 10 Provincias</h3>
+                    <span class="chart-period">Por revenue</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="topProvinciasChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-credit-card"></i> Estados Financieros</h3>
+                    <span class="chart-period">Distribucion de ordenes</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="estadosChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3><i class="fas fa-calendar"></i> Ordenes Semanales Totales</h3>
+                    <span class="chart-period">Serie temporal</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="ordenesMensualesChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="charts-section" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+        <div class="section-header">
+            <h2><i class="fas fa-robot"></i> Impacto de la Automatizacion</h2>
+            <p>Comparativa Pre vs Post automatizacion por cliente</p>
+        </div>
+        <div class="impacto-grid" id="impactoGrid"></div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" style="height: 40px; margin-bottom: 8px;">
+                <rect width="120" height="40" rx="6" fill="#8b5cf6"/>
+                <text x="60" y="27" font-family="Inter" font-size="18" font-weight="700" text-anchor="middle" fill="#ffffff">TRAID</text>
+            </svg>
+            <p>Dashboard desarrollado por TRAID Agency - traidagency.com</p>
+            <p style="margin-top: 0.5rem;">Dashboard con metricas reales de Shopify</p>
+        </div>
+    </footer>
+
+    <script>
+        // Datos embebidos directamente para funcionar sin server
+        const dashboardData = {
+  "metadata": {
+    "generado": "2025-12-15 08:41:48",
+    "total_ordenes": 58364,
+    "rango_fechas": {
+      "desde": "2024-12-15",
+      "hasta": "2025-12-15"
+    },
+    "fechas_automatizacion": {
+      "Natural": "2025-10-20",
+      "Lovex": "2025-10-20",
+      "JumpBox": null
+    }
+  },
+  "kpis_generales": {
+    "total_ordenes": 58364,
+    "revenue_total": 2727446822.03,
+    "ticket_promedio": 46731.66373158112,
+    "ticket_mediano": 44898.5,
+    "impuestos_totales": 37800.0,
+    "items_totales": 95223,
+    "clientes_unicos": 48031,
+    "tasa_pago": 91.32684531560551,
+    "tasa_fulfillment": 91.09725173051882
+  },
+  "kpis_por_cliente": {
+    "Lovex": {
+      "ordenes": 7825,
+      "revenue": 369456763.18,
+      "ticket_promedio": 47214.92181214058,
+      "items": 13706,
+      "clientes_unicos": 6268,
+      "porcentaje_ordenes": 13.407237338085121,
+      "porcentaje_revenue": 13.545883285270383
+    },
+    "Natural": {
+      "ordenes": 49131,
+      "revenue": 2269868188.49,
+      "ticket_promedio": 46200.32542569864,
+      "items": 79684,
+      "clientes_unicos": 40658,
+      "porcentaje_ordenes": 84.18031663354122,
+      "porcentaje_revenue": 83.22318771372301
+    },
+    "JumpBox": {
+      "ordenes": 1408,
+      "revenue": 88121870.36,
+      "ticket_promedio": 62586.555653409094,
+      "items": 1833,
+      "clientes_unicos": 1235,
+      "porcentaje_ordenes": 2.4124460283736546,
+      "porcentaje_revenue": 3.2309290010065945
+    }
+  },
+  "series_semanales": {
+    "Lovex": [
+      {
+        "label": "09 Dec",
+        "fecha_completa": "2024-12-09",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "16 Dec",
+        "fecha_completa": "2024-12-16",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "23 Dec",
+        "fecha_completa": "2024-12-23",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "30 Dec",
+        "fecha_completa": "2024-12-30",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "06 Jan",
+        "fecha_completa": "2025-01-06",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "13 Jan",
+        "fecha_completa": "2025-01-13",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "20 Jan",
+        "fecha_completa": "2025-01-20",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "27 Jan",
+        "fecha_completa": "2025-01-27",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "03 Feb",
+        "fecha_completa": "2025-02-03",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "10 Feb",
+        "fecha_completa": "2025-02-10",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "17 Feb",
+        "fecha_completa": "2025-02-17",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "24 Feb",
+        "fecha_completa": "2025-02-24",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "03 Mar",
+        "fecha_completa": "2025-03-03",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "10 Mar",
+        "fecha_completa": "2025-03-10",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "17 Mar",
+        "fecha_completa": "2025-03-17",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "24 Mar",
+        "fecha_completa": "2025-03-24",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "31 Mar",
+        "fecha_completa": "2025-03-31",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "07 Apr",
+        "fecha_completa": "2025-04-07",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "14 Apr",
+        "fecha_completa": "2025-04-14",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "21 Apr",
+        "fecha_completa": "2025-04-21",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "28 Apr",
+        "fecha_completa": "2025-04-28",
+        "ordenes": 1,
+        "revenue": 0.0,
+        "items": 2
+      },
+      {
+        "label": "05 May",
+        "fecha_completa": "2025-05-05",
+        "ordenes": 68,
+        "revenue": 2944950.0,
+        "items": 125
+      },
+      {
+        "label": "12 May",
+        "fecha_completa": "2025-05-12",
+        "ordenes": 138,
+        "revenue": 5979950.0,
+        "items": 244
+      },
+      {
+        "label": "19 May",
+        "fecha_completa": "2025-05-19",
+        "ordenes": 157,
+        "revenue": 7071500.0,
+        "items": 270
+      },
+      {
+        "label": "26 May",
+        "fecha_completa": "2025-05-26",
+        "ordenes": 203,
+        "revenue": 9227690.0,
+        "items": 340
+      },
+      {
+        "label": "02 Jun",
+        "fecha_completa": "2025-06-02",
+        "ordenes": 273,
+        "revenue": 12750780.0,
+        "items": 498
+      },
+      {
+        "label": "09 Jun",
+        "fecha_completa": "2025-06-09",
+        "ordenes": 346,
+        "revenue": 15450700.0,
+        "items": 600
+      },
+      {
+        "label": "16 Jun",
+        "fecha_completa": "2025-06-16",
+        "ordenes": 302,
+        "revenue": 13444450.0,
+        "items": 531
+      },
+      {
+        "label": "23 Jun",
+        "fecha_completa": "2025-06-23",
+        "ordenes": 312,
+        "revenue": 12849400.0,
+        "items": 540
+      },
+      {
+        "label": "30 Jun",
+        "fecha_completa": "2025-06-30",
+        "ordenes": 405,
+        "revenue": 16488760.0,
+        "items": 674
+      },
+      {
+        "label": "07 Jul",
+        "fecha_completa": "2025-07-07",
+        "ordenes": 318,
+        "revenue": 12872715.0,
+        "items": 533
+      },
+      {
+        "label": "14 Jul",
+        "fecha_completa": "2025-07-14",
+        "ordenes": 361,
+        "revenue": 15912280.0,
+        "items": 601
+      },
+      {
+        "label": "21 Jul",
+        "fecha_completa": "2025-07-21",
+        "ordenes": 374,
+        "revenue": 16639710.0,
+        "items": 634
+      },
+      {
+        "label": "28 Jul",
+        "fecha_completa": "2025-07-28",
+        "ordenes": 223,
+        "revenue": 9716655.0,
+        "items": 380
+      },
+      {
+        "label": "04 Aug",
+        "fecha_completa": "2025-08-04",
+        "ordenes": 370,
+        "revenue": 16380235.0,
+        "items": 630
+      },
+      {
+        "label": "11 Aug",
+        "fecha_completa": "2025-08-11",
+        "ordenes": 583,
+        "revenue": 27715735.0,
+        "items": 999
+      },
+      {
+        "label": "18 Aug",
+        "fecha_completa": "2025-08-18",
+        "ordenes": 477,
+        "revenue": 23264520.0,
+        "items": 841
+      },
+      {
+        "label": "25 Aug",
+        "fecha_completa": "2025-08-25",
+        "ordenes": 434,
+        "revenue": 21588660.0,
+        "items": 769
+      },
+      {
+        "label": "01 Sep",
+        "fecha_completa": "2025-09-01",
+        "ordenes": 321,
+        "revenue": 16422920.0,
+        "items": 588
+      },
+      {
+        "label": "08 Sep",
+        "fecha_completa": "2025-09-08",
+        "ordenes": 269,
+        "revenue": 14047195.0,
+        "items": 505
+      },
+      {
+        "label": "15 Sep",
+        "fecha_completa": "2025-09-15",
+        "ordenes": 233,
+        "revenue": 11712405.0,
+        "items": 449
+      },
+      {
+        "label": "22 Sep",
+        "fecha_completa": "2025-09-22",
+        "ordenes": 222,
+        "revenue": 11213705.0,
+        "items": 429
+      },
+      {
+        "label": "29 Sep",
+        "fecha_completa": "2025-09-29",
+        "ordenes": 181,
+        "revenue": 8781782.5,
+        "items": 359
+      },
+      {
+        "label": "06 Oct",
+        "fecha_completa": "2025-10-06",
+        "ordenes": 92,
+        "revenue": 4572737.5,
+        "items": 169
+      },
+      {
+        "label": "13 Oct",
+        "fecha_completa": "2025-10-13",
+        "ordenes": 128,
+        "revenue": 6477200.0,
+        "items": 193
+      },
+      {
+        "label": "20 Oct",
+        "fecha_completa": "2025-10-20",
+        "ordenes": 142,
+        "revenue": 7512500.0,
+        "items": 213
+      },
+      {
+        "label": "27 Oct",
+        "fecha_completa": "2025-10-27",
+        "ordenes": 165,
+        "revenue": 9594800.0,
+        "items": 264
+      },
+      {
+        "label": "03 Nov",
+        "fecha_completa": "2025-11-03",
+        "ordenes": 178,
+        "revenue": 10423550.0,
+        "items": 300
+      },
+      {
+        "label": "10 Nov",
+        "fecha_completa": "2025-11-10",
+        "ordenes": 78,
+        "revenue": 4184600.0,
+        "items": 128
+      },
+      {
+        "label": "17 Nov",
+        "fecha_completa": "2025-11-17",
+        "ordenes": 112,
+        "revenue": 5510105.0,
+        "items": 169
+      },
+      {
+        "label": "24 Nov",
+        "fecha_completa": "2025-11-24",
+        "ordenes": 236,
+        "revenue": 11865580.0,
+        "items": 501
+      },
+      {
+        "label": "01 Dec",
+        "fecha_completa": "2025-12-01",
+        "ordenes": 80,
+        "revenue": 4229488.0,
+        "items": 144
+      },
+      {
+        "label": "08 Dec",
+        "fecha_completa": "2025-12-08",
+        "ordenes": 43,
+        "revenue": 2609505.18,
+        "items": 84
+      }
+    ],
+    "Natural": [
+      {
+        "label": "09 Dec",
+        "fecha_completa": "2024-12-09",
+        "ordenes": 62,
+        "revenue": 2443608.83,
+        "items": 87
+      },
+      {
+        "label": "16 Dec",
+        "fecha_completa": "2024-12-16",
+        "ordenes": 736,
+        "revenue": 27890116.41,
+        "items": 922
+      },
+      {
+        "label": "23 Dec",
+        "fecha_completa": "2024-12-23",
+        "ordenes": 1077,
+        "revenue": 41975037.11,
+        "items": 1363
+      },
+      {
+        "label": "30 Dec",
+        "fecha_completa": "2024-12-30",
+        "ordenes": 1172,
+        "revenue": 45991169.78,
+        "items": 1464
+      },
+      {
+        "label": "06 Jan",
+        "fecha_completa": "2025-01-06",
+        "ordenes": 1086,
+        "revenue": 41786017.71,
+        "items": 1354
+      },
+      {
+        "label": "13 Jan",
+        "fecha_completa": "2025-01-13",
+        "ordenes": 1079,
+        "revenue": 42667617.0,
+        "items": 1627
+      },
+      {
+        "label": "20 Jan",
+        "fecha_completa": "2025-01-20",
+        "ordenes": 1057,
+        "revenue": 41252226.68,
+        "items": 1371
+      },
+      {
+        "label": "27 Jan",
+        "fecha_completa": "2025-01-27",
+        "ordenes": 1095,
+        "revenue": 41609562.41,
+        "items": 1379
+      },
+      {
+        "label": "03 Feb",
+        "fecha_completa": "2025-02-03",
+        "ordenes": 1232,
+        "revenue": 43014185.33,
+        "items": 1530
+      },
+      {
+        "label": "10 Feb",
+        "fecha_completa": "2025-02-10",
+        "ordenes": 1042,
+        "revenue": 36513595.0,
+        "items": 1295
+      },
+      {
+        "label": "17 Feb",
+        "fecha_completa": "2025-02-17",
+        "ordenes": 878,
+        "revenue": 31699592.1,
+        "items": 1199
+      },
+      {
+        "label": "24 Feb",
+        "fecha_completa": "2025-02-24",
+        "ordenes": 1326,
+        "revenue": 50101510.9,
+        "items": 1844
+      },
+      {
+        "label": "03 Mar",
+        "fecha_completa": "2025-03-03",
+        "ordenes": 1752,
+        "revenue": 68580418.0,
+        "items": 2585
+      },
+      {
+        "label": "10 Mar",
+        "fecha_completa": "2025-03-10",
+        "ordenes": 1356,
+        "revenue": 48886756.45,
+        "items": 1994
+      },
+      {
+        "label": "17 Mar",
+        "fecha_completa": "2025-03-17",
+        "ordenes": 1494,
+        "revenue": 55089260.9,
+        "items": 2045
+      },
+      {
+        "label": "24 Mar",
+        "fecha_completa": "2025-03-24",
+        "ordenes": 1146,
+        "revenue": 42727894.15,
+        "items": 1590
+      },
+      {
+        "label": "31 Mar",
+        "fecha_completa": "2025-03-31",
+        "ordenes": 1127,
+        "revenue": 42347390.29,
+        "items": 1510
+      },
+      {
+        "label": "07 Apr",
+        "fecha_completa": "2025-04-07",
+        "ordenes": 965,
+        "revenue": 36445540.2,
+        "items": 1276
+      },
+      {
+        "label": "14 Apr",
+        "fecha_completa": "2025-04-14",
+        "ordenes": 988,
+        "revenue": 38276363.1,
+        "items": 1253
+      },
+      {
+        "label": "21 Apr",
+        "fecha_completa": "2025-04-21",
+        "ordenes": 684,
+        "revenue": 28279310.95,
+        "items": 917
+      },
+      {
+        "label": "28 Apr",
+        "fecha_completa": "2025-04-28",
+        "ordenes": 836,
+        "revenue": 36940636.55,
+        "items": 1163
+      },
+      {
+        "label": "05 May",
+        "fecha_completa": "2025-05-05",
+        "ordenes": 853,
+        "revenue": 38939873.4,
+        "items": 1169
+      },
+      {
+        "label": "12 May",
+        "fecha_completa": "2025-05-12",
+        "ordenes": 1139,
+        "revenue": 58718519.4,
+        "items": 2044
+      },
+      {
+        "label": "19 May",
+        "fecha_completa": "2025-05-19",
+        "ordenes": 658,
+        "revenue": 32277010.0,
+        "items": 1186
+      },
+      {
+        "label": "26 May",
+        "fecha_completa": "2025-05-26",
+        "ordenes": 709,
+        "revenue": 37135340.06,
+        "items": 1304
+      },
+      {
+        "label": "02 Jun",
+        "fecha_completa": "2025-06-02",
+        "ordenes": 714,
+        "revenue": 36864735.0,
+        "items": 1232
+      },
+      {
+        "label": "09 Jun",
+        "fecha_completa": "2025-06-09",
+        "ordenes": 740,
+        "revenue": 38512215.0,
+        "items": 1263
+      },
+      {
+        "label": "16 Jun",
+        "fecha_completa": "2025-06-16",
+        "ordenes": 744,
+        "revenue": 38056480.0,
+        "items": 1284
+      },
+      {
+        "label": "23 Jun",
+        "fecha_completa": "2025-06-23",
+        "ordenes": 748,
+        "revenue": 38868968.0,
+        "items": 1330
+      },
+      {
+        "label": "30 Jun",
+        "fecha_completa": "2025-06-30",
+        "ordenes": 874,
+        "revenue": 44193755.0,
+        "items": 1510
+      },
+      {
+        "label": "07 Jul",
+        "fecha_completa": "2025-07-07",
+        "ordenes": 1107,
+        "revenue": 53281846.31,
+        "items": 2081
+      },
+      {
+        "label": "14 Jul",
+        "fecha_completa": "2025-07-14",
+        "ordenes": 983,
+        "revenue": 47321889.9,
+        "items": 1807
+      },
+      {
+        "label": "21 Jul",
+        "fecha_completa": "2025-07-21",
+        "ordenes": 967,
+        "revenue": 48311300.75,
+        "items": 1799
+      },
+      {
+        "label": "28 Jul",
+        "fecha_completa": "2025-07-28",
+        "ordenes": 1039,
+        "revenue": 51649502.85,
+        "items": 1887
+      },
+      {
+        "label": "04 Aug",
+        "fecha_completa": "2025-08-04",
+        "ordenes": 1150,
+        "revenue": 60359530.0,
+        "items": 2100
+      },
+      {
+        "label": "11 Aug",
+        "fecha_completa": "2025-08-11",
+        "ordenes": 749,
+        "revenue": 39654936.5,
+        "items": 1394
+      },
+      {
+        "label": "18 Aug",
+        "fecha_completa": "2025-08-18",
+        "ordenes": 1171,
+        "revenue": 57055625.17,
+        "items": 2355
+      },
+      {
+        "label": "25 Aug",
+        "fecha_completa": "2025-08-25",
+        "ordenes": 1012,
+        "revenue": 52975684.0,
+        "items": 1891
+      },
+      {
+        "label": "01 Sep",
+        "fecha_completa": "2025-09-01",
+        "ordenes": 968,
+        "revenue": 49433538.28,
+        "items": 1843
+      },
+      {
+        "label": "08 Sep",
+        "fecha_completa": "2025-09-08",
+        "ordenes": 953,
+        "revenue": 51016123.25,
+        "items": 1858
+      },
+      {
+        "label": "15 Sep",
+        "fecha_completa": "2025-09-15",
+        "ordenes": 866,
+        "revenue": 43818406.1,
+        "items": 1669
+      },
+      {
+        "label": "22 Sep",
+        "fecha_completa": "2025-09-22",
+        "ordenes": 656,
+        "revenue": 34955111.5,
+        "items": 1328
+      },
+      {
+        "label": "29 Sep",
+        "fecha_completa": "2025-09-29",
+        "ordenes": 1057,
+        "revenue": 53062545.5,
+        "items": 2135
+      },
+      {
+        "label": "06 Oct",
+        "fecha_completa": "2025-10-06",
+        "ordenes": 1069,
+        "revenue": 55177684.0,
+        "items": 2171
+      },
+      {
+        "label": "13 Oct",
+        "fecha_completa": "2025-10-13",
+        "ordenes": 884,
+        "revenue": 47885315.0,
+        "items": 1811
+      },
+      {
+        "label": "20 Oct",
+        "fecha_completa": "2025-10-20",
+        "ordenes": 700,
+        "revenue": 38013307.89,
+        "items": 1374
+      },
+      {
+        "label": "27 Oct",
+        "fecha_completa": "2025-10-27",
+        "ordenes": 678,
+        "revenue": 43168922.0,
+        "items": 1438
+      },
+      {
+        "label": "03 Nov",
+        "fecha_completa": "2025-11-03",
+        "ordenes": 963,
+        "revenue": 63290717.78,
+        "items": 2014
+      },
+      {
+        "label": "10 Nov",
+        "fecha_completa": "2025-11-10",
+        "ordenes": 593,
+        "revenue": 33105428.0,
+        "items": 851
+      },
+      {
+        "label": "17 Nov",
+        "fecha_completa": "2025-11-17",
+        "ordenes": 567,
+        "revenue": 32459173.0,
+        "items": 936
+      },
+      {
+        "label": "24 Nov",
+        "fecha_completa": "2025-11-24",
+        "ordenes": 573,
+        "revenue": 35561521.0,
+        "items": 1061
+      },
+      {
+        "label": "01 Dec",
+        "fecha_completa": "2025-12-01",
+        "ordenes": 553,
+        "revenue": 34943402.5,
+        "items": 978
+      },
+      {
+        "label": "08 Dec",
+        "fecha_completa": "2025-12-08",
+        "ordenes": 498,
+        "revenue": 34885496.5,
+        "items": 804
+      }
+    ],
+    "JumpBox": [
+      {
+        "label": "09 Dec",
+        "fecha_completa": "2024-12-09",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "16 Dec",
+        "fecha_completa": "2024-12-16",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "23 Dec",
+        "fecha_completa": "2024-12-23",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "30 Dec",
+        "fecha_completa": "2024-12-30",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "06 Jan",
+        "fecha_completa": "2025-01-06",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "13 Jan",
+        "fecha_completa": "2025-01-13",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "20 Jan",
+        "fecha_completa": "2025-01-20",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "27 Jan",
+        "fecha_completa": "2025-01-27",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "03 Feb",
+        "fecha_completa": "2025-02-03",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "10 Feb",
+        "fecha_completa": "2025-02-10",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "17 Feb",
+        "fecha_completa": "2025-02-17",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "24 Feb",
+        "fecha_completa": "2025-02-24",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "03 Mar",
+        "fecha_completa": "2025-03-03",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "10 Mar",
+        "fecha_completa": "2025-03-10",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "17 Mar",
+        "fecha_completa": "2025-03-17",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "24 Mar",
+        "fecha_completa": "2025-03-24",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "31 Mar",
+        "fecha_completa": "2025-03-31",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "07 Apr",
+        "fecha_completa": "2025-04-07",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "14 Apr",
+        "fecha_completa": "2025-04-14",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "21 Apr",
+        "fecha_completa": "2025-04-21",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "28 Apr",
+        "fecha_completa": "2025-04-28",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "05 May",
+        "fecha_completa": "2025-05-05",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "12 May",
+        "fecha_completa": "2025-05-12",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "19 May",
+        "fecha_completa": "2025-05-19",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "26 May",
+        "fecha_completa": "2025-05-26",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "02 Jun",
+        "fecha_completa": "2025-06-02",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "09 Jun",
+        "fecha_completa": "2025-06-09",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "16 Jun",
+        "fecha_completa": "2025-06-16",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "23 Jun",
+        "fecha_completa": "2025-06-23",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "30 Jun",
+        "fecha_completa": "2025-06-30",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "07 Jul",
+        "fecha_completa": "2025-07-07",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "14 Jul",
+        "fecha_completa": "2025-07-14",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "21 Jul",
+        "fecha_completa": "2025-07-21",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "28 Jul",
+        "fecha_completa": "2025-07-28",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "04 Aug",
+        "fecha_completa": "2025-08-04",
+        "ordenes": 15,
+        "revenue": 1218980.0,
+        "items": 18
+      },
+      {
+        "label": "11 Aug",
+        "fecha_completa": "2025-08-11",
+        "ordenes": 9,
+        "revenue": 535300.0,
+        "items": 12
+      },
+      {
+        "label": "18 Aug",
+        "fecha_completa": "2025-08-18",
+        "ordenes": 0,
+        "revenue": 0,
+        "items": 0
+      },
+      {
+        "label": "25 Aug",
+        "fecha_completa": "2025-08-25",
+        "ordenes": 2,
+        "revenue": 99800.0,
+        "items": 2
+      },
+      {
+        "label": "01 Sep",
+        "fecha_completa": "2025-09-01",
+        "ordenes": 5,
+        "revenue": 320990.0,
+        "items": 5
+      },
+      {
+        "label": "08 Sep",
+        "fecha_completa": "2025-09-08",
+        "ordenes": 5,
+        "revenue": 371800.0,
+        "items": 8
+      },
+      {
+        "label": "15 Sep",
+        "fecha_completa": "2025-09-15",
+        "ordenes": 83,
+        "revenue": 5181680.0,
+        "items": 108
+      },
+      {
+        "label": "22 Sep",
+        "fecha_completa": "2025-09-22",
+        "ordenes": 83,
+        "revenue": 5480870.0,
+        "items": 115
+      },
+      {
+        "label": "29 Sep",
+        "fecha_completa": "2025-09-29",
+        "ordenes": 80,
+        "revenue": 5397060.0,
+        "items": 116
+      },
+      {
+        "label": "06 Oct",
+        "fecha_completa": "2025-10-06",
+        "ordenes": 99,
+        "revenue": 6607392.0,
+        "items": 142
+      },
+      {
+        "label": "13 Oct",
+        "fecha_completa": "2025-10-13",
+        "ordenes": 96,
+        "revenue": 5747003.0,
+        "items": 126
+      },
+      {
+        "label": "20 Oct",
+        "fecha_completa": "2025-10-20",
+        "ordenes": 14,
+        "revenue": 750434.0,
+        "items": 16
+      },
+      {
+        "label": "27 Oct",
+        "fecha_completa": "2025-10-27",
+        "ordenes": 157,
+        "revenue": 9492626.5,
+        "items": 197
+      },
+      {
+        "label": "03 Nov",
+        "fecha_completa": "2025-11-03",
+        "ordenes": 341,
+        "revenue": 19117563.0,
+        "items": 421
+      },
+      {
+        "label": "10 Nov",
+        "fecha_completa": "2025-11-10",
+        "ordenes": 64,
+        "revenue": 4394763.0,
+        "items": 90
+      },
+      {
+        "label": "17 Nov",
+        "fecha_completa": "2025-11-17",
+        "ordenes": 62,
+        "revenue": 3835480.0,
+        "items": 69
+      },
+      {
+        "label": "24 Nov",
+        "fecha_completa": "2025-11-24",
+        "ordenes": 109,
+        "revenue": 7125382.5,
+        "items": 144
+      },
+      {
+        "label": "01 Dec",
+        "fecha_completa": "2025-12-01",
+        "ordenes": 105,
+        "revenue": 6762731.0,
+        "items": 124
+      },
+      {
+        "label": "08 Dec",
+        "fecha_completa": "2025-12-08",
+        "ordenes": 79,
+        "revenue": 5682015.36,
+        "items": 120
+      }
+    ],
+    "Total": [
+      {
+        "label": "09 Dec",
+        "fecha_completa": "2024-12-09",
+        "ordenes": 62,
+        "revenue": 2443608.83,
+        "items": 87
+      },
+      {
+        "label": "16 Dec",
+        "fecha_completa": "2024-12-16",
+        "ordenes": 736,
+        "revenue": 27890116.41,
+        "items": 922
+      },
+      {
+        "label": "23 Dec",
+        "fecha_completa": "2024-12-23",
+        "ordenes": 1077,
+        "revenue": 41975037.11,
+        "items": 1363
+      },
+      {
+        "label": "30 Dec",
+        "fecha_completa": "2024-12-30",
+        "ordenes": 1172,
+        "revenue": 45991169.78,
+        "items": 1464
+      },
+      {
+        "label": "06 Jan",
+        "fecha_completa": "2025-01-06",
+        "ordenes": 1086,
+        "revenue": 41786017.71,
+        "items": 1354
+      },
+      {
+        "label": "13 Jan",
+        "fecha_completa": "2025-01-13",
+        "ordenes": 1079,
+        "revenue": 42667617.0,
+        "items": 1627
+      },
+      {
+        "label": "20 Jan",
+        "fecha_completa": "2025-01-20",
+        "ordenes": 1057,
+        "revenue": 41252226.68,
+        "items": 1371
+      },
+      {
+        "label": "27 Jan",
+        "fecha_completa": "2025-01-27",
+        "ordenes": 1095,
+        "revenue": 41609562.41,
+        "items": 1379
+      },
+      {
+        "label": "03 Feb",
+        "fecha_completa": "2025-02-03",
+        "ordenes": 1232,
+        "revenue": 43014185.33,
+        "items": 1530
+      },
+      {
+        "label": "10 Feb",
+        "fecha_completa": "2025-02-10",
+        "ordenes": 1042,
+        "revenue": 36513595.0,
+        "items": 1295
+      },
+      {
+        "label": "17 Feb",
+        "fecha_completa": "2025-02-17",
+        "ordenes": 878,
+        "revenue": 31699592.1,
+        "items": 1199
+      },
+      {
+        "label": "24 Feb",
+        "fecha_completa": "2025-02-24",
+        "ordenes": 1326,
+        "revenue": 50101510.9,
+        "items": 1844
+      },
+      {
+        "label": "03 Mar",
+        "fecha_completa": "2025-03-03",
+        "ordenes": 1752,
+        "revenue": 68580418.0,
+        "items": 2585
+      },
+      {
+        "label": "10 Mar",
+        "fecha_completa": "2025-03-10",
+        "ordenes": 1356,
+        "revenue": 48886756.45,
+        "items": 1994
+      },
+      {
+        "label": "17 Mar",
+        "fecha_completa": "2025-03-17",
+        "ordenes": 1494,
+        "revenue": 55089260.9,
+        "items": 2045
+      },
+      {
+        "label": "24 Mar",
+        "fecha_completa": "2025-03-24",
+        "ordenes": 1146,
+        "revenue": 42727894.15,
+        "items": 1590
+      },
+      {
+        "label": "31 Mar",
+        "fecha_completa": "2025-03-31",
+        "ordenes": 1127,
+        "revenue": 42347390.29,
+        "items": 1510
+      },
+      {
+        "label": "07 Apr",
+        "fecha_completa": "2025-04-07",
+        "ordenes": 965,
+        "revenue": 36445540.2,
+        "items": 1276
+      },
+      {
+        "label": "14 Apr",
+        "fecha_completa": "2025-04-14",
+        "ordenes": 988,
+        "revenue": 38276363.1,
+        "items": 1253
+      },
+      {
+        "label": "21 Apr",
+        "fecha_completa": "2025-04-21",
+        "ordenes": 684,
+        "revenue": 28279310.95,
+        "items": 917
+      },
+      {
+        "label": "28 Apr",
+        "fecha_completa": "2025-04-28",
+        "ordenes": 837,
+        "revenue": 36940636.55,
+        "items": 1165
+      },
+      {
+        "label": "05 May",
+        "fecha_completa": "2025-05-05",
+        "ordenes": 921,
+        "revenue": 41884823.4,
+        "items": 1294
+      },
+      {
+        "label": "12 May",
+        "fecha_completa": "2025-05-12",
+        "ordenes": 1277,
+        "revenue": 64698469.4,
+        "items": 2288
+      },
+      {
+        "label": "19 May",
+        "fecha_completa": "2025-05-19",
+        "ordenes": 815,
+        "revenue": 39348510.0,
+        "items": 1456
+      },
+      {
+        "label": "26 May",
+        "fecha_completa": "2025-05-26",
+        "ordenes": 912,
+        "revenue": 46363030.06,
+        "items": 1644
+      },
+      {
+        "label": "02 Jun",
+        "fecha_completa": "2025-06-02",
+        "ordenes": 987,
+        "revenue": 49615515.0,
+        "items": 1730
+      },
+      {
+        "label": "09 Jun",
+        "fecha_completa": "2025-06-09",
+        "ordenes": 1086,
+        "revenue": 53962915.0,
+        "items": 1863
+      },
+      {
+        "label": "16 Jun",
+        "fecha_completa": "2025-06-16",
+        "ordenes": 1046,
+        "revenue": 51500930.0,
+        "items": 1815
+      },
+      {
+        "label": "23 Jun",
+        "fecha_completa": "2025-06-23",
+        "ordenes": 1060,
+        "revenue": 51718368.0,
+        "items": 1870
+      },
+      {
+        "label": "30 Jun",
+        "fecha_completa": "2025-06-30",
+        "ordenes": 1279,
+        "revenue": 60682515.0,
+        "items": 2184
+      },
+      {
+        "label": "07 Jul",
+        "fecha_completa": "2025-07-07",
+        "ordenes": 1425,
+        "revenue": 66154561.31,
+        "items": 2614
+      },
+      {
+        "label": "14 Jul",
+        "fecha_completa": "2025-07-14",
+        "ordenes": 1344,
+        "revenue": 63234169.9,
+        "items": 2408
+      },
+      {
+        "label": "21 Jul",
+        "fecha_completa": "2025-07-21",
+        "ordenes": 1341,
+        "revenue": 64951010.75,
+        "items": 2433
+      },
+      {
+        "label": "28 Jul",
+        "fecha_completa": "2025-07-28",
+        "ordenes": 1262,
+        "revenue": 61366157.85,
+        "items": 2267
+      },
+      {
+        "label": "04 Aug",
+        "fecha_completa": "2025-08-04",
+        "ordenes": 1535,
+        "revenue": 77958745.0,
+        "items": 2748
+      },
+      {
+        "label": "11 Aug",
+        "fecha_completa": "2025-08-11",
+        "ordenes": 1341,
+        "revenue": 67905971.5,
+        "items": 2405
+      },
+      {
+        "label": "18 Aug",
+        "fecha_completa": "2025-08-18",
+        "ordenes": 1648,
+        "revenue": 80320145.17,
+        "items": 3196
+      },
+      {
+        "label": "25 Aug",
+        "fecha_completa": "2025-08-25",
+        "ordenes": 1448,
+        "revenue": 74664144.0,
+        "items": 2662
+      },
+      {
+        "label": "01 Sep",
+        "fecha_completa": "2025-09-01",
+        "ordenes": 1294,
+        "revenue": 66177448.28,
+        "items": 2436
+      },
+      {
+        "label": "08 Sep",
+        "fecha_completa": "2025-09-08",
+        "ordenes": 1227,
+        "revenue": 65435118.25,
+        "items": 2371
+      },
+      {
+        "label": "15 Sep",
+        "fecha_completa": "2025-09-15",
+        "ordenes": 1182,
+        "revenue": 60712491.1,
+        "items": 2226
+      },
+      {
+        "label": "22 Sep",
+        "fecha_completa": "2025-09-22",
+        "ordenes": 961,
+        "revenue": 51649686.5,
+        "items": 1872
+      },
+      {
+        "label": "29 Sep",
+        "fecha_completa": "2025-09-29",
+        "ordenes": 1318,
+        "revenue": 67241388.0,
+        "items": 2610
+      },
+      {
+        "label": "06 Oct",
+        "fecha_completa": "2025-10-06",
+        "ordenes": 1260,
+        "revenue": 66357813.5,
+        "items": 2482
+      },
+      {
+        "label": "13 Oct",
+        "fecha_completa": "2025-10-13",
+        "ordenes": 1108,
+        "revenue": 60109518.0,
+        "items": 2130
+      },
+      {
+        "label": "20 Oct",
+        "fecha_completa": "2025-10-20",
+        "ordenes": 856,
+        "revenue": 46276241.89,
+        "items": 1603
+      },
+      {
+        "label": "27 Oct",
+        "fecha_completa": "2025-10-27",
+        "ordenes": 1000,
+        "revenue": 62256348.5,
+        "items": 1899
+      },
+      {
+        "label": "03 Nov",
+        "fecha_completa": "2025-11-03",
+        "ordenes": 1482,
+        "revenue": 92831830.78,
+        "items": 2735
+      },
+      {
+        "label": "10 Nov",
+        "fecha_completa": "2025-11-10",
+        "ordenes": 735,
+        "revenue": 41684791.0,
+        "items": 1069
+      },
+      {
+        "label": "17 Nov",
+        "fecha_completa": "2025-11-17",
+        "ordenes": 741,
+        "revenue": 41804758.0,
+        "items": 1174
+      },
+      {
+        "label": "24 Nov",
+        "fecha_completa": "2025-11-24",
+        "ordenes": 918,
+        "revenue": 54552483.5,
+        "items": 1706
+      },
+      {
+        "label": "01 Dec",
+        "fecha_completa": "2025-12-01",
+        "ordenes": 738,
+        "revenue": 45935621.5,
+        "items": 1246
+      },
+      {
+        "label": "08 Dec",
+        "fecha_completa": "2025-12-08",
+        "ordenes": 620,
+        "revenue": 43177017.04,
+        "items": 1008
+      }
+    ]
+  },
+  "impacto_por_cliente": {
+    "Natural": {
+      "tiene_automatizacion": true,
+      "fecha_implementacion": "2025-10-20",
+      "dias_operativo": 56,
+      "pre_automatizacion": {
+        "ordenes_totales": 44000,
+        "revenue_total": 1954043744.82,
+        "ordenes_promedio": 977.7777777777778,
+        "revenue_promedio": 43423194.329333335,
+        "periodos": 45,
+        "tipo_periodo": "semanas"
+      },
+      "post_automatizacion": {
+        "ordenes_totales": 5131,
+        "revenue_total": 315824443.67,
+        "ordenes_promedio": 570.1111111111111,
+        "revenue_promedio": 35091604.85222223,
+        "periodos": 9,
+        "tipo_periodo": "semanas"
+      },
+      "incremento_revenue_pct": -19.18695666173719,
+      "incremento_ordenes_pct": -41.69318181818183
+    },
+    "Lovex": {
+      "tiene_automatizacion": true,
+      "fecha_implementacion": "2025-10-20",
+      "dias_operativo": 56,
+      "pre_automatizacion": {
+        "ordenes_totales": 6791,
+        "revenue_total": 313526635.0,
+        "ordenes_promedio": 271.64,
+        "revenue_promedio": 12541065.4,
+        "periodos": 25,
+        "tipo_periodo": "semanas"
+      },
+      "post_automatizacion": {
+        "ordenes_totales": 1034,
+        "revenue_total": 55930128.18,
+        "ordenes_promedio": 129.25,
+        "revenue_promedio": 6991266.0225,
+        "periodos": 8,
+        "tipo_periodo": "semanas"
+      },
+      "incremento_revenue_pct": -44.25301360361298,
+      "incremento_ordenes_pct": -52.418642320718604
+    },
+    "JumpBox": {
+      "tiene_automatizacion": false,
+      "fecha_implementacion": null
+    }
+  },
+  "top_provincias": [
+    {
+      "nombre": "Buenos Aires",
+      "ordenes": 26603,
+      "revenue": 1235617385.99,
+      "items": 42974
+    },
+    {
+      "nombre": "Ciudad Autónoma de Buenos Aires",
+      "ordenes": 8339,
+      "revenue": 366364594.21,
+      "items": 13168
+    },
+    {
+      "nombre": "Córdoba",
+      "ordenes": 4340,
+      "revenue": 203086191.69,
+      "items": 7156
+    },
+    {
+      "nombre": "Santa Fe",
+      "ordenes": 3876,
+      "revenue": 179392524.99,
+      "items": 6258
+    },
+    {
+      "nombre": "Neuquén",
+      "ordenes": 2115,
+      "revenue": 105384286.29,
+      "items": 3610
+    },
+    {
+      "nombre": "Río Negro",
+      "ordenes": 1464,
+      "revenue": 70177672.9,
+      "items": 2443
+    },
+    {
+      "nombre": "Entre Ríos",
+      "ordenes": 1260,
+      "revenue": 60663849.84,
+      "items": 2066
+    },
+    {
+      "nombre": "Tucumán",
+      "ordenes": 1199,
+      "revenue": 57497483.09,
+      "items": 1965
+    },
+    {
+      "nombre": "Chubut",
+      "ordenes": 1112,
+      "revenue": 54749760.07,
+      "items": 1893
+    },
+    {
+      "nombre": "Mendoza",
+      "ordenes": 1148,
+      "revenue": 54073365.55,
+      "items": 1914
+    }
+  ],
+  "estados_financieros": [
+    {
+      "estado": "PAID",
+      "ordenes": 53302,
+      "porcentaje": 91.32684531560551
+    },
+    {
+      "estado": "VOIDED",
+      "ordenes": 4514,
+      "porcentaje": 7.734219724487698
+    },
+    {
+      "estado": "EXPIRED",
+      "ordenes": 307,
+      "porcentaje": 0.5260091837434036
+    },
+    {
+      "estado": "PENDING",
+      "ordenes": 167,
+      "porcentaje": 0.2861352888767048
+    },
+    {
+      "estado": "REFUNDED",
+      "ordenes": 68,
+      "porcentaje": 0.11651017750668222
+    },
+    {
+      "estado": "PARTIALLY_REFUNDED",
+      "ordenes": 6,
+      "porcentaje": 0.01028030978000137
+    }
+  ]
+}
+;
+
+        initializeDashboard();
+
+        function initializeDashboard() {
+            renderHeroStats();
+            renderKPIs();
+            renderRevenueByClientChart();
+            renderOrdenesPorClienteChart();
+            renderRevenuePorClienteChart();
+            renderTopProvinciasChart();
+            renderEstadosChart();
+            renderOrdenesSemanalesChart();
+            renderImpactoGrid();
+            updateDateRange();
+        }
+
+        function formatCurrency(value) {
+            if (value >= 1000000000) {
+                return '$' + (value / 1000000000).toFixed(1) + 'B';
+            } else if (value >= 1000000) {
+                return '$' + (value / 1000000).toFixed(1) + 'M';
+            } else if (value >= 1000) {
+                return '$' + (value / 1000).toFixed(1) + 'K';
+            }
+            return '$' + value.toFixed(0);
+        }
+
+        function formatNumber(value) {
+            return value.toLocaleString('es-AR');
+        }
+
+        function renderHeroStats() {
+            const kpis = dashboardData.kpis_generales;
+            document.getElementById('heroOrdenes').textContent = formatNumber(kpis.total_ordenes);
+            document.getElementById('heroRevenue').textContent = formatCurrency(kpis.revenue_total);
+        }
+
+        function renderKPIs() {
+            const kpis = dashboardData.kpis_generales;
+            const kpisHTML = `
+                <div class="kpi-card">
+                    <div class="kpi-icon">💰</div>
+                    <span class="kpi-label">Revenue Total</span>
+                    <span class="kpi-value">${formatCurrency(kpis.revenue_total)}</span>
+                    <span class="kpi-sub">ARS</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <span class="kpi-label">Ordenes</span>
+                    <span class="kpi-value">${formatNumber(kpis.total_ordenes)}</span>
+                    <span class="kpi-sub">Todas las tiendas</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">💵</div>
+                    <span class="kpi-label">Ticket Promedio</span>
+                    <span class="kpi-value">${formatCurrency(kpis.ticket_promedio)}</span>
+                    <span class="kpi-sub">Mediana: ${formatCurrency(kpis.ticket_mediano)}</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">👥</div>
+                    <span class="kpi-label">Clientes Unicos</span>
+                    <span class="kpi-value">${formatNumber(kpis.clientes_unicos)}</span>
+                    <span class="kpi-sub">Total conjunto</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">📊</div>
+                    <span class="kpi-label">Items Vendidos</span>
+                    <span class="kpi-value">${formatNumber(kpis.items_totales)}</span>
+                    <span class="kpi-sub">~${(kpis.items_totales / kpis.total_ordenes).toFixed(1)} por orden</span>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon">✅</div>
+                    <span class="kpi-label">Tasa de Pago</span>
+                    <span class="kpi-value">${kpis.tasa_pago.toFixed(1)}%</span>
+                    <span class="kpi-sub">Ordenes pagadas</span>
+                </div>
+            `;
+            document.getElementById('kpiGrid').innerHTML = kpisHTML;
+        }
+
+        function renderRevenueByClientChart() {
+            const series = dashboardData.series_semanales;
+            const ctx = document.getElementById('revenueByClientChart').getContext('2d');
+
+            // Encontrar indices de fechas de automatizacion
+            const findWeekIndex = (dateStr) => {
+                if (!dateStr) return -1;
+                const targetDate = new Date(dateStr);
+                return series.Total.findIndex(d => {
+                    const start = new Date(d.fecha_completa);
+                    const end = new Date(start);
+                    end.setDate(start.getDate() + 7);
+                    return targetDate >= start && targetDate < end;
+                });
+            };
+
+            const naturalIndex = findWeekIndex(dashboardData.metadata.fechas_automatizacion.Natural);
+            const lovexIndex = findWeekIndex(dashboardData.metadata.fechas_automatizacion.Lovex);
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: series.Total.map(d => d.label),
+                    datasets: [
+                        {
+                            label: 'Natural',
+                            data: series.Natural.map(d => d.revenue),
+                            borderColor: '#22c55e',
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Lovex',
+                            data: series.Lovex.map(d => d.revenue),
+                            borderColor: '#ec4899',
+                            backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'JumpBox',
+                            data: series.JumpBox.map(d => d.revenue),
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1A1A1A',
+                            padding: 10,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#8b92b0', font: { family: 'Inter' } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(139, 146, 176, 0.1)' },
+                            ticks: {
+                                color: '#8b92b0',
+                                font: { family: 'Inter' },
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        }
+                    }
+                },
+                plugins: [{
+                    id: 'automationLines',
+                    afterDraw: function(chart) {
+                        const ctx = chart.ctx;
+                        const xScale = chart.scales.x;
+                        const yScale = chart.scales.y;
+
+                        // Funcion para dibujar linea
+                        const drawLine = (index, color) => {
+                            if (index === -1) return;
+                            const x = xScale.getPixelForValue(index);
+                            ctx.save();
+                            ctx.strokeStyle = color;
+                            ctx.lineWidth = 2;
+                            ctx.setLineDash([6, 6]);
+                            ctx.beginPath();
+                            ctx.moveTo(x, yScale.top);
+                            ctx.lineTo(x, yScale.bottom);
+                            ctx.stroke();
+                            ctx.restore();
+                        };
+
+                        // Dibujar lineas si existen los indices
+                        if (naturalIndex !== -1) drawLine(naturalIndex, '#22c55e');
+                        if (lovexIndex !== -1) drawLine(lovexIndex, '#ec4899');
+                    }
+                }]
+            });
+        }
+
+        function renderOrdenesPorClienteChart() {
+            const kpis = dashboardData.kpis_por_cliente;
+            const ctx = document.getElementById('ordenesPorClienteChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Natural', 'Lovex', 'JumpBox'],
+                    datasets: [{
+                        data: [
+                            kpis.Natural.ordenes,
+                            kpis.Lovex.ordenes,
+                            kpis.JumpBox.ordenes
+                        ],
+                        backgroundColor: ['#22c55e', '#ec4899', '#3b82f6'],
+                        borderColor: '#141829',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#8b92b0', font: { family: 'Inter' }, padding: 15 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1A1A1A',
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + formatNumber(context.parsed) + ' ordenes';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderRevenuePorClienteChart() {
+            const kpis = dashboardData.kpis_por_cliente;
+            const ctx = document.getElementById('revenuePorClienteChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Natural', 'Lovex', 'JumpBox'],
+                    datasets: [{
+                        data: [
+                            kpis.Natural.revenue,
+                            kpis.Lovex.revenue,
+                            kpis.JumpBox.revenue
+                        ],
+                        backgroundColor: ['#22c55e', '#ec4899', '#3b82f6'],
+                        borderColor: '#141829',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#8b92b0', font: { family: 'Inter' }, padding: 15 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1A1A1A',
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + formatCurrency(context.parsed);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTopProvinciasChart() {
+            const provincias = dashboardData.top_provincias.slice(0, 10);
+            const ctx = document.getElementById('topProvinciasChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: provincias.map(p => p.nombre || 'Sin datos'),
+                    datasets: [{
+                        label: 'Revenue',
+                        data: provincias.map(p => p.revenue),
+                        backgroundColor: 'rgba(34, 197, 94, 0.7)',
+                        borderColor: '#22c55e',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1A1A1A',
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Revenue: ' + formatCurrency(context.parsed.x);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(139, 146, 176, 0.1)' },
+                            ticks: {
+                                color: '#8b92b0',
+                                font: { family: 'Inter' },
+                                callback: function(value) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#8b92b0', font: { family: 'Inter' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderEstadosChart() {
+            const estados = dashboardData.estados_financieros.slice(0, 5);
+            const ctx = document.getElementById('estadosChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: estados.map(e => e.estado),
+                    datasets: [{
+                        data: estados.map(e => e.ordenes),
+                        backgroundColor: ['#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#3b82f6'],
+                        borderColor: '#141829',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '60%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#8b92b0', font: { family: 'Inter', size: 10 }, padding: 10 }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1A1A1A',
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const pct = ((context.parsed / total) * 100).toFixed(1);
+                                    return context.label + ': ' + formatNumber(context.parsed) + ' (' + pct + '%)';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderOrdenesSemanalesChart() {
+            const series = dashboardData.series_semanales;
+            const ctx = document.getElementById('ordenesMensualesChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: series.Total.map(d => d.label),
+                    datasets: [{
+                        label: 'Ordenes',
+                        data: series.Total.map(d => d.ordenes),
+                        backgroundColor: 'rgba(139, 92, 246, 0.7)',
+                        borderColor: '#8b5cf6',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1A1A1A',
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Ordenes: ' + formatNumber(context.parsed.y);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#8b92b0', font: { family: 'Inter' } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(139, 146, 176, 0.1)' },
+                            ticks: { color: '#8b92b0', font: { family: 'Inter' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderImpactoGrid() {
+            const impacto = dashboardData.impacto_por_cliente;
+            let html = '';
+
+            ['Natural', 'Lovex', 'JumpBox'].forEach(cliente => {
+                const data = impacto[cliente];
+                const className = cliente.toLowerCase();
+
+                if (!data.tiene_automatizacion) {
+                    html += `
+                        <div class="impacto-card ${className}">
+                            <h4>${cliente}</h4>
+                            <div class="no-automatizacion">
+                                <i class="fas fa-info-circle"></i>
+                                <p>Sin automatizacion implementada</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const incremento = data.incremento_revenue_pct;
+                    const isPositive = incremento >= 0;
+                    const arrow = isPositive ? '↑' : '↓';
+                    const color = isPositive ? '#22c55e' : '#ef4444';
+
+                    html += `
+                        <div class="impacto-card ${className}">
+                            <h4>${cliente}</h4>
+                            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1rem;">
+                                Automatizacion: ${data.fecha_implementacion} (${data.dias_operativo} dias)
+                            </p>
+                            <div class="impacto-metric">
+                                <span class="label">Revenue Pre-Auto (promedio semanal)</span>
+                                <span class="value">${formatCurrency(data.pre_automatizacion.revenue_promedio)}</span>
+                            </div>
+                            <div class="impacto-metric">
+                                <span class="label">Revenue Post-Auto (promedio semanal)</span>
+                                <span class="value">${formatCurrency(data.post_automatizacion.revenue_promedio)}</span>
+                            </div>
+                            <div class="impacto-metric">
+                                <span class="label">Incremento</span>
+                                <span class="value" style="color: ${color};">${arrow} ${Math.abs(incremento).toFixed(1)}%</span>
+                            </div>
+                            <div class="impacto-metric">
+                                <span class="label">Ordenes Pre-Auto (total)</span>
+                                <span class="value">${formatNumber(data.pre_automatizacion.ordenes_totales)}</span>
+                            </div>
+                            <div class="impacto-metric">
+                                <span class="label">Ordenes Post-Auto (total)</span>
+                                <span class="value">${formatNumber(data.post_automatizacion.ordenes_totales)}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById('impactoGrid').innerHTML = html;
+        }
+
+        function updateDateRange() {
+            const range = dashboardData.metadata.rango_fechas;
+            document.getElementById('dateRange').textContent = `${range.desde} - ${range.hasta}`;
+        }
+
+        console.log('%c NATURAL VyA Dashboard ', 'background: #22c55e; color: white; font-size: 20px; padding: 10px 20px;');
+        console.log('%c Developed by TRAID Agency ', 'background: #8b5cf6; color: white; font-size: 14px; padding: 5px 10px;');
+    </script>
+</body>
+</html>

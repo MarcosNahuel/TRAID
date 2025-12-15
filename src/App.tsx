@@ -13,6 +13,7 @@ import {
   Phone,
   MessageCircle,
   Lightbulb,
+  Leaf,
   Workflow,
   Code2,
   Briefcase,
@@ -34,6 +35,7 @@ import {
   CaseMundialShopDashboard,
   CaseHuancomDashboard,
   CaseMikaelaDashboard,
+  CaseNaturalVyaDashboard,
 } from "./components/casos-de-exito";
 
 type CaseStudy = {
@@ -146,6 +148,24 @@ function App() {
       component: CaseHuancomDashboard,
       modalDescription:
         "Dashboard con métricas de MercadoLibre, análisis de impacto de implementación n8n, serie temporal de ventas y KPIs de calidad del vendedor.",
+    },
+    {
+      id: "natural-vya",
+      title: "Natural VyA - Shopify",
+      summary:
+        "Dashboard Shopify consolidado (Natural, Lovex y Jumpbox) con pay rate, fulfillment y tags de conversaciones.",
+      icon: <Leaf className="h-10 w-10 sm:h-12 sm:w-12 text-lime-300" />,
+      cardBackground:
+        "bg-gradient-to-br from-lime-900/40 to-emerald-900/20 hover:from-lime-800/50 hover:to-emerald-800/30 border border-lime-500/20",
+      highlight: {
+        value: "91%",
+        label: "Pago y fulfillment",
+        colorClass: "text-lime-300",
+      },
+      tags: ["Shopify", "Analytics", "Conversaciones"],
+      component: CaseNaturalVyaDashboard,
+      modalDescription:
+        "Dashboard Shopify con KPIs, tendencia mensual, estados financieros/fulfillment y tags de conversaciones de WhatsApp.",
     },
     {
       id: "mikaela",

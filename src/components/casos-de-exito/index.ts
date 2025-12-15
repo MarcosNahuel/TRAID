@@ -3,4 +3,5 @@ export { default as CaseMeliAnalyticsDashboard } from './CaseMeliAnalyticsDashbo
 export { default as CaseMundialShopDashboard } from './CaseMundialShopDashboard';
 export { default as CaseHuancomDashboard } from './CaseHuancomDashboard';
 export { default as CaseMikaelaDashboard } from './CaseMikaelaDashboard';
+export { default as CaseNaturalVyaDashboard } from './CaseNaturalVyaDashboard';
 export { default as ROHANADashboard } from './ROHANADashboard';

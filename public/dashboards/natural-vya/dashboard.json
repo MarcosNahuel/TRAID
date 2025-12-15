@@ -1,0 +1,528 @@
+{
+  "kpis": {
+    "total_ordenes": 58364,
+    "ventas_totales": 2727446822,
+    "ticket_promedio": 46732,
+    "ticket_mediano": 44900,
+    "total_impuestos": 37800,
+    "items_totales": 95223,
+    "tasa_pago": 91.32684531560551,
+    "tasa_fulfillment": 91.09725173051882
+  },
+  "ventas_mensuales": [
+    {
+      "month": "dic 24",
+      "ordenes": 2139,
+      "ventas": 82594873,
+      "items": 0
+    },
+    {
+      "month": "sept 25",
+      "ordenes": 5036,
+      "ventas": 263139363,
+      "items": 0
+    },
+    {
+      "month": "ene 25",
+      "ordenes": 4850,
+      "ventas": 189042886,
+      "items": 0
+    },
+    {
+      "month": "feb 25",
+      "ordenes": 4418,
+      "ventas": 158297311,
+      "items": 0
+    },
+    {
+      "month": "mar 25",
+      "ordenes": 6359,
+      "ventas": 238859135,
+      "items": 0
+    },
+    {
+      "month": "abr 25",
+      "ordenes": 3894,
+      "ventas": 151086535,
+      "items": 0
+    },
+    {
+      "month": "may 25",
+      "ordenes": 4354,
+      "ventas": 211824939,
+      "items": 0
+    },
+    {
+      "month": "jun 25",
+      "ordenes": 4501,
+      "ventas": 222374648,
+      "items": 0
+    },
+    {
+      "month": "jul 25",
+      "ordenes": 5898,
+      "ventas": 279415585,
+      "items": 0
+    },
+    {
+      "month": "ago 25",
+      "ordenes": 6541,
+      "ventas": 329179789,
+      "items": 0
+    },
+    {
+      "month": "oct 25",
+      "ordenes": 4691,
+      "ventas": 252916216,
+      "items": 0
+    },
+    {
+      "month": "nov 25",
+      "ordenes": 4348,
+      "ventas": 260864978,
+      "items": 0
+    },
+    {
+      "month": "dic 25",
+      "ordenes": 1335,
+      "ventas": 87850566,
+      "items": 0
+    }
+  ],
+  "por_tienda": [
+    {
+      "tienda": "Natural",
+      "ordenes": 49131,
+      "ventas": 2269868188,
+      "items": 0
+    },
+    {
+      "tienda": "Lovex",
+      "ordenes": 7825,
+      "ventas": 369456763,
+      "items": 0
+    },
+    {
+      "tienda": "Jumpbox",
+      "ordenes": 1408,
+      "ventas": 88121870,
+      "items": 0
+    }
+  ],
+  "estados_financieros": [
+    {
+      "estado": "PAID",
+      "ordenes": 53302,
+      "ventas": 2483180129
+    },
+    {
+      "estado": "VOIDED",
+      "ordenes": 4514,
+      "ventas": 216535058
+    },
+    {
+      "estado": "EXPIRED",
+      "ordenes": 307,
+      "ventas": 14209539
+    },
+    {
+      "estado": "PENDING",
+      "ordenes": 167,
+      "ventas": 10015806
+    },
+    {
+      "estado": "REFUNDED",
+      "ordenes": 68,
+      "ventas": 3066361
+    },
+    {
+      "estado": "PARTIALLY_REFUNDED",
+      "ordenes": 6,
+      "ventas": 439930
+    }
+  ],
+  "estados_fulfillment": [
+    {
+      "estado": "FULFILLED",
+      "ordenes": 53168,
+      "ventas": 2477652804
+    },
+    {
+      "estado": "UNFULFILLED",
+      "ordenes": 5191,
+      "ventas": 249450548
+    },
+    {
+      "estado": "PARTIALLY_FULFILLED",
+      "ordenes": 5,
+      "ventas": 343470
+    }
+  ],
+  "top_provincias": [
+    {
+      "provincia": "Buenos Aires",
+      "ordenes": 26603,
+      "ventas": 1235617386
+    },
+    {
+      "provincia": "Ciudad Autónoma de Buenos Aires",
+      "ordenes": 8339,
+      "ventas": 366364594
+    },
+    {
+      "provincia": "Córdoba",
+      "ordenes": 4340,
+      "ventas": 203086192
+    },
+    {
+      "provincia": "Santa Fe",
+      "ordenes": 3876,
+      "ventas": 179392525
+    },
+    {
+      "provincia": "Neuquén",
+      "ordenes": 2115,
+      "ventas": 105384286
+    },
+    {
+      "provincia": "Río Negro",
+      "ordenes": 1464,
+      "ventas": 70177673
+    },
+    {
+      "provincia": "Entre Ríos",
+      "ordenes": 1260,
+      "ventas": 60663850
+    },
+    {
+      "provincia": "Tucumán",
+      "ordenes": 1199,
+      "ventas": 57497483
+    },
+    {
+      "provincia": "Mendoza",
+      "ordenes": 1148,
+      "ventas": 54073366
+    },
+    {
+      "provincia": "Chubut",
+      "ordenes": 1112,
+      "ventas": 54749760
+    }
+  ],
+  "top_ciudades": [
+    {
+      "ciudad": "Caba",
+      "ordenes": 2151,
+      "ventas": 95352703
+    },
+    {
+      "ciudad": "Buenos Aires",
+      "ordenes": 1620,
+      "ventas": 66957129
+    },
+    {
+      "ciudad": "Ciudad Autonoma Buenos Aires",
+      "ordenes": 1452,
+      "ventas": 65030620
+    },
+    {
+      "ciudad": "Rosario",
+      "ordenes": 1383,
+      "ventas": 64171297
+    },
+    {
+      "ciudad": "CABA",
+      "ordenes": 1101,
+      "ventas": 49781595
+    },
+    {
+      "ciudad": "La Plata",
+      "ordenes": 879,
+      "ventas": 40527022
+    },
+    {
+      "ciudad": "Cordoba",
+      "ordenes": 809,
+      "ventas": 37186457
+    },
+    {
+      "ciudad": "Córdoba",
+      "ordenes": 683,
+      "ventas": 32460848
+    },
+    {
+      "ciudad": "Buenos aires",
+      "ordenes": 509,
+      "ventas": 22601190
+    },
+    {
+      "ciudad": "Salta",
+      "ordenes": 495,
+      "ventas": 25401039
+    }
+  ],
+  "ventas_por_dia": [
+    {
+      "dia": "lun",
+      "ordenes": 9388,
+      "ventas": 436788173
+    },
+    {
+      "dia": "mar",
+      "ordenes": 8863,
+      "ventas": 412906271
+    },
+    {
+      "dia": "mié",
+      "ordenes": 8594,
+      "ventas": 403390671
+    },
+    {
+      "dia": "jue",
+      "ordenes": 8697,
+      "ventas": 399797540
+    },
+    {
+      "dia": "vie",
+      "ordenes": 7577,
+      "ventas": 354934331
+    },
+    {
+      "dia": "sáb",
+      "ordenes": 7147,
+      "ventas": 333461418
+    },
+    {
+      "dia": "dom",
+      "ordenes": 8098,
+      "ventas": 386168418
+    }
+  ],
+  "distribucion_precios": [
+    {
+      "rango": "0-10k",
+      "ordenes": 1661,
+      "ventas": 1019133
+    },
+    {
+      "rango": "10k-25k",
+      "ordenes": 643,
+      "ventas": 14104585
+    },
+    {
+      "rango": "25k-50k",
+      "ordenes": 36299,
+      "ventas": 1386065650
+    },
+    {
+      "rango": "50k-100k",
+      "ordenes": 19022,
+      "ventas": 1223092235
+    },
+    {
+      "rango": "100k-250k",
+      "ordenes": 707,
+      "ventas": 92302866
+    },
+    {
+      "rango": "250k+",
+      "ordenes": 32,
+      "ventas": 10862354
+    }
+  ],
+  "tendencia_diaria": [
+    {
+      "fecha": "15-nov",
+      "ordenes": 76,
+      "ventas": 4383896
+    },
+    {
+      "fecha": "16-nov",
+      "ordenes": 150,
+      "ventas": 8413120
+    },
+    {
+      "fecha": "17-nov",
+      "ordenes": 121,
+      "ventas": 6429497
+    },
+    {
+      "fecha": "18-nov",
+      "ordenes": 95,
+      "ventas": 5327739
+    },
+    {
+      "fecha": "19-nov",
+      "ordenes": 92,
+      "ventas": 5383451
+    },
+    {
+      "fecha": "20-nov",
+      "ordenes": 85,
+      "ventas": 5137834
+    },
+    {
+      "fecha": "21-nov",
+      "ordenes": 56,
+      "ventas": 3396822
+    },
+    {
+      "fecha": "22-nov",
+      "ordenes": 142,
+      "ventas": 7716295
+    },
+    {
+      "fecha": "23-nov",
+      "ordenes": 140,
+      "ventas": 8046864
+    },
+    {
+      "fecha": "24-nov",
+      "ordenes": 137,
+      "ventas": 7191181
+    },
+    {
+      "fecha": "25-nov",
+      "ordenes": 110,
+      "ventas": 6288178
+    },
+    {
+      "fecha": "26-nov",
+      "ordenes": 126,
+      "ventas": 7282728
+    },
+    {
+      "fecha": "27-nov",
+      "ordenes": 151,
+      "ventas": 9423970
+    },
+    {
+      "fecha": "28-nov",
+      "ordenes": 117,
+      "ventas": 7541690
+    },
+    {
+      "fecha": "29-nov",
+      "ordenes": 137,
+      "ventas": 8777873
+    },
+    {
+      "fecha": "30-nov",
+      "ordenes": 161,
+      "ventas": 9094222
+    },
+    {
+      "fecha": "01-dic",
+      "ordenes": 136,
+      "ventas": 8599997
+    },
+    {
+      "fecha": "02-dic",
+      "ordenes": 81,
+      "ventas": 5116789
+    },
+    {
+      "fecha": "03-dic",
+      "ordenes": 106,
+      "ventas": 6089435
+    },
+    {
+      "fecha": "04-dic",
+      "ordenes": 100,
+      "ventas": 6174266
+    },
+    {
+      "fecha": "05-dic",
+      "ordenes": 83,
+      "ventas": 5879027
+    },
+    {
+      "fecha": "06-dic",
+      "ordenes": 71,
+      "ventas": 4981886
+    },
+    {
+      "fecha": "07-dic",
+      "ordenes": 87,
+      "ventas": 6223538
+    },
+    {
+      "fecha": "08-dic",
+      "ordenes": 96,
+      "ventas": 6352312
+    },
+    {
+      "fecha": "09-dic",
+      "ordenes": 98,
+      "ventas": 6781743
+    },
+    {
+      "fecha": "10-dic",
+      "ordenes": 113,
+      "ventas": 7473130
+    },
+    {
+      "fecha": "11-dic",
+      "ordenes": 80,
+      "ventas": 6069018
+    },
+    {
+      "fecha": "12-dic",
+      "ordenes": 68,
+      "ventas": 5025125
+    },
+    {
+      "fecha": "13-dic",
+      "ordenes": 78,
+      "ventas": 5252152
+    },
+    {
+      "fecha": "14-dic",
+      "ordenes": 6,
+      "ventas": 396475
+    }
+  ],
+  "top_tags": [
+    {
+      "tag": "P",
+      "cantidad": 43550
+    },
+    {
+      "tag": "B",
+      "cantidad": 1872
+    },
+    {
+      "tag": "pendiente",
+      "cantidad": 1554
+    },
+    {
+      "tag": "cancelacion - no responde",
+      "cantidad": 676
+    },
+    {
+      "tag": "contraentrega",
+      "cantidad": 665
+    },
+    {
+      "tag": "cliente no responde",
+      "cantidad": 401
+    },
+    {
+      "tag": "pagado",
+      "cantidad": 345
+    },
+    {
+      "tag": "Mail",
+      "cantidad": 180
+    },
+    {
+      "tag": "C",
+      "cantidad": 164
+    },
+    {
+      "tag": "CANCELADO SIN RESPESTA",
+      "cantidad": 143
+    }
+  ]
+}
