@@ -204,38 +204,23 @@ function App() {
         "Dashboard WooCommerce con análisis de impacto del bot WhatsApp IA, comparativa antes/después y métricas de automatización.",
     },
     {
-      id: "crm-postventa",
-      title: "CRM Postventa IA — Mercado Libre",
+      id: "panel-entregable",
+      title: "Panel Entregable — CRM Postventa IA",
       summary:
-        "Sistema CRM multicanal con 3 agentes IA especializados (Barbi, Tomi, Sofi) para automatizar preventa, postventa y soporte técnico. Integración con MercadoLibre, Shopify y Tienda Nube.",
+        "Panel de control con métricas en tiempo real, pruebas de agentes IA y sistema de contestaciones automáticas. Incluye dashboard de KPIs, historial de conversaciones y gestión de escalaciones.",
       icon: <Headphones className="h-10 w-10 sm:h-12 sm:w-12 text-indigo-400" />,
       cardBackground:
         "bg-gradient-to-br from-indigo-900/40 to-violet-900/20 hover:from-indigo-800/50 hover:to-violet-800/30 border border-indigo-500/20",
       highlight: {
-        value: "3 Agentes",
-        label: "IA especializados",
+        value: "Demo",
+        label: "Panel interactivo",
         colorClass: "text-indigo-400",
       },
-      tags: ["Mercado Libre", "CRM Multicanal", "Agentes IA"],
+      tags: ["Métricas", "Agentes IA", "Soporte Automatizado"],
       component: CaseCRMPostventaDashboard,
       modalDescription:
-        "Demo interactivo de CRM con panel de métricas, pruebas de agentes IA y sistema de contestaciones automáticas para soporte.",
+        "Panel entregable con métricas, pruebas de agentes y contestaciones de soporte.",
       hideModalHeader: true,
-    },
-    {
-      id: "natural-vya",
-      title: "NATURAL VyA",
-      summary: "",
-      icon: <Truck className="h-10 w-10 sm:h-12 sm:w-12 text-cyan-400" />,
-      cardBackground: "bg-gradient-to-br from-cyan-900/40 to-blue-900/20 hover:from-cyan-800/50 hover:to-blue-800/30 border border-cyan-500/20",
-      highlight: {
-        value: "+20%",
-        label: "Reducción de costos",
-        colorClass: "text-cyan-400",
-      },
-      tags: ["Logística", "Inteligencia Artificial", "Cadena de Suministro"],
-      component: CaseConjuntoEconomicoDashboard,
-      modalDescription: "Dashboard interactivo que muestra la eficiencia y optimización de la cadena de suministro de NATURAL VyA.",
     },
   ];
 
