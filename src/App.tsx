@@ -26,6 +26,7 @@ import {
   Truck,
   ChevronLeft,
   ChevronRight,
+  Headphones,
 } from "lucide-react";
 import VantaBackground from "./components/VantaBackground";
 import Navbar from "./components/Navbar";
@@ -39,6 +40,7 @@ import {
   CaseHuancomDashboard,
   CaseMikaelaDashboard,
   CaseConjuntoEconomicoDashboard,
+  CaseCRMPostventaDashboard,
 } from "./components/casos-de-exito";
 
 type CaseStudy = {
@@ -200,6 +202,25 @@ function App() {
       component: CaseMikaelaDashboard,
       modalDescription:
         "Dashboard WooCommerce con análisis de impacto del bot WhatsApp IA, comparativa antes/después y métricas de automatización.",
+    },
+    {
+      id: "crm-postventa",
+      title: "CRM Postventa IA — Mercado Libre",
+      summary:
+        "Sistema CRM multicanal con 3 agentes IA especializados (Barbi, Tomi, Sofi) para automatizar preventa, postventa y soporte técnico. Integración con MercadoLibre, Shopify y Tienda Nube.",
+      icon: <Headphones className="h-10 w-10 sm:h-12 sm:w-12 text-indigo-400" />,
+      cardBackground:
+        "bg-gradient-to-br from-indigo-900/40 to-violet-900/20 hover:from-indigo-800/50 hover:to-violet-800/30 border border-indigo-500/20",
+      highlight: {
+        value: "3 Agentes",
+        label: "IA especializados",
+        colorClass: "text-indigo-400",
+      },
+      tags: ["Mercado Libre", "CRM Multicanal", "Agentes IA"],
+      component: CaseCRMPostventaDashboard,
+      modalDescription:
+        "Demo interactivo de CRM con panel de métricas, pruebas de agentes IA y sistema de contestaciones automáticas para soporte.",
+      hideModalHeader: true,
     },
     {
       id: "natural-vya",
