@@ -40,7 +40,6 @@ import {
   CaseHuancomDashboard,
   CaseMikaelaDashboard,
   CaseConjuntoEconomicoDashboard,
-  CaseCRMPostventaDashboard,
 } from "./components/casos-de-exito";
 
 type CaseStudy = {
@@ -203,25 +202,6 @@ function App() {
       modalDescription:
         "Dashboard WooCommerce con análisis de impacto del bot WhatsApp IA, comparativa antes/después y métricas de automatización.",
     },
-    {
-      id: "panel-entregable",
-      title: "Panel Entregable — CRM Postventa IA",
-      summary:
-        "Panel de control con métricas en tiempo real, pruebas de agentes IA y sistema de contestaciones automáticas. Incluye dashboard de KPIs, historial de conversaciones y gestión de escalaciones.",
-      icon: <Headphones className="h-10 w-10 sm:h-12 sm:w-12 text-indigo-400" />,
-      cardBackground:
-        "bg-gradient-to-br from-indigo-900/40 to-violet-900/20 hover:from-indigo-800/50 hover:to-violet-800/30 border border-indigo-500/20",
-      highlight: {
-        value: "Demo",
-        label: "Panel interactivo",
-        colorClass: "text-indigo-400",
-      },
-      tags: ["Métricas", "Agentes IA", "Soporte Automatizado"],
-      component: CaseCRMPostventaDashboard,
-      modalDescription:
-        "Panel entregable con métricas, pruebas de agentes y contestaciones de soporte.",
-      hideModalHeader: true,
-    },
   ];
 
   return (
@@ -362,6 +342,79 @@ function App() {
               >
                 <ChevronRight className="h-6 w-6" />
               </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Panel Entregable - Previsualización CRM */}
+        <section
+          id="panel-entregable"
+          className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8"
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12">
+              <div className="inline-flex items-center gap-3 mb-4">
+                <Headphones className="h-10 w-10 sm:h-12 sm:w-12 text-indigo-400" />
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-violet-500">
+                  Panel Entregable
+                </h2>
+              </div>
+              <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto mb-2">
+                Demo interactivo del CRM Postventa con Agentes IA
+              </p>
+              <p className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto">
+                Panel de control con métricas en tiempo real, pruebas de agentes IA y sistema de contestaciones automáticas.
+                Incluye dashboard de KPIs, historial de conversaciones y gestión de escalaciones.
+              </p>
+            </div>
+
+            {/* Tags de funcionalidades */}
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              <span className="px-4 py-2 text-sm font-medium text-indigo-300 bg-indigo-900/40 border border-indigo-500/30 rounded-full">
+                Control de Preventa
+              </span>
+              <span className="px-4 py-2 text-sm font-medium text-violet-300 bg-violet-900/40 border border-violet-500/30 rounded-full">
+                Control de Postventa
+              </span>
+              <span className="px-4 py-2 text-sm font-medium text-purple-300 bg-purple-900/40 border border-purple-500/30 rounded-full">
+                Dashboard Analytics
+              </span>
+              <span className="px-4 py-2 text-sm font-medium text-pink-300 bg-pink-900/40 border border-pink-500/30 rounded-full">
+                3 Agentes IA
+              </span>
+              <span className="px-4 py-2 text-sm font-medium text-cyan-300 bg-cyan-900/40 border border-cyan-500/30 rounded-full">
+                Soporte Automatizado
+              </span>
+            </div>
+
+            {/* Iframe Preview */}
+            <div className="relative rounded-2xl overflow-hidden border-2 border-indigo-500/30 shadow-2xl shadow-indigo-500/20">
+              <div className="bg-gradient-to-r from-indigo-900/90 to-violet-900/90 px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <span className="text-sm text-gray-300 ml-2">crm-postventa-demo.vercel.app</span>
+                </div>
+                <a
+                  href="https://crm-postventa-demo.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-indigo-300 hover:text-indigo-200 transition-colors"
+                >
+                  Abrir en nueva pestaña →
+                </a>
+              </div>
+              <div className="w-full h-[500px] sm:h-[600px] lg:h-[700px] bg-white">
+                <iframe
+                  src="https://crm-postventa-demo.vercel.app/"
+                  className="w-full h-full border-none"
+                  title="CRM Postventa Demo - MarIA S.A."
+                  allow="clipboard-write"
+                />
+              </div>
             </div>
           </div>
         </section>
