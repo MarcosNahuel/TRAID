@@ -1,9 +1,11 @@
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Logo from './Logo';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
+  const [scrolled, setScrolled] = useState(false);
 
   const menuItems = [
     { label: 'Servicios', href: '#servicios' },
@@ -15,6 +17,9 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Detectar si se ha scrolleado para cambiar el estilo del navbar
+      setScrolled(window.scrollY > 20);
+
       const sections = menuItems.map(item => item.href.substring(1));
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
@@ -24,7 +29,7 @@ export default function Navbar() {
         }
         return false;
       });
-      
+
       if (currentSection) {
         setActiveSection(currentSection);
       }
@@ -38,9 +43,9 @@ export default function Navbar() {
     e.preventDefault();
     const targetId = href.substring(1);
     const element = document.getElementById(targetId);
-    
+
     if (element) {
-      const navHeight = 80; // Increased navbar height to account for padding
+      const navHeight = 80;
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - navHeight;
 
@@ -48,58 +53,104 @@ export default function Navbar() {
         top: offsetPosition,
         behavior: 'smooth'
       });
-      
+
       setActiveSection(targetId);
     }
     setIsOpen(false);
   };
 
   return (
-    <nav className="fixed w-full bg-black/30 backdrop-blur-sm z-50">
+    <nav
+      className={`fixed w-full z-50 transition-all duration-500 ${
+        scrolled
+          ? 'bg-black/80 backdrop-blur-xl shadow-lg shadow-purple-900/10 border-b border-purple-500/10'
+          : 'bg-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
           <div className="flex items-center">
-            <a href="#inicio" className="flex items-center space-x-2" onClick={(e) => handleNavClick(e, '#inicio')}>
-              <Zap className="h-8 w-8 text-purple-400" strokeWidth={2} />
-              <span className="text-white font-bold text-xl tracking-tight">
-                TRAID<span className="text-purple-400">.</span>
-              </span>
+            <a
+              href="#inicio"
+              className="flex items-center space-x-2 group"
+              onClick={(e) => handleNavClick(e, '#inicio')}
+            >
+              <Logo
+                width={140}
+                height={30}
+                className="transition-all duration-300 group-hover:scale-105"
+              />
             </a>
           </div>
-          
+
+          {/* Desktop Menu */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-center space-x-1">
               {menuItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:bg-purple-500/10 hover:scale-105 ${
+                  className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group ${
                     activeSection === item.href.substring(1)
-                      ? 'text-purple-400 bg-purple-500/10'
-                      : 'text-gray-300 hover:text-white'
+                      ? 'text-white'
+                      : 'text-gray-400 hover:text-white'
                   }`}
                 >
-                  {item.label}
+                  {/* Background glow on hover/active */}
+                  <span
+                    className={`absolute inset-0 rounded-lg transition-all duration-300 ${
+                      activeSection === item.href.substring(1)
+                        ? 'bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-100'
+                        : 'bg-purple-500/0 group-hover:bg-purple-500/10 opacity-0 group-hover:opacity-100'
+                    }`}
+                  />
+                  {/* Underline indicator */}
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 ${
+                      activeSection === item.href.substring(1)
+                        ? 'w-8'
+                        : 'w-0 group-hover:w-4'
+                    }`}
+                  />
+                  <span className="relative z-10">{item.label}</span>
                 </a>
               ))}
+
+              {/* CTA Button */}
               <a
                 href="https://wa.me/5492995904484?text=Hola%21%20Me%20gustar%C3%ADa%20obtener%20una%20consultor%C3%ADa%20sobre%20automatizaciones%20con%20IA%20para%20mi%20ecommerce"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-semibold transition-colors ml-2"
+                className="relative ml-4 px-6 py-2.5 rounded-full text-sm font-semibold text-white overflow-hidden group"
               >
-                Solicitar propuesta
+                {/* Gradient background */}
+                <span className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 transition-all duration-300" />
+                {/* Hover effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Shine effect */}
+                <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                </span>
+                <span className="relative z-10 flex items-center gap-2">
+                  Solicitar propuesta
+                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
               </a>
             </div>
           </div>
-          
+
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white p-2 rounded-md hover:bg-purple-500/10 transition-colors"
+              className="relative p-2 rounded-lg text-gray-300 hover:text-white transition-colors overflow-hidden group"
               aria-label="Toggle menu"
             >
+              <span className="absolute inset-0 bg-purple-500/0 group-hover:bg-purple-500/10 transition-colors rounded-lg" />
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -107,26 +158,47 @@ export default function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {isOpen && (
-        <div className="md:hidden absolute w-full">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/50 backdrop-blur-sm">
-            {menuItems.map((item) => (
+      <div
+        className={`md:hidden absolute w-full transition-all duration-300 ease-in-out ${
+          isOpen
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+      >
+        <div className="mx-4 mt-2 p-4 rounded-2xl bg-black/90 backdrop-blur-xl border border-purple-500/20 shadow-xl shadow-purple-900/20">
+          <div className="space-y-1">
+            {menuItems.map((item, index) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-200 ${
+                className={`block px-4 py-3 rounded-xl text-base font-medium transition-all duration-300 ${
                   activeSection === item.href.substring(1)
-                    ? 'text-purple-400 bg-purple-500/10'
-                    : 'text-gray-300 hover:text-white hover:bg-purple-500/10'
+                    ? 'text-white bg-gradient-to-r from-purple-600/20 to-pink-600/20'
+                    : 'text-gray-400 hover:text-white hover:bg-purple-500/10'
                 }`}
+                style={{
+                  transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
+                  transform: isOpen ? 'translateX(0)' : 'translateX(-10px)',
+                  opacity: isOpen ? 1 : 0
+                }}
               >
                 {item.label}
               </a>
             ))}
           </div>
+
+          {/* Mobile CTA */}
+          <a
+            href="https://wa.me/5492995904484?text=Hola%21%20Me%20gustar%C3%ADa%20obtener%20una%20consultor%C3%ADa%20sobre%20automatizaciones%20con%20IA%20para%20mi%20ecommerce"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 block w-full py-3 rounded-xl text-center text-base font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all duration-300"
+          >
+            Solicitar propuesta
+          </a>
         </div>
-      )}
+      </div>
     </nav>
   );
 }
