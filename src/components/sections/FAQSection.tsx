@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import AnimatedSection from "../AnimatedSection";
 
 const faqs = [
@@ -20,6 +22,12 @@ const faqs = [
 ];
 
 export default function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
     <section
       id="faq"
@@ -35,16 +43,29 @@ export default function FAQSection() {
           </h2>
         </AnimatedSection>
 
-        <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-4">
           {faqs.map((faq, index) => (
             <AnimatedSection key={index} animation="fade-up" delay={index * 50}>
-              <div className="p-4 sm:p-6 glass-card rounded-2xl transition-all duration-300 hover:border-purple-500/30">
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-purple-300">
-                  {faq.q}
-                </h3>
-                <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                  {faq.a}
-                </p>
+              <div className="faq-item glass-card rounded-2xl transition-all duration-300 hover:border-purple-500/30">
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full p-4 sm:p-6 flex items-center justify-between gap-4 text-left"
+                  aria-expanded={openIndex === index}
+                >
+                  <h3 className="text-lg sm:text-xl font-semibold text-purple-300">
+                    {faq.q}
+                  </h3>
+                  <ChevronDown
+                    className={`faq-icon w-5 h-5 text-purple-400 flex-shrink-0 ${openIndex === index ? 'open' : ''}`}
+                  />
+                </button>
+                <div className={`faq-answer ${openIndex === index ? 'open' : ''}`}>
+                  <div className="faq-answer-inner">
+                    <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-300 leading-relaxed text-sm sm:text-base">
+                      {faq.a}
+                    </p>
+                  </div>
+                </div>
               </div>
             </AnimatedSection>
           ))}

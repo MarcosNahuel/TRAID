@@ -1,11 +1,13 @@
 import { Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Logo from './Logo';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   const menuItems = [
     { label: 'Casos', href: '#casos' },
@@ -17,8 +19,23 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
       // Detectar si se ha scrolleado para cambiar el estilo del navbar
-      setScrolled(window.scrollY > 20);
+      setScrolled(currentScrollY > 20);
+
+      // Hide on scroll down, show on scroll up (only after scrolling 100px)
+      if (currentScrollY > 100) {
+        if (currentScrollY > lastScrollY.current + 10) {
+          setHidden(true);
+        } else if (currentScrollY < lastScrollY.current - 10) {
+          setHidden(false);
+        }
+      } else {
+        setHidden(false);
+      }
+
+      lastScrollY.current = currentScrollY;
 
       const sections = menuItems.map(item => item.href.substring(1));
       const currentSection = sections.find(section => {
@@ -35,7 +52,7 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -61,11 +78,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-500 ${
+      className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
           ? 'bg-black/80 backdrop-blur-xl shadow-lg shadow-purple-900/10 border-b border-purple-500/10'
           : 'bg-transparent'
-      }`}
+      } ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">

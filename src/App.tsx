@@ -48,40 +48,50 @@ function App() {
 
   return (
     <VantaBackground>
+      {/* Skip to content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-purple-600 focus:text-white focus:rounded-lg focus:outline-none"
+      >
+        Saltar al contenido principal
+      </a>
+
       <ScrollProgress />
       <CursorGlow />
       <div className="min-h-screen text-white">
         <Navbar />
 
-        <HeroSection />
+        <main id="main-content">
+          <HeroSection />
 
-        <CasosDeExitoSection onOpenCase={setActiveCase} />
+          <CasosDeExitoSection onOpenCase={setActiveCase} />
 
-        <div className="section-divider" />
+          <div className="section-divider" />
 
-        <PanelEntregableSection />
+          <PanelEntregableSection />
 
-        <AgendaSection />
+          <AgendaSection />
 
-        <div className="section-divider" />
+          <div className="section-divider" />
 
-        <QueHacemosSection />
+          <QueHacemosSection />
 
-        <PilaresSection />
+          <PilaresSection />
 
-        <OfertaSection />
+          <OfertaSection />
 
-        <ServiciosSection />
+          <ServiciosSection />
 
-        <div className="section-divider" />
+          <div className="section-divider" />
 
-        <MetodologiaSection />
+          <MetodologiaSection />
 
-        <EquipoSection />
+          <EquipoSection />
 
-        <div className="section-divider" />
+          <div className="section-divider" />
 
-        <FAQSection />
+          <FAQSection />
+        </main>
 
         <FooterSection />
       </div>
