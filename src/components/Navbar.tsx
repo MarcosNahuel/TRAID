@@ -14,7 +14,6 @@ export default function Navbar() {
     { label: 'Servicios', href: '#servicios' },
     { label: 'Metodología', href: '#metodologia' },
     { label: 'Equipo', href: '#equipo' },
-    { label: 'Contacto', href: '#contacto' },
   ];
 
   useEffect(() => {
