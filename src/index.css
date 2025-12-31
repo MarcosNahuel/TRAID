@@ -104,6 +104,13 @@ body {
   animation: gradient-shift 8s ease infinite;
 }
 
+/* Fix for text clipping on h2 titles with gradient-text */
+h2.gradient-text {
+  display: block;
+  padding-bottom: 0.15em;
+  line-height: 1.2;
+}
+
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;

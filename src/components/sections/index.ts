@@ -1,0 +1,12 @@
+export { default as HeroSection } from "./HeroSection";
+export { default as CasosDeExitoSection } from "./CasosDeExitoSection";
+export { default as PanelEntregableSection } from "./PanelEntregableSection";
+export { default as AgendaSection } from "./AgendaSection";
+export { default as QueHacemosSection } from "./QueHacemosSection";
+export { default as PilaresSection } from "./PilaresSection";
+export { default as OfertaSection } from "./OfertaSection";
+export { default as ServiciosSection } from "./ServiciosSection";
+export { default as MetodologiaSection } from "./MetodologiaSection";
+export { default as EquipoSection } from "./EquipoSection";
+export { default as FAQSection } from "./FAQSection";
+export { default as FooterSection } from "./FooterSection";
