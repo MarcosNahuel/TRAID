@@ -41,7 +41,8 @@ function VideoCalendlyEmbed(): JSX.Element {
         </p>
       </div>
 
-      {/* 3. Calendly - Agenda tu sesión */}
+      {/* 3. Calendly - Agenda tu sesión (OCULTO - URL inválida) */}
+      {/* TODO: Reemplazar con URL válida de Calendly
       <div>
         <div className="text-center mb-4">
           <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
@@ -56,19 +57,11 @@ function VideoCalendlyEmbed(): JSX.Element {
           data-url="https://calendly.com/nacholeo/sesion-estrategica-ia-ecommerce-ignacio-clone"
           style={{ minWidth: '320px', height: '700px' }}
         />
-        <noscript>
-          Reserva una sesion:{' '}
-          <a
-            href="https://calendly.com/nacholeo/sesion-estrategica-ia-ecommerce-ignacio-clone"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Agendar en Calendly
-          </a>
-        </noscript>
       </div>
+      */}
 
-      {/* 4. Video explicativo de Nacho */}
+      {/* 4. Video explicativo de Nacho (OCULTO - 404 Error) */}
+      {/* TODO: Reemplazar con URL válida de Wistia
       <div className="rounded-3xl border border-purple-500/30 bg-black/40 p-4 shadow-lg shadow-purple-900/40">
         <div className="text-center mb-4">
           <span className="text-purple-300 text-sm font-medium">
@@ -87,6 +80,7 @@ function VideoCalendlyEmbed(): JSX.Element {
           />
         </div>
       </div>
+      */}
     </div>
   );
 }
