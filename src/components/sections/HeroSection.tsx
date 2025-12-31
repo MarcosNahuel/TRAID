@@ -1,8 +1,23 @@
 import { Sparkles, ArrowRight, Play } from "lucide-react";
+import { useEffect, useState } from "react";
 import AnimatedCounter from "../AnimatedCounter";
 import { heroStats } from "../../data/caseStudies";
 
 export default function HeroSection() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Parallax: contenido se mueve más lento (0.3x)
+  const parallaxOffset = scrollY * 0.3;
+  const opacityFade = Math.max(0, 1 - scrollY / 600);
+
   return (
     <section
       id="inicio"
@@ -17,7 +32,13 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 text-center max-w-5xl mx-auto">
+      <div
+        className="relative z-10 text-center max-w-5xl mx-auto"
+        style={{
+          transform: `translateY(${parallaxOffset}px)`,
+          opacity: opacityFade,
+        }}
+      >
         {/* Badge */}
         <div className="hero-title inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-purple-500/10 border border-purple-500/20 backdrop-blur-sm">
           <Sparkles className="w-4 h-4 text-purple-400" />
@@ -44,8 +65,10 @@ export default function HeroSection() {
         {/* CTA Buttons */}
         <div className="hero-cta flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <a
-            href="#agenda"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/30 transform hover:scale-105 btn-shimmer"
+            href="https://wa.me/5491136579967?text=Hola!%20Me%20interesa%20conocer%20más%20sobre%20sus%20servicios%20de%20automatización%20con%20IA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg btn-shimmer btn-premium btn-ripple"
           >
             <span>Solicitar propuesta</span>
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -53,7 +76,7 @@ export default function HeroSection() {
 
           <a
             href="#casos"
-            className="group inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full border-2 border-purple-500/30 hover:border-purple-400/50 bg-purple-500/5 hover:bg-purple-500/10 transition-all duration-300 backdrop-blur-sm"
+            className="group inline-flex items-center gap-2 px-8 py-4 text-lg font-semibold rounded-full border-2 border-purple-500/30 hover:border-purple-400/50 bg-purple-500/5 backdrop-blur-sm btn-premium btn-outline-fill"
           >
             <Play className="w-5 h-5 text-purple-400" />
             <span>Ver casos de éxito</span>
@@ -84,7 +107,10 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
+        style={{ opacity: opacityFade }}
+      >
         <svg
           className="w-6 h-6 text-purple-400/60"
           fill="none"

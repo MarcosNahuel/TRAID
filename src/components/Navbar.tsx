@@ -120,7 +120,7 @@ export default function Navbar() {
 
               {/* CTA Button */}
               <a
-                href="https://wa.me/5492995904484?text=Hola%21%20Me%20gustar%C3%ADa%20obtener%20una%20consultor%C3%ADa%20sobre%20automatizaciones%20con%20IA%20para%20mi%20ecommerce"
+                href="https://wa.me/5491136579967?text=Hola!%20Me%20interesa%20conocer%20más%20sobre%20sus%20servicios%20de%20automatización%20con%20IA"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative ml-4 px-6 py-2.5 rounded-full text-sm font-semibold text-white overflow-hidden group"
@@ -190,7 +190,7 @@ export default function Navbar() {
 
           {/* Mobile CTA */}
           <a
-            href="https://wa.me/5492995904484?text=Hola%21%20Me%20gustar%C3%ADa%20obtener%20una%20consultor%C3%ADa%20sobre%20automatizaciones%20con%20IA%20para%20mi%20ecommerce"
+            href="https://wa.me/5491136579967?text=Hola!%20Me%20interesa%20conocer%20más%20sobre%20sus%20servicios%20de%20automatización%20con%20IA"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 block w-full py-3 rounded-xl text-center text-base font-semibold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all duration-300"

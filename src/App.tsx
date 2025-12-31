@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import VantaBackground from "./components/VantaBackground";
 import Navbar from "./components/Navbar";
 import LoadingScreen from "./components/LoadingScreen";
+import CursorGlow from "./components/CursorGlow";
+import ScrollProgress from "./components/ScrollProgress";
 import WhatsAppButton from "./components/WhatsAppButton";
 import CaseModal from "./components/CaseModal";
 
@@ -46,6 +48,8 @@ function App() {
 
   return (
     <VantaBackground>
+      <ScrollProgress />
+      <CursorGlow />
       <div className="min-h-screen text-white">
         <Navbar />
 

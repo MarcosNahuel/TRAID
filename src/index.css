@@ -237,6 +237,82 @@ h2.gradient-text {
 }
 
 /* ================================
+   Premium Button Interactions
+   ================================ */
+.btn-premium {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 10px 30px rgba(139, 92, 246, 0.3),
+    0 0 40px rgba(139, 92, 246, 0.1);
+}
+
+.btn-premium:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow:
+    0 5px 15px rgba(139, 92, 246, 0.2);
+}
+
+/* Magnetic effect on hover */
+.btn-magnetic {
+  transition: transform 0.2s ease-out;
+}
+
+/* Ripple effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
+  opacity: 0;
+}
+
+.btn-ripple:active::before {
+  width: 300px;
+  height: 300px;
+  opacity: 1;
+  transition: width 0s, height 0s, opacity 0s;
+}
+
+/* Outline button hover fill */
+.btn-outline-fill {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-outline-fill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-outline-fill:hover::before {
+  transform: scaleX(1);
+}
+
+/* ================================
    Glow Effects
    ================================ */
 .glow-purple {
