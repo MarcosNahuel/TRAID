@@ -8,9 +8,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   const menuItems = [
+    { label: 'Casos', href: '#casos' },
     { label: 'Servicios', href: '#servicios' },
     { label: 'Metodología', href: '#metodologia' },
-    { label: 'Casos', href: '#casos' },
     { label: 'Equipo', href: '#equipo' },
     { label: 'Contacto', href: '#contacto' },
   ];

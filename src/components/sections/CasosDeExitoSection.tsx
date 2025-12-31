@@ -31,9 +31,6 @@ export default function CasosDeExitoSection({ onOpenCase }: Props) {
     >
       <div className="max-w-7xl mx-auto">
         <AnimatedSection animation="fade-up" className="text-center mb-12">
-          <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-purple-300 bg-purple-500/10 border border-purple-500/20 rounded-full">
-            Resultados Comprobados
-          </span>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 gradient-text">
             Casos de éxito
           </h2>

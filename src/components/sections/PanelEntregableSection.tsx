@@ -1,4 +1,4 @@
-import { Headphones, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import AnimatedSection from "../AnimatedSection";
 
 export default function PanelEntregableSection() {
@@ -17,11 +17,6 @@ export default function PanelEntregableSection() {
     >
       <div className="max-w-7xl mx-auto">
         <AnimatedSection animation="fade-up" className="text-center mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
-              <Headphones className="h-8 w-8 sm:h-10 sm:w-10 text-indigo-400" />
-            </div>
-          </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold gradient-text mb-4">
             Panel Entregable
           </h2>

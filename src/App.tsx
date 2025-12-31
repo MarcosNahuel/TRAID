@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Layout components
 import VantaBackground from "./components/VantaBackground";
 import Navbar from "./components/Navbar";
+import LoadingScreen from "./components/LoadingScreen";
 import WhatsAppButton from "./components/WhatsAppButton";
 import CaseModal from "./components/CaseModal";
 
@@ -27,6 +28,21 @@ import { CaseStudy } from "./types";
 
 function App() {
   const [activeCase, setActiveCase] = useState<CaseStudy | null>(null);
+  const [isLoading, setIsLoading] = useState(() => {
+    // Solo mostrar loading en la primera visita de la sesión
+    const hasVisited = sessionStorage.getItem('traid-visited');
+    return !hasVisited;
+  });
+
+  useEffect(() => {
+    if (!isLoading) {
+      sessionStorage.setItem('traid-visited', 'true');
+    }
+  }, [isLoading]);
+
+  if (isLoading) {
+    return <LoadingScreen onComplete={() => setIsLoading(false)} duration={2000} />;
+  }
 
   return (
     <VantaBackground>
